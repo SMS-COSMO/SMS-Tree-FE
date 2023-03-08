@@ -1,0 +1,25 @@
+$--colors: (
+  "primary": (
+    "base": #146E3C,
+  ),
+  "success": (
+    "base": #9cb976,
+  ),
+  "warning": (
+    "base": #F29A41,
+  ),
+  "danger": (
+    "base": #E7523C,
+  ),
+  "error": (
+    "base": #E7523C,
+  ),
+  "info": (
+    "base": #90c9c0,
+  ),
+);
+
+@forward "element-plus/theme-chalk/src/common/var.scss" with (
+  $colors: $--colors,
+);
+

@@ -1,0 +1,35 @@
+// color var
+@import "color.scss";
+
+// menu
+.el-menu {
+    padding-bottom: 10px;
+}
+
+.el-menu-item,
+.el-sub-menu__title {
+    margin: 10px 0 0 10px !important;
+    height: 45px !important;
+    border: none !important;
+    border-radius: 10px;
+}
+
+.el-sub-menu__title:hover,
+.el-menu-item.is-active {
+    background-color: var(--el-menu-hover-bg-color) !important;
+}
+
+.el-menu--popup {
+    border-radius: 10px !important;
+    padding: 0 10px 10px 0 !important;
+}
+
+.el-menu--popup-container {
+    margin-top: 12px;
+    border-bottom: none !important;
+}
+
+.el-popper {
+    border: none !important;
+    background: none !important;
+}
