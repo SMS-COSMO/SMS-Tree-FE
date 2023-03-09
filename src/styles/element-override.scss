@@ -1,6 +1,10 @@
 // color var
 @import "color.scss";
 
+@mixin border-radius {
+    border-radius: 10px !important;
+}
+
 // menu
 .el-menu {
     padding-bottom: 10px;
@@ -11,7 +15,7 @@
     margin: 10px 0 0 10px !important;
     height: 45px !important;
     border: none !important;
-    border-radius: 10px;
+    @include border-radius();
 }
 
 .el-sub-menu__title:hover,
@@ -20,7 +24,7 @@
 }
 
 .el-menu--popup {
-    border-radius: 10px !important;
+    @include border-radius();
     padding: 0 10px 10px 0 !important;
 }
 
@@ -32,4 +36,37 @@
 .el-popper {
     border: none !important;
     background: none !important;
+}
+
+// Input
+.el-input {
+    height: 45px !important;
+    border: 3px !important;
+}
+
+.el-input__wrapper {
+    @include border-radius();
+    box-shadow: none !important;
+    border: 2px solid var(--el-border-color);
+}
+
+// Button
+.el-button {
+    height: 45px !important;
+    padding: 8px 20px !important;
+    @include border-radius();
+}
+
+// Card
+.el-card {
+    @include border-radius();
+    box-shadow: var(--el-box-shadow-light);
+    border: none !important;
+}
+
+// Alert
+.el-alert {
+    height: 45px !important;
+    box-shadow: var(--el-box-shadow-light) !important;
+    @include border-radius();
 }

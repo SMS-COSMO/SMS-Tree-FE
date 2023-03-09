@@ -1,12 +1,37 @@
 import { createApp } from "vue";
+import { Store } from "vuex";
 import { createRouter, createWebHistory } from "vue-router";
+
+import axios from "axios";
+
+// element plus icon
+import * as ElementPlusIconsVue from "@element-plus/icons-vue";
 
 import App from "./components/App.vue";
 
+// styles
+import "element-plus/dist/index.css";
+import "~/styles/element-override.scss";
+
+import "~/styles/index.scss";
+import "uno.css";
+
+// vuex store
+import store from "~/store/index";
+
+// global properties type fix
+declare module "@vue/runtime-core" {
+    interface ComponentCustomProperties {
+        axios: any;
+        store: Store<any>;
+    }
+}
+
 // setup VueRouter
 const routes = [
-    { path: "/", component: () => import('./components/home/StartScreen.vue') },
-    { path: "/test", component: () => import('./components/test/TestPage.vue') },
+    { path: "/", component: () => import("./components/home/StartScreen.vue") },
+    { path: "/test", component: () => import("./components/test/TestPage.vue") },
+    { path: "/login", component: () => import("./components/account/LoginPage.vue") },
 ];
 
 const router = createRouter({
@@ -14,20 +39,17 @@ const router = createRouter({
     routes,
 });
 
-// import "~/styles/element/index.scss";
-
-// import ElementPlus from "element-plus";
-// import all element css, uncommented next line
-import "element-plus/dist/index.css";
-import "~/styles/element-override.scss";
-
-import "~/styles/index.scss";
-import "uno.css";
-
-// If you want to use ElMessage, import it.
-// import "element-plus/theme-chalk/src/message.scss"
-
+// create app
 const app = createApp(App);
 
+// register el icons
+for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+    app.component(key, component);
+}
+
+app.config.globalProperties.axios = axios;
+app.config.globalProperties.store = store;
+
+app.use(store);
 app.use(router);
 app.mount("#app");

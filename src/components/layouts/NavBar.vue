@@ -25,6 +25,7 @@
 @import "~/styles/color.scss";
 
 #nav {
+  z-index: 10000;
   width: 100vw;
   position: fixed;
   top: 0;
@@ -37,6 +38,7 @@
   max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
+  padding-right: 10px;
   border: none;
 }
 

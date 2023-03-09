@@ -1,10 +1,15 @@
 <template>
   <NavBar />
-  <RouterView id="view" />
+  <div id="view">
+    <RouterView />
+  </div>
 </template>
 
 <style lang="scss">
 #view {
+  max-width: 1140px;
+  margin-left: auto;
+  margin-right: auto;
   margin-top: 80px;
 }
 </style>
