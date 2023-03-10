@@ -35,9 +35,7 @@ jobs:
       - name: Install Dependencies
         run: npm install
       - name: Build
-        run: |
-          vite --base "/ SMS-Tree-FE"
-          npm run build
+        run: npx vite build --base "/SMS-Tree-FE"
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
