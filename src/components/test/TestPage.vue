@@ -1,9 +1,9 @@
 <template>
   <div style="display: flex">
     <div style="width: 100%;">
-      test
+      Local Storage Test
       <ElButton @click="test++; update_store();">
-        {{ test }}
+        cnt: {{ test }}
       </ElButton>
     </div>
   </div>
@@ -29,10 +29,3 @@ export default {
   }
 };
 </script>
-
-<style>
-#app {
-  text-align: center;
-  color: var(--ep-text-color-primary);
-}
-</style>
