@@ -33,7 +33,7 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v3
       - name: Install Dependencies
-        run: npm insatll
+        run: npm install
       - name: Build
         run: |
           vite --base "/ SMS-Tree-FE"
