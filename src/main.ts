@@ -37,7 +37,7 @@ const routes = [
     { path: "/login", component: () => import("./components/account/LoginPage.vue") },
     { path: "/list", component: () => import("./components/list/ListPage.vue") },
     { path: "/group", component: () => import("./components/group/GroupPage.vue") },
-    { path: "/:pathMatch(.*)*", component: () => import("./components/404Page.vue") },
+    { path: "/:pathMatch(.*)*", component: () => import("./components/NotFoundPage.vue") },
 ];
 
 const router = createRouter({
