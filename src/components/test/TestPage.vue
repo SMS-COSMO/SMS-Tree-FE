@@ -10,22 +10,26 @@
 </template>
 
 <script lang="ts">
+import { trpc } from "../../api/trpc"
+
 export default {
-  data () {
+  data() {
     return {
       test: 0
     };
   },
   methods: {
-    update_store () {
+    update_store() {
       this.store.commit('update', { test: this.test });
     }
   },
-  beforeMount () {
+  beforeMount() {
     this.test = this.store.state.test;
     if (this.test === undefined) {
       this.test = 0;
     }
+  },
+  mounted() {
   }
 };
 </script>

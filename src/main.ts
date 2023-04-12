@@ -2,7 +2,6 @@ import { createApp } from 'vue'
 import { Store } from "vuex"
 import { createRouter, createWebHistory } from "vue-router"
 
-import axios from "axios"
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 
 import App from './components/App.vue'
@@ -17,7 +16,6 @@ import store from "./store/index"
 // global properties type fix
 declare module "@vue/runtime-core" {
     interface ComponentCustomProperties {
-        axios: any
         store: Store<any>
     }
 }
@@ -45,7 +43,6 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
     app.component(key, component)
 }
 
-app.config.globalProperties.axios = axios
 app.config.globalProperties.store = store
 
 app.use(store)
