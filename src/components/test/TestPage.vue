@@ -9,27 +9,20 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
+import { onBeforeMount, ref } from "vue";
+import store from "../../store";
 import { trpc } from "../../api/trpc"
 
-export default {
-  data() {
-    return {
-      test: 0
-    };
-  },
-  methods: {
-    update_store() {
-      this.store.commit('update', { test: this.test });
-    }
-  },
-  beforeMount() {
-    this.test = this.store.state.test;
-    if (this.test === undefined) {
-      this.test = 0;
-    }
-  },
-  mounted() {
+let test = ref(0)
+onBeforeMount(() => {
+  test = ref(parseInt(store.state.test));
+  if (test === undefined) {
+    test = ref(0);
   }
-};
+})
+
+const update_store = () => {
+  store.commit('update', { test: test });
+}
 </script>

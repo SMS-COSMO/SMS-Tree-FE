@@ -4,12 +4,21 @@
       <el-row :gutter="20">
         <el-col :span="8">
           <el-card class="bordered-card">
-            Info
+            <el-descriptions :column="2" :border="true">
+              <el-descriptions-item label="班级">
+              </el-descriptions-item>
+              <el-descriptions-item label="">
+              </el-descriptions-item>
+              <el-descriptions-item label="小组成员" :span="2">
+              </el-descriptions-item>
+            </el-descriptions>
           </el-card>
         </el-col>
         <el-col :span="16">
           <el-card class="bordered-card">
-            Stats
+            <template #header>
+              Stats
+            </template>
           </el-card>
         </el-col>
       </el-row>
@@ -28,7 +37,13 @@
             </template>
           </el-upload>
         </el-tab-pane>
-        <el-tab-pane label="Config" name="second">Config</el-tab-pane>
+        <el-tab-pane label="已上传文件" name="second">
+          <el-collapse>
+            <el-collapse-item title="Placeholder">
+              placeholder
+            </el-collapse-item>
+          </el-collapse>
+        </el-tab-pane>
       </el-tabs>
     </el-col>
     <el-col :span="2">

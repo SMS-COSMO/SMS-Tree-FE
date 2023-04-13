@@ -1,8 +1,7 @@
 <template>
-  <div class="bg" />
   <div class="top-margin middle">
     <el-alert title="第一次登录完毕后请修改密码！" show-icon type="warning" effect="dark" :closable="false" />
-    <el-card style="margin-top: 15px">
+    <el-card class="bordered-card" style="margin-top: 15px">
       <template #header>
         登录
       </template>
@@ -47,18 +46,6 @@ const form = reactive({
 </script>
 
 <style lang="scss" scoped>
-.bg {
-  height: 100vh;
-  width: 100vw;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: -1;
-  background-image: url("../../assets/bg.jpg");
-  background-size: cover;
-  filter: brightness(0.7) blur(1px);
-}
-
 .el-alert--warning {
   z-index: 0;
   background-color: #F29A41;

@@ -94,6 +94,10 @@
     border: 2px solid $light_border !important;
 }
 
+.el-card__header {
+    border-bottom-width: 2px !important;
+}
+
 // Alert
 .el-alert {
     height: 45px !important;
@@ -152,6 +156,10 @@
     color: $green !important;
 }
 
+.el-tabs--border-card>.el-tabs__header {
+    border-bottom-width: 2px !important;
+}
+
 .el-tabs--border-card {
     border: 2px solid $light_border !important;
     @include border-radius();
@@ -169,4 +177,13 @@
 .el-tabs__nav-scroll,
 .el-tabs__item {
     height: 45px !important;
+}
+
+// Collapse
+.el-collapse {
+    border-top-width: 2px !important;
+}
+
+.el-collapse-item__header {
+    border-bottom-width: 2px !important;
 }
