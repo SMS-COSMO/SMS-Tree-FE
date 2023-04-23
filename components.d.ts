@@ -38,7 +38,6 @@ declare module '@vue/runtime-core' {
     ElTabs: typeof import('element-plus/es')['ElTabs']
     ElUpload: typeof import('element-plus/es')['ElUpload']
     GroupPage: typeof import('./src/components/group/GroupPage.vue')['default']
-    HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
     ListPage: typeof import('./src/components/paper/ListPage.vue')['default']
     LoginPage: typeof import('./src/components/account/LoginPage.vue')['default']
     NavBar: typeof import('./src/components/layouts/NavBar.vue')['default']
