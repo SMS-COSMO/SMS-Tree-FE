@@ -12,8 +12,8 @@
       <el-menu-item index="/login">Login Demo</el-menu-item>
       <el-sub-menu index="4" id="user">
         <template #title>User</template>
-        <el-menu-item index="2-1">Profile</el-menu-item>
-        <el-menu-item index="2-2">Logout</el-menu-item>
+        <el-menu-item :index="`/user/`">Profile</el-menu-item>
+        <el-menu-item index="2-2">登出</el-menu-item>
       </el-sub-menu>
     </el-menu>
   </div>

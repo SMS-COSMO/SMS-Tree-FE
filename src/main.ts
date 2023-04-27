@@ -10,6 +10,7 @@ import "./styles/index.scss"
 
 // vuex store
 import store from "./store/index"
+
 import router from "./router"
 
 // create app

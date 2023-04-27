@@ -8,6 +8,7 @@
       </el-carousel>
     </div>
   </div>
+  <FooterBar />
 </template>
 
 <style lang="scss" scoped>

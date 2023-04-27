@@ -15,10 +15,10 @@
   </el-row>
 
   <el-table class="table" stripe :data="data" size="large" @row-click="open_paper">
-    <el-table-column fixed prop="title" label="Title" />
-    <el-table-column prop="author" label="Author" width="180" />
-    <el-table-column prop="time" label="Time" sortable width="180" />
-    <el-table-column prop="tag" label="Tags" width="100" />
+    <el-table-column fixed prop="title" label="标题" />
+    <el-table-column prop="author" label="作者" width="180" />
+    <el-table-column prop="time" label="发布时间" sortable width="180" />
+    <el-table-column prop="tag" label="标签" width="100" />
   </el-table>
 
   <div class="pagination-holder">
