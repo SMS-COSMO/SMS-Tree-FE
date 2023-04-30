@@ -11,7 +11,6 @@ declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     App: typeof import('./src/components/App.vue')['default']
     ContentPage: typeof import('./src/components/paper/ContentPage.vue')['default']
-    ElAlert: typeof import('element-plus/es')['ElAlert']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCard: typeof import('element-plus/es')['ElCard']
     ElCarousel: typeof import('element-plus/es')['ElCarousel']
@@ -21,9 +20,6 @@ declare module '@vue/runtime-core' {
     ElCollapseItem: typeof import('element-plus/es')['ElCollapseItem']
     ElDescriptions: typeof import('element-plus/es')['ElDescriptions']
     ElDescriptionsItem: typeof import('element-plus/es')['ElDescriptionsItem']
-    ElFooter: typeof import('element-plus/es')['ElFooter']
-    ElForm: typeof import('element-plus/es')['ElForm']
-    ElFormItem: typeof import('element-plus/es')['ElFormItem']
     ElIcon: typeof import('element-plus/es')['ElIcon']
     ElInput: typeof import('element-plus/es')['ElInput']
     ElMenu: typeof import('element-plus/es')['ElMenu']
@@ -44,10 +40,10 @@ declare module '@vue/runtime-core' {
     LoginPage: typeof import('./src/components/account/LoginPage.vue')['default']
     NavBar: typeof import('./src/components/layouts/NavBar.vue')['default']
     NotFoundPage: typeof import('./src/components/NotFoundPage.vue')['default']
-    ProfilePage: typeof import('./src/components/account/ProfilePage.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     StartScreen: typeof import('./src/components/home/StartScreen.vue')['default']
     TestPage: typeof import('./src/components/test/TestPage.vue')['default']
+    WordView: typeof import('./src/components/app/WordView.vue')['default']
   }
 }
