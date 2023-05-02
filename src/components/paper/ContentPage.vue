@@ -6,9 +6,12 @@
     {{ id }}
   </el-card>
 
+  <el-card class="bordered-card mt20">
+    <WordView url="https://ztl-uwu.github.io/test.docx" />
+  </el-card>
+
   <el-card class="bordered-card mt20" style="margin-bottom: 20px;">
-    <WordView url="https://ztl-uwu.github.io/test.docx">
-    </WordView>
+    <WordView type="pdf" url="https://ztl-uwu.github.io/test.pdf" />
   </el-card>
 </template>
 
