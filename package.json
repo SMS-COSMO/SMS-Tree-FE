@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.1.0",
-    "@trpc/client": "^10.21.1",
+    "@trpc/client": "^10.26.0",
     "@trpc/server": "^10.19.1",
     "element-plus": "^2.3.4",
     "vue": "^3.2.47",
