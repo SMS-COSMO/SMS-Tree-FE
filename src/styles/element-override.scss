@@ -38,6 +38,10 @@
     background: none !important;
 }
 
+.el-menu--vertical {
+    padding-right: 10px;
+}
+
 // Input
 .el-input {
     height: 45px !important;
@@ -186,4 +190,13 @@
 
 .el-collapse-item__header {
     border-bottom-width: 2px !important;
+}
+
+// Link
+.el-link--primary {
+    color: $green !important;
+}
+
+.el-link--primary:hover::after {
+    border-color: $green !important;
 }

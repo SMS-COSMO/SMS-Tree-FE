@@ -1,12 +1,12 @@
 <template>
   <footer class="footer">
     <span>Icon copyright ...</span>
-    <a href="https://github.com/SMS-COSMO/SMS-Tree" class="link">代码仓库</a>
-    <a class="link">反馈</a>
-    <a class="link">加入 COSMO</a>
-    <a class="link">API</a>
-    <a class="link">......</a>
-    <a class="link">......</a>
+    <el-link type="primary" href="https://github.com/SMS-COSMO/SMS-Tree" class="link">代码仓库</el-link>
+    <el-link type="primary" class="link">反馈</el-link>
+    <el-link type="primary" class="link">加入 COSMO</el-link>
+    <el-link type="primary" class="link">API</el-link>
+    <el-link type="primary" class="link">......</el-link>
+    <el-link type="primary" class="link">......</el-link>
   </footer>
 </template>
 
@@ -31,13 +31,7 @@
 }
 
 .link {
-  color: $green;
-  text-decoration: none;
   font-size: 14px;
   font-weight: 500;
-}
-
-.link:hover {
-  border-bottom: 1px solid $green;
 }
 </style>

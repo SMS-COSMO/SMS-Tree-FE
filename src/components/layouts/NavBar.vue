@@ -10,6 +10,7 @@
       <el-menu-item index="/group">小组作业</el-menu-item>
       <el-menu-item index="/test">Store Test</el-menu-item>
       <el-menu-item index="/login">Login Demo</el-menu-item>
+      <el-menu-item index="/admin">Admin</el-menu-item>
       <el-sub-menu index="4" id="user">
         <template #title>User</template>
         <el-menu-item :index="`/user/`">Profile</el-menu-item>

@@ -9,6 +9,9 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    AdminApp: typeof import('./src/components/admin/AdminApp.vue')['default']
+    AdminNavBar: typeof import('./src/components/admin/layouts/AdminNavBar.vue')['default']
+    AdminTest: typeof import('./src/components/admin/AdminTest.vue')['default']
     App: typeof import('./src/components/App.vue')['default']
     ContentPage: typeof import('./src/components/paper/ContentPage.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
@@ -22,8 +25,10 @@ declare module '@vue/runtime-core' {
     ElDescriptionsItem: typeof import('element-plus/es')['ElDescriptionsItem']
     ElIcon: typeof import('element-plus/es')['ElIcon']
     ElInput: typeof import('element-plus/es')['ElInput']
+    ElLink: typeof import('element-plus/es')['ElLink']
     ElMenu: typeof import('element-plus/es')['ElMenu']
     ElMenuItem: typeof import('element-plus/es')['ElMenuItem']
+    ElMenuItemGroup: typeof import('element-plus/es')['ElMenuItemGroup']
     ElPagination: typeof import('element-plus/es')['ElPagination']
     ElRow: typeof import('element-plus/es')['ElRow']
     ElStep: typeof import('element-plus/es')['ElStep']
