@@ -1,9 +1,6 @@
-// color var
+// import
 @import "color.scss";
-
-@mixin border-radius {
-    border-radius: 10px !important;
-}
+@import "mixins.scss";
 
 // menu
 .el-menu {
@@ -95,7 +92,7 @@
 }
 
 .bordered-card {
-    border: 2px solid $light_border !important;
+    @include border-normal();
 }
 
 .el-card__header {

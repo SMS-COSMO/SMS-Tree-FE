@@ -10,7 +10,7 @@
       <el-menu-item index="/group">小组作业</el-menu-item>
       <el-menu-item index="/test">Store Test</el-menu-item>
       <el-menu-item index="/login">Login Demo</el-menu-item>
-      <el-menu-item index="/admin">Admin</el-menu-item>
+      <el-menu-item index="/admin/home">Admin</el-menu-item>
       <el-sub-menu index="4" id="user">
         <template #title>User</template>
         <el-menu-item :index="`/user/`">Profile</el-menu-item>
@@ -39,7 +39,7 @@
 }
 
 #menu {
-  max-width: 1200px;
+  max-width: 1300px;
   margin-left: auto;
   margin-right: auto;
   padding-right: 10px;

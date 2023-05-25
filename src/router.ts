@@ -8,7 +8,7 @@ const router = createRouter({
         {
             path: "/admin", component: () => import("./components/admin/AdminApp.vue"), children: [
                 {
-                    path: "/admin/test",
+                    path: "/admin/home",
                     component: () => import("./components/admin/AdminTest.vue")
                 }
             ]

@@ -39,12 +39,13 @@
 </template>
 
 <style lang="scss" scoped>
+@import "../../../styles/mixins.scss";
+
 .left-menu {
-  position: fixed;
-  left: 0;
-  top: 65px;
-  height: calc(100vh - 65px);
+  @include border-normal();
+  border-radius: 10px;
   overflow: scroll;
+  width: 250px;
 }
 
 .el-menu-item .is-active {

@@ -1,0 +1,9 @@
+@import "color.scss";
+
+@mixin border-radius {
+    border-radius: 10px !important;
+}
+
+@mixin border-normal {
+    border: 2px solid $light_border !important;
+}

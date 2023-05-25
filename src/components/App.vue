@@ -7,7 +7,7 @@
 
 <style lang="scss">
 #view {
-  max-width: 1140px;
+  max-width: 1300px;
   margin-left: auto;
   margin-right: auto;
   margin-top: 95px;

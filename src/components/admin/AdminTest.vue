@@ -1,3 +1,5 @@
 <template>
-    test
+    <ElCard class="bordered-card">
+        ds
+    </ElCard>
 </template>
