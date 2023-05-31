@@ -1,7 +1,7 @@
 <template>
   <el-row :gutter="20">
     <el-col :span="22">
-      <el-space direction="vertical" style="width: 100%;" :size="20">
+      <el-space direction="vertical" style="width: 100%;" :size="20" fill>
         <el-row :gutter="20">
           <el-col :span="8">
             <el-card class="bordered-card">
