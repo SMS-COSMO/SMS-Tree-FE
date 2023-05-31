@@ -8,7 +8,7 @@
 defineProps({
   type: { type: String, default: 'word' },
   url: { type: String, required: true }
-})
+});
 </script>
 
 <style lang="scss">

@@ -29,54 +29,54 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
-const router = useRouter()
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+const router = useRouter();
 
 const current_page = ref(1);
 const page_size = ref(50);
 
-const total_page: number = 400;
+const total_page = 400;
 
 const open_paper = (row: any) => {
   router.push({
     path: `/paper/${row.id}`,
-  })
-}
+  });
+};
 
 // test
 const data = [
   {
-    id: "1",
+    id: '1',
     title: 'Title1',
     author: 'author1, author2, author3, author4, author5',
     time: '2023-04-12'
   },
   {
-    id: "3",
+    id: '3',
     title: 'title3',
     author: '',
     time: '2019-01-10'
   },
   {
-    id: "2",
+    id: '2',
     title: 'title2',
     author: '',
     time: '2023-04-09'
   },
   {
-    id: "4",
+    id: '4',
     title: 'title4',
     author: '',
     time: ''
   },
   {
-    id: "5",
+    id: '5',
     title: 'title5',
     author: '',
     time: ''
   },
-]
+];
 </script>
 
 <style lang="scss" scoped>
