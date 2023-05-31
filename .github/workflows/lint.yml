@@ -1,0 +1,23 @@
+name: ESLint Check
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+          ref: ${{ github.head_ref }}
+
+      - name: npm install
+        working-directory: .
+        run: npm install
+
+      - name: Run Lint
+        run: |
+          npm run lint --no-fix
