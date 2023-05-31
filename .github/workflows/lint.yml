@@ -1,6 +1,7 @@
 name: ESLint Check
 
 on:
+  workflow_dispatch:
   push:
     branches: [master]
 
@@ -19,5 +20,4 @@ jobs:
         run: npm install
 
       - name: Run Lint
-        run: |
-          npm run lint --no-fix
+        run: npm run lint --no-fix
