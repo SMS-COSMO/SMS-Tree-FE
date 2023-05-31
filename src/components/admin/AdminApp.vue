@@ -15,6 +15,6 @@
 #view {
   margin: 0;
   width: 100%;
-  padding-left: 25px;
+  padding-left: 20px;
 }
 </style>
