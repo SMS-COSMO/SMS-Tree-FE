@@ -1,5 +1,5 @@
 <template>
-  <div style="display: flex">
+  <el-space :size="20" direction="vertical" fill style="width: 100%;">
     <div style="width: 100%;">
       <el-carousel trigger="click" height="250px">
         <el-carousel-item v-for="item in 4" :key="item">
@@ -7,7 +7,29 @@
         </el-carousel-item>
       </el-carousel>
     </div>
-  </div>
+
+    <el-row>
+      <el-card class="bordered-card">
+        <template #header>
+          快速搜索
+        </template>
+        <el-row :gutter="10">
+          <el-col :span="16">
+            <el-input>
+            </el-input>
+          </el-col>
+          <el-col :span="8">
+            <el-button style="width: 100%;" color="#146E3C" plain>
+              <el-icon :size="14">
+                <Search />
+              </el-icon>
+              搜索
+            </el-button>
+          </el-col>
+        </el-row>
+      </el-card>
+    </el-row>
+  </el-space>
   <FooterBar />
 </template>
 
