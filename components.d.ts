@@ -51,6 +51,7 @@ declare module '@vue/runtime-core' {
     LoginPage: typeof import('./src/components/account/LoginPage.vue')['default']
     NavBar: typeof import('./src/components/layouts/NavBar.vue')['default']
     NotFoundPage: typeof import('./src/components/NotFoundPage.vue')['default']
+    ProfilePage: typeof import('./src/components/account/ProfilePage.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     StartScreen: typeof import('./src/components/home/StartScreen.vue')['default']

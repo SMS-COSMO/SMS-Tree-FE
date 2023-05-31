@@ -18,6 +18,7 @@ const router = createRouter({
         { path: "/list", component: () => import("./components/paper/ListPage.vue") },
         { path: "/paper/:id", component: () => import("./components/paper/ContentPage.vue") },
         { path: "/group", component: () => import("./components/group/GroupPage.vue") },
+        { path: "/user/:id", component: () => import("./components/account/ProfilePage.vue") },
         { path: "/:pathMatch(.*)*", component: () => import("./components/NotFoundPage.vue") },
     ],
 })
