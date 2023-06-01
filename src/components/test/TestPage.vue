@@ -12,7 +12,6 @@
 <script setup lang="ts">
 import { onBeforeMount, ref } from 'vue';
 import store from '../../store';
-import { trpc } from '../../api/trpc';
 
 let test = ref(0);
 onBeforeMount(() => {

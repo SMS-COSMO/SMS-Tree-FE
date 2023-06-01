@@ -1,5 +1,25 @@
 <template>
-  <h1 id="title">Title</h1>
+  <div class="title-holder">
+    <h1 class="title">Title</h1>
+    <el-space :size="20">
+      <el-statistic :value="98500">
+        <template #title>
+          <div style="display: inline-flex; align-items: center">
+            分数
+          </div>
+        </template>
+      </el-statistic>
+      <el-divider direction="vertical" style="height: 40px;"></el-divider>
+      <el-statistic :value="98500">
+        <template #title>
+          <div style="display: inline-flex; align-items: center">
+            下载次数
+          </div>
+        </template>
+      </el-statistic>
+    </el-space>
+  </div>
+
   <el-row :gutter="20">
     <el-col :span="6">
       <el-card class="bordered-card">
@@ -48,8 +68,13 @@ const download_dialog = ref(false);
   margin-top: 20px;
 }
 
-#title {
+.title {
   font-size: 45px;
+  width: 100%;
+}
+
+.title-holder {
+  display: flex;
 }
 
 .download-dialog {

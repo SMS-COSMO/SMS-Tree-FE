@@ -24,8 +24,8 @@
           </div>
           <el-input type="password" v-model="form.password" show-password />
         </el-form-item>
-        <el-form-item>
-          <el-button class="submit-button" color="#146E3C" :loading="buttonLoading" @click="buttonLoading = true">
+        <el-form-item style="margin-bottom: 0;">
+          <el-button class="submit-button" color="#146E3C" :loading="buttonLoading" @click="login()">
             登录
           </el-button>
         </el-form-item>
@@ -36,6 +36,7 @@
 
 <script lang="ts" setup>
 import { reactive, ref } from 'vue';
+import { trpc } from '../../api/trpc';
 
 const buttonLoading = ref(false);
 
@@ -43,6 +44,10 @@ const form = reactive({
   user_name: '',
   password: ''
 });
+
+const login = () => {
+  buttonLoading.value = true;
+};
 </script>
 
 <style lang="scss" scoped>
