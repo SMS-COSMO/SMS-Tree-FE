@@ -1,7 +1,9 @@
 <template>
+  <el-backtop :right="100" :bottom="100" />
+
   <el-row :gutter="20">
     <el-col :span="20">
-      <el-input>
+      <el-input v-model="search_content">
       </el-input>
     </el-col>
     <el-col :span="4">
@@ -44,6 +46,16 @@ const open_paper = (row: any) => {
   });
 };
 
+const handleSizeChange = (value: number) => {
+  console.log(value);
+};
+
+const handleCurrentChange = (value: number) => {
+  console.log(value);
+};
+
+const search_content = ref('');
+
 // test
 const data = [
   {
@@ -82,6 +94,7 @@ const data = [
 <style lang="scss" scoped>
 .table {
   margin-top: 20px;
+  cursor: pointer;
 }
 
 .pagination {

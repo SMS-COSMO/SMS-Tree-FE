@@ -1,4 +1,6 @@
 <template>
+  <el-backtop :right="100" :bottom="100" />
+
   <div class="title-holder">
     <h1 class="title">Title</h1>
     <el-space :size="20">
@@ -22,18 +24,26 @@
 
   <el-row :gutter="20">
     <el-col :span="6">
-      <el-card class="bordered-card">
-        Info
-        <el-divider />
+      <el-card>
+        <template #header>
+          论文信息
+        </template>
+      </el-card>
+      <el-card class="mt20">
         <el-button color="#146E3C" style="width: 100%;" plain @click="download_dialog = true;">
           下载
         </el-button>
         <el-dialog v-model="download_dialog" title="文件下载" class="download-dialog">
+          <el-collapse>
+            <el-collapse-item title="Placeholder">
+              placeholder
+            </el-collapse-item>
+          </el-collapse>
         </el-dialog>
       </el-card>
     </el-col>
     <el-col :span="18">
-      <el-card class="bordered-card">
+      <el-card>
         <template #header>
           摘要
         </template>
@@ -42,12 +52,18 @@
     </el-col>
   </el-row>
 
-  <el-card class="bordered-card mt20">
+  <el-card class=" mt20">
     <WordView url="https://ztl-uwu.github.io/test.docx" />
   </el-card>
 
-  <el-card class="bordered-card mt20" style="margin-bottom: 20px;">
+  <el-card class=" mt20">
     <WordView type="pdf" url="https://ztl-uwu.github.io/test.pdf" />
+  </el-card>
+
+  <el-card class=" mt20" style="margin-bottom: 20px;">
+    <template #header>
+      教师评语
+    </template>
   </el-card>
 </template>
 
@@ -62,7 +78,7 @@ const download_dialog = ref(false);
 </script>
 
 <style lang="scss">
-@import "../../styles/color.scss";
+@import "~/styles/color.scss";
 
 .mt20 {
   margin-top: 20px;

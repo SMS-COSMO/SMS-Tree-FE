@@ -43,8 +43,9 @@
 
 .left-menu {
   @include border-normal();
+  user-select: none;
   border-radius: 10px;
-  overflow: scroll;
+  overflow: none;
   width: 250px;
 }
 

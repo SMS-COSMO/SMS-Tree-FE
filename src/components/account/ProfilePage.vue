@@ -1,5 +1,5 @@
 <template>
-  <el-card class="bordered-card">
+  <el-card>
     {{ id }}
   </el-card>
 </template>

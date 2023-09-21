@@ -1,9 +1,10 @@
+
 <template>
   <footer class="footer">
     <span>Icon copyright ...</span>
+    <el-link type="primary" class="link" @click="$router.push('/feedback')">反馈</el-link>
     <el-link type="primary" href="https://github.com/SMS-COSMO/SMS-Tree" class="link">代码仓库</el-link>
-    <el-link type="primary" class="link">反馈</el-link>
-    <el-link type="primary" class="link">加入 COSMO</el-link>
+    <el-link href="https://joincosmo.link/" type="primary" class="link">加入 COSMO</el-link>
     <el-link type="primary" class="link">API</el-link>
     <el-link type="primary" class="link">......</el-link>
     <el-link type="primary" class="link">......</el-link>
@@ -27,7 +28,7 @@
   padding-top: 20px;
   padding-bottom: 10px;
 
-  border-top: 2px solid $light_border;
+  border-top: 2px solid $light-border;
 }
 
 .link {

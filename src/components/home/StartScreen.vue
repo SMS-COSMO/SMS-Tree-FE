@@ -8,30 +8,45 @@
       </el-carousel>
     </div>
 
-    <el-row>
-      <el-card class="bordered-card">
-        <template #header>
-          快速搜索
-        </template>
-        <el-row :gutter="10">
-          <el-col :span="16">
-            <el-input>
-            </el-input>
-          </el-col>
-          <el-col :span="8">
-            <el-button style="width: 100%;" color="#146E3C" plain>
-              <el-icon :size="14">
-                <Search />
-              </el-icon>
-              搜索
-            </el-button>
-          </el-col>
-        </el-row>
-      </el-card>
+    <el-row :gutter="20">
+      <el-col :span="7">
+        <el-card>
+          <template #header>
+            快速搜索
+          </template>
+          <el-row :gutter="10">
+            <el-col :span="16">
+              <el-input v-model="quick_search_content">
+              </el-input>
+            </el-col>
+            <el-col :span="8">
+              <el-button style="width: 100%;" color="#146E3C" plain>
+                <el-icon :size="14">
+                  <Search />
+                </el-icon>
+                搜索
+              </el-button>
+            </el-col>
+          </el-row>
+        </el-card>
+      </el-col>
+      <el-col :span="17">
+        <el-card>
+          <template #header>
+            作业进度
+          </template>
+        </el-card>
+      </el-col>
     </el-row>
   </el-space>
   <FooterBar />
 </template>
+
+<script setup lang="ts">
+import { ref } from 'vue';
+
+const quick_search_content = ref('');
+</script>
 
 <style lang="scss" scoped>
 #app {
