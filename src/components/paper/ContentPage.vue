@@ -80,10 +80,6 @@ const download_dialog = ref(false);
 <style lang="scss">
 @import "~/styles/color.scss";
 
-.mt20 {
-  margin-top: 20px;
-}
-
 .title {
   font-size: 45px;
   width: 100%;

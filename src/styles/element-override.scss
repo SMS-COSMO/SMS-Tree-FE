@@ -183,6 +183,12 @@
     height: 45px !important;
 }
 
+.el-tabs__active-bar.is-left {
+    background-color: $color-primary-0 !important;
+    width: 4px !important;
+    border-radius: 1000px;
+}
+
 // Collapse
 .el-collapse {
     border-top-width: 2px !important;
