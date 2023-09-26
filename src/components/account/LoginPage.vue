@@ -47,6 +47,10 @@ const form = reactive({
 
 const login = () => {
   buttonLoading.value = true;
+  // trpc test
+  trpc.status.query().then(res => {
+    console.log(res);
+  });
 };
 </script>
 
