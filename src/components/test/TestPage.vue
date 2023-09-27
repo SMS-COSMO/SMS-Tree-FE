@@ -11,17 +11,18 @@
 
 <script setup lang="ts">
 import { onBeforeMount, ref } from 'vue';
-import store from '../../store';
+import { testStore } from '../../stores/test';
+const store = testStore();
 
 let test = ref(0);
 onBeforeMount(() => {
-  test = ref(parseInt(store.state.test));
+  test = ref(parseInt(store.count));
   if (test === undefined) {
     test = ref(0);
   }
 });
 
 const update_store = () => {
-  store.commit('update', { test: test });
+  store.update(test.value.toString());
 };
 </script>

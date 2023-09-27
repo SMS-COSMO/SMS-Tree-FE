@@ -47,8 +47,7 @@ const form = reactive({
 
 const login = () => {
   buttonLoading.value = true;
-  // trpc test
-  trpc.status.query().then(res => {
+  trpc.user.login.mutate({ username: form.user_name, password: form.password }).then(res => {
     console.log(res);
   });
 };
