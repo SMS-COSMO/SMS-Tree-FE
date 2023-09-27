@@ -8,12 +8,11 @@
       <el-menu-item index="/">首页</el-menu-item>
       <el-menu-item index="/list">论文列表</el-menu-item>
       <el-menu-item index="/group">小组作业</el-menu-item>
-      <el-menu-item index="/test">Store Test</el-menu-item>
       <el-menu-item index="/login">Login Demo</el-menu-item>
-      <el-menu-item index="/admin/home">Admin</el-menu-item>
+      <el-menu-item index="/admin/home">管理</el-menu-item>
       <el-sub-menu index="4" id="user">
         <template #title>User</template>
-        <el-menu-item :index="`/user/`">Profile</el-menu-item>
+        <el-menu-item :index="`/user/1`">主页</el-menu-item>
         <el-menu-item index="2-2">登出</el-menu-item>
       </el-sub-menu>
     </el-menu>
@@ -29,13 +28,14 @@
 }
 
 #nav {
+  user-select: none;
   z-index: 10000;
   width: 100vw;
   position: fixed;
   top: 0;
   left: auto;
   right: auto;
-  background-color: $green;
+  background-color: $color-primary-0;
 }
 
 #menu {

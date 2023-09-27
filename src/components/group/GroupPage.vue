@@ -4,7 +4,7 @@
       <el-space direction="vertical" style="width: 100%;" :size="20" fill>
         <el-row :gutter="20">
           <el-col :span="8">
-            <el-card class="bordered-card">
+            <el-card>
               <el-descriptions :column="2" :border="true">
                 <el-descriptions-item label="班级">
                 </el-descriptions-item>
@@ -16,7 +16,7 @@
             </el-card>
           </el-col>
           <el-col :span="16">
-            <el-card class="bordered-card">
+            <el-card>
               <template #header>
                 Stats
               </template>
@@ -47,7 +47,7 @@
           </el-tab-pane>
         </el-tabs>
 
-        <el-card class="bordered-card">
+        <el-card>
           laos
         </el-card>
       </el-space>
@@ -73,9 +73,9 @@ const activeTab = ref('first');
 </script>
 
 <style lang="scss" scoped>
-@import "../../styles/color.scss";
+@import "~/styles/color.scss";
 
 em {
-  color: $green !important;
+  color: $color-primary-0 !important;
 }
 </style>

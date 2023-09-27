@@ -1,7 +1,7 @@
 <template>
   <div class="top-margin middle">
     <el-alert title="第一次登录完毕后请修改密码！" show-icon type="warning" effect="dark" :closable="false" />
-    <el-card class="bordered-card" style="margin-top: 15px">
+    <el-card style="margin-top: 15px">
       <template #header>
         登录
       </template>
@@ -47,6 +47,9 @@ const form = reactive({
 
 const login = () => {
   buttonLoading.value = true;
+  trpc.user.login.mutate({ username: form.user_name, password: form.password }).then(res => {
+    console.log(res);
+  });
 };
 </script>
 
