@@ -29,7 +29,7 @@
 
 #nav {
   user-select: none;
-  z-index: 10000;
+  z-index: 20;
   width: 100vw;
   position: fixed;
   top: 0;

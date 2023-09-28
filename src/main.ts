@@ -8,6 +8,10 @@ import App from './components/App.vue';
 import './styles/element-override.scss';
 import './styles/index.scss';
 
+import 'element-plus/theme-chalk/el-loading.css';
+import 'element-plus/theme-chalk/el-message.css';
+import 'element-plus/theme-chalk/el-notification.css';
+
 // Pinia store
 import { createPinia } from 'pinia';
 

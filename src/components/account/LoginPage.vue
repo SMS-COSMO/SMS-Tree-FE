@@ -36,7 +36,8 @@
 
 <script lang="ts" setup>
 import { reactive, ref } from 'vue';
-import { trpc } from '../../api/trpc';
+import { trpc, isTRPCClientError } from '../../api/trpc';
+import { ElMessage } from 'element-plus';
 
 const buttonLoading = ref(false);
 
@@ -49,6 +50,17 @@ const login = () => {
   buttonLoading.value = true;
   trpc.user.login.mutate({ username: form.user_name, password: form.password }).then(res => {
     console.log(res);
+    buttonLoading.value = false;
+  }).catch(err => {
+    if (isTRPCClientError(err)) {
+      ElMessage({
+        message: err.data?.code,
+        type: 'error',
+        showClose: true,
+      });
+    }
+
+    buttonLoading.value = false;
   });
 };
 </script>
