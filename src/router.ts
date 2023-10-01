@@ -13,7 +13,6 @@ const router = createRouter({
         }
       ]
     },
-    { path: '/test', component: () => import('./components/test/TestPage.vue') },
     { path: '/login', component: () => import('./components/account/LoginPage.vue') },
     { path: '/list', component: () => import('./components/paper/ListPage.vue') },
     { path: '/paper/:id', component: () => import('./components/paper/ContentPage.vue') },

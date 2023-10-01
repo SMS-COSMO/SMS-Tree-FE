@@ -5,10 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc && vite build",
+    "build": "vite build --base '/SMS-Tree'",
     "preview": "vite preview",
-    "lint": "npx eslint --ext .ts,.vue src",
-    "lint:fix": "npx eslint --fix --ext .ts,.vue src"
+    "lint": "eslint --ext .ts,.vue src",
+    "lint:fix": "eslint --fix --ext .ts,.vue src"
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.1.0",
