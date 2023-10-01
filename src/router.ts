@@ -4,22 +4,22 @@ import { createRouter, createWebHistory } from 'vue-router';
 const router = createRouter({
   history: createWebHistory(),
   routes: [
-    { path: '/', component: () => import('./components/home/StartScreen.vue') },
+    { path: '/', component: () => import('./pages/HomePage.vue') },
     {
-      path: '/admin', component: () => import('./components/admin/AdminApp.vue'), children: [
+      path: '/admin', component: () => import('./pages/admin/AdminApp.vue'), children: [
         {
           path: '/admin/home',
-          component: () => import('./components/admin/AdminTest.vue')
+          component: () => import('./pages/admin/AdminTest.vue')
         }
       ]
     },
-    { path: '/login', component: () => import('./components/account/LoginPage.vue') },
-    { path: '/list', component: () => import('./components/paper/ListPage.vue') },
-    { path: '/paper/:id', component: () => import('./components/paper/ContentPage.vue') },
-    { path: '/group', component: () => import('./components/group/GroupPage.vue') },
-    { path: '/user/:id', component: () => import('./components/account/ProfilePage.vue') },
-    { path: '/feedback', component: () => import('./components/feedback/FeedBackPage.vue') },
-    { path: '/:pathMatch(.*)*', component: () => import('./components/NotFoundPage.vue') },
+    { path: '/login', component: () => import('./pages/account/LoginPage.vue') },
+    { path: '/user/:id', component: () => import('./pages/account/ProfilePage.vue') },
+    { path: '/list', component: () => import('./pages/paper/ListPage.vue') },
+    { path: '/paper/:id', component: () => import('./pages/paper/ContentPage.vue') },
+    { path: '/group', component: () => import('./pages/GroupPage.vue') },
+    { path: '/feedback', component: () => import('./pages/FeedBackPage.vue') },
+    { path: '/:pathMatch(.*)*', component: () => import('./pages/NotFoundPage.vue') },
   ],
 });
 
