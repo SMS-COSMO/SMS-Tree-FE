@@ -11,9 +11,9 @@
             <el-icon :size="15">
               <User />
             </el-icon>
-            用户名 / 学号
+            学号
           </div>
-          <el-input v-model="form.username" />
+          <el-input v-model="form.userId" />
         </el-form-item>
         <el-form-item>
           <div class="icon-label">
@@ -42,25 +42,34 @@ import { ElMessage } from 'element-plus';
 import { UserStore } from '../../stores/user';
 const userStore = UserStore();
 
+import { useRouter } from 'vue-router';
+const router = useRouter();
+
 const buttonLoading = ref(false);
 
 const form = reactive({
-  username: '',
+  userId: '',
   password: ''
 });
 
 const login = () => {
   buttonLoading.value = true;
-  trpc.user.login.mutate({ username: form.username, password: form.password })
+  trpc.user.login.mutate({ id: form.userId, password: form.password })
     .then(res => {
-      console.log(res);
       userStore.login({
         accessToken: res.accessToken,
         refreshToken: res.refreshToken,
-        username: form.username
+        userId: res.userId,
+        username: res.username,
       });
 
       buttonLoading.value = false;
+      router.back();
+      ElMessage({
+        message: '登录成功',
+        type: 'success',
+        showClose: true,
+      });
     })
     .catch(err => {
       if (isTRPCClientError(err)) {

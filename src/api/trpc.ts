@@ -7,7 +7,7 @@ import superjson from 'superjson';
 export const trpc = createTRPCProxyClient<AppRouter>({
   links: [
     httpBatchLink({
-      url: 'https://sms-tree-backend-raimoethedev.koyeb.app/trpc',
+      url: 'https://sms-tree-be.onrender.com/trpc',
     }),
   ],
   transformer: superjson,
