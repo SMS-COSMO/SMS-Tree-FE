@@ -4,7 +4,7 @@ import * as ElementPlusIconsVue from '@element-plus/icons-vue';
 
 import App from './components/App.vue';
 
-// styles
+// Styles
 import './styles/element-override.scss';
 import './styles/index.scss';
 
@@ -14,14 +14,14 @@ import 'element-plus/theme-chalk/el-notification.css';
 
 // Pinia store
 import { createPinia } from 'pinia';
+const pinia = createPinia();
 
 import router from './router';
 
-// create app
-const pinia = createPinia();
+// Create app
 const app = createApp(App);
 
-// register el icons
+// Register el icons
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
   app.component(key, component);
 }

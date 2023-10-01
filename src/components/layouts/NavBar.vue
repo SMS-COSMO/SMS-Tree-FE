@@ -1,23 +1,42 @@
+
 <template>
   <div id="nav">
-    <el-menu id="menu" mode="horizontal" background-color="#146E3C" text-color="#FFFFFF" active-text-color="#FFFFFF"
-      :router="true" :default-active="$route.path">
+    <el-menu id="menu" :ellipsis="false" mode="horizontal" background-color="#146E3C" text-color="#FFFFFF"
+      active-text-color="#FFFFFF" :router="true" :default-active="$route.path">
       <el-menu-item disabled class="logo">
         <img src="../../assets/logo.png" style="height: 30px;" />
       </el-menu-item>
       <el-menu-item index="/">首页</el-menu-item>
       <el-menu-item index="/list">论文列表</el-menu-item>
       <el-menu-item index="/group">小组作业</el-menu-item>
-      <el-menu-item index="/login">Login Demo</el-menu-item>
       <el-menu-item index="/admin/home">管理</el-menu-item>
-      <el-sub-menu index="4" id="user">
-        <template #title>User</template>
+      <div class="flex-grow" />
+      <el-sub-menu v-if="userStore.loggedIn" index="4">
+        <template #title>{{ userStore.username }}</template>
         <el-menu-item :index="`/user/1`">主页</el-menu-item>
-        <el-menu-item index="2-2">登出</el-menu-item>
+        <el-menu-item @click="logout">登出</el-menu-item>
       </el-sub-menu>
+      <el-menu-item index="/login" v-else>登录</el-menu-item>
     </el-menu>
   </div>
 </template>
+
+<script setup lang="ts">
+import { UserStore } from '../../stores/user';
+import { ElMessage } from 'element-plus';
+import { useRouter } from 'vue-router';
+const router = useRouter();
+const userStore = UserStore();
+
+const logout = () => {
+  userStore.logout();
+  router.push('/');
+  ElMessage({
+    message: '登出成功！',
+    type: 'success',
+  });
+};
+</script>
 
 <style lang="scss" scoped>
 @import "~/styles/color.scss";
@@ -46,8 +65,7 @@
   border: none;
 }
 
-#user {
-  margin-left: auto;
-  margin-right: 0;
+.flex-grow {
+  flex-grow: 1;
 }
 </style>
