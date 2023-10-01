@@ -13,7 +13,7 @@
             </el-icon>
             用户名 / 学号
           </div>
-          <el-input v-model="form.user_name" />
+          <el-input v-model="form.username" />
         </el-form-item>
         <el-form-item>
           <div class="icon-label">
@@ -39,29 +39,40 @@ import { reactive, ref } from 'vue';
 import { trpc, isTRPCClientError } from '../../api/trpc';
 import { ElMessage } from 'element-plus';
 
+import { UserStore } from '../../stores/user';
+const userStore = UserStore();
+
 const buttonLoading = ref(false);
 
 const form = reactive({
-  user_name: '',
+  username: '',
   password: ''
 });
 
 const login = () => {
   buttonLoading.value = true;
-  trpc.user.login.mutate({ username: form.user_name, password: form.password }).then(res => {
-    console.log(res);
-    buttonLoading.value = false;
-  }).catch(err => {
-    if (isTRPCClientError(err)) {
-      ElMessage({
-        message: err.data?.code,
-        type: 'error',
-        showClose: true,
+  trpc.user.login.mutate({ username: form.username, password: form.password })
+    .then(res => {
+      console.log(res);
+      userStore.login({
+        accessToken: res.accessToken,
+        refreshToken: res.refreshToken,
+        username: form.username
       });
-    }
 
-    buttonLoading.value = false;
-  });
+      buttonLoading.value = false;
+    })
+    .catch(err => {
+      if (isTRPCClientError(err)) {
+        ElMessage({
+          message: err.data?.code,
+          type: 'error',
+          showClose: true,
+        });
+      }
+
+      buttonLoading.value = false;
+    });
 };
 </script>
 
