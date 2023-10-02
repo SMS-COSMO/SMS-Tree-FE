@@ -3,10 +3,10 @@ import { ref } from 'vue';
 
 export const UserStore = defineStore('user', () => {
   const loggedIn = ref(localStorage.getItem('loggedIn') === 'true' ? true : false || false);
-  const accessToken = ref(localStorage.getItem('accessToken') || null);
-  const refreshToken = ref(localStorage.getItem('refreshToken') || null);
-  const userId = ref(localStorage.getItem('userId') || null);
-  const username = ref(localStorage.getItem('username') || null);
+  const accessToken = ref(localStorage.getItem('accessToken') || '');
+  const refreshToken = ref(localStorage.getItem('refreshToken') || '');
+  const userId = ref(localStorage.getItem('userId') || '');
+  const username = ref(localStorage.getItem('username') || '');
 
   const login = (data: { accessToken: string; refreshToken: string; userId: string; username: string }) => {
     loggedIn.value = true;
@@ -27,13 +27,13 @@ export const UserStore = defineStore('user', () => {
     loggedIn.value = false;
     localStorage.removeItem('loggedIn');
 
-    accessToken.value = null;
-    refreshToken.value = null;
+    accessToken.value = '';
+    refreshToken.value = '';
     localStorage.removeItem('accessToken');
     localStorage.removeItem('refreshToken');
 
-    userId.value = null;
-    username.value = null;
+    userId.value = '';
+    username.value = '';
     localStorage.removeItem('userId');
     localStorage.removeItem('username');
   };

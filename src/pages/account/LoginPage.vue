@@ -7,7 +7,7 @@
       </template>
       <el-form label-position="top">
         <el-form-item>
-          <div class="icon-label">
+          <div>
             <el-icon :size="15">
               <User />
             </el-icon>
@@ -16,7 +16,7 @@
           <el-input v-model="form.userId" />
         </el-form-item>
         <el-form-item>
-          <div class="icon-label">
+          <div>
             <el-icon :size="15">
               <Key />
             </el-icon>
@@ -74,7 +74,7 @@ const login = () => {
     .catch(err => {
       if (isTRPCClientError(err)) {
         ElMessage({
-          message: err.data?.code,
+          message: err.message,
           type: 'error',
           showClose: true,
         });
