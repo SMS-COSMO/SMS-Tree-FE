@@ -73,30 +73,16 @@ const form = reactive<Form>({
 
 const rules = reactive<FormRules<Form>>({
   userId: [
-    {
-      required: true,
-      message: '学号 / 用户名 不能为空',
-      trigger: 'blur',
-    }
+    { required: true, message: '学号 / 用户名不能为空', trigger: 'blur' },
+    { min: 4, max: 24, message: '学号 / 用户名长度应在 4~24 之间', trigger: 'blur' },
   ],
   username: [
-    {
-      required: true,
-      message: '姓名 不能为空',
-      trigger: 'blur',
-    }
+    { required: true, message: '姓名不能为空', trigger: 'blur' },
+    { min: 2, max: 15, message: '姓名长度应在 2~15 之间', trigger: 'blur' },
   ],
   password: [
-    {
-      required: true,
-      message: '密码 不能为空',
-      trigger: 'change',
-    },
-    {
-      min: 8,
-      message: '密码至少 8 位',
-      trigger: 'change',
-    }
+    { required: true, message: '密码不能为空', trigger: 'blur' },
+    { min: 8, message: '密码至少 8 位', trigger: 'blur' }
   ],
 });
 
@@ -119,22 +105,19 @@ const register = async (submittedForm: FormInstance | undefined) => {
           role: form.role,
         });
 
-        ElMessage({
-          message: '创建成功',
-          type: 'success',
-          showClose: true,
-        });
-
+        ElMessage({ message: '创建成功', type: 'success', showClose: true });
         buttonLoading.value = false;
       } catch (err) {
-        if (isTRPCClientError(err) && err.data?.zodError) {
-          err.data.zodError.forEach((e) => {
-            ElMessage({
-              message: e.message,
-              type: 'error',
-              showClose: true,
+        if (isTRPCClientError(err)) {
+          if (err.data?.zodError) {
+            err.data.zodError.forEach((e) => {
+              ElMessage({ message: e.message, type: 'error', showClose: true });
             });
-          });
+          } else {
+            ElMessage({ message: err.message, type: 'error', showClose: true });
+          }
+        } else {
+          ElMessage({ message: '未知错误', type: 'error', showClose: true });
         }
 
         buttonLoading.value = false;
