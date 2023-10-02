@@ -1,7 +1,7 @@
 <template>
   <el-card>
-    <el-form label-position="top" class="register-form">
-      <el-form-item>
+    <el-form label-position="top" class="register-form" :model="form" :rules="rules" ref="formRef">
+      <el-form-item prop="userId">
         <div class="icon-label">
           <el-icon :size="15">
             <User />
@@ -10,7 +10,7 @@
         </div>
         <el-input v-model="form.userId" />
       </el-form-item>
-      <el-form-item>
+      <el-form-item prop="username">
         <div>
           <el-icon :size="15">
             <User />
@@ -42,7 +42,7 @@
         </el-select>
       </el-form-item>
       <el-form-item style="margin-bottom: 0;">
-        <el-button class="submit-button" color="#146E3C" :loading="buttonLoading" @click="register()">
+        <el-button class="submit-button" color="#146E3C" :loading="buttonLoading" @click="register(formRef)">
           创建
         </el-button>
       </el-form-item>
@@ -54,45 +54,93 @@
 import { ref, reactive } from 'vue';
 import { isTRPCClientError, trpc } from '../../api/trpc';
 import { ElMessage } from 'element-plus';
+import type { FormInstance, FormRules } from 'element-plus';
 
-const form = reactive({
+interface Form {
+  userId: string,
+  username: string,
+  password: string,
+  role: 'admin' | 'student' | 'teacher',
+}
+
+const formRef = ref<FormInstance>();
+const form = reactive<Form>({
   userId: '',
   username: '',
   password: '',
-  role: '',
+  role: 'student',
+});
+
+const rules = reactive<FormRules<Form>>({
+  userId: [
+    {
+      required: true,
+      message: '学号 / 用户名 不能为空',
+      trigger: 'blur',
+    }
+  ],
+  username: [
+    {
+      required: true,
+      message: '姓名 不能为空',
+      trigger: 'blur',
+    }
+  ],
+  password: [
+    {
+      required: true,
+      message: '密码 不能为空',
+      trigger: 'change',
+    },
+    {
+      min: 8,
+      message: '密码至少 8 位',
+      trigger: 'change',
+    }
+  ],
 });
 
 const buttonLoading = ref(false);
 
-const register = () => {
-  buttonLoading.value = true;
+const register = async (submittedForm: FormInstance | undefined) => {
+  if (!submittedForm) {
+    return;
+  }
 
-  trpc.user.register.mutate({
-    id: form.userId,
-    username: form.username,
-    password: form.password,
-    role: form.role,
-  })
-    .then(() => {
-      ElMessage({
-        message: '创建成功',
-        type: 'success',
-        showClose: true,
-      });
+  await submittedForm.validate(async valid => {
+    if (valid) {
+      buttonLoading.value = true;
 
-      buttonLoading.value = false;
-    })
-    .catch(err => {
-      if (isTRPCClientError(err)) {
+      try {
+        await trpc.user.register.mutate({
+          id: form.userId,
+          username: form.username,
+          password: form.password,
+          role: form.role,
+        });
+
         ElMessage({
-          message: err.message,
-          type: 'error',
+          message: '创建成功',
+          type: 'success',
           showClose: true,
         });
-      }
 
-      buttonLoading.value = false;
-    });
+        buttonLoading.value = false;
+      } catch (err) {
+        if (isTRPCClientError(err) && err.data?.zodError) {
+          err.data.zodError.forEach((e) => {
+            ElMessage({
+              message: e.message,
+              type: 'error',
+              showClose: true,
+            });
+          });
+        }
+
+        buttonLoading.value = false;
+      }
+    }
+  });
 };
 </script>
 
