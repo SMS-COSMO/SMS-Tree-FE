@@ -9,7 +9,7 @@ const router = createRouter({
       path: '/admin', component: () => import('./pages/admin/AdminApp.vue'), children: [
         {
           path: '/admin/home',
-          component: () => import('./pages/admin/AdminTest.vue')
+          component: () => import('./pages/admin/HomePage.vue')
         },
         {
           path: '/admin/register',

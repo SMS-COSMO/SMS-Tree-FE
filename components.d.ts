@@ -9,12 +9,9 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
-    AdminApp: typeof import('./src/components/admin/AdminApp.vue')['default']
     AdminNavBar: typeof import('./src/components/layouts/AdminNavBar.vue')['default']
-    AdminTest: typeof import('./src/components/admin/AdminTest.vue')['default']
     App: typeof import('./src/components/App.vue')['default']
     AvatarContainer: typeof import('./src/components/account/AvatarContainer.vue')['default']
-    ContentPage: typeof import('./src/components/paper/ContentPage.vue')['default']
     ElAlert: typeof import('element-plus/es')['ElAlert']
     ElBacktop: typeof import('element-plus/es')['ElBacktop']
     ElButton: typeof import('element-plus/es')['ElButton']
@@ -35,7 +32,6 @@ declare module '@vue/runtime-core' {
     ElLink: typeof import('element-plus/es')['ElLink']
     ElMenu: typeof import('element-plus/es')['ElMenu']
     ElMenuItem: typeof import('element-plus/es')['ElMenuItem']
-    ElMenuItemGroup: typeof import('element-plus/es')['ElMenuItemGroup']
     ElOption: typeof import('element-plus/es')['ElOption']
     ElPagination: typeof import('element-plus/es')['ElPagination']
     ElRow: typeof import('element-plus/es')['ElRow']
@@ -50,17 +46,10 @@ declare module '@vue/runtime-core' {
     ElTabPane: typeof import('element-plus/es')['ElTabPane']
     ElTabs: typeof import('element-plus/es')['ElTabs']
     ElUpload: typeof import('element-plus/es')['ElUpload']
-    FeedBackPage: typeof import('./src/components/feedback/FeedBackPage.vue')['default']
     FooterBar: typeof import('./src/components/layouts/FooterBar.vue')['default']
-    GroupPage: typeof import('./src/components/group/GroupPage.vue')['default']
-    ListPage: typeof import('./src/components/paper/ListPage.vue')['default']
-    LoginPage: typeof import('./src/components/account/LoginPage.vue')['default']
     NavBar: typeof import('./src/components/layouts/NavBar.vue')['default']
-    NotFoundPage: typeof import('./src/components/NotFoundPage.vue')['default']
-    ProfilePage: typeof import('./src/components/account/ProfilePage.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    StartScreen: typeof import('./src/components/home/StartScreen.vue')['default']
     WordView: typeof import('./src/components/app/WordView.vue')['default']
   }
 }

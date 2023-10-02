@@ -14,7 +14,9 @@ import 'element-plus/theme-chalk/el-notification.css';
 
 // Pinia store
 import { createPinia } from 'pinia';
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate';
 const pinia = createPinia();
+pinia.use(piniaPluginPersistedstate);
 
 import router from './router';
 
