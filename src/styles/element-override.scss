@@ -180,14 +180,12 @@
     border-top-left-radius: 10px !important;
 }
 
-.el-tabs__nav-scroll,
-.el-tabs__item {
-    height: 45px !important;
+.el-tabs--left .el-tabs__item.is-left {
+    height: 50px !important;
 }
 
 .el-tabs__active-bar.is-left {
     background-color: $color-primary-0 !important;
-    width: 4px !important;
     border-radius: 1000px;
 }
 

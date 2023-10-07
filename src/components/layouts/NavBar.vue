@@ -9,7 +9,7 @@
       <el-menu-item index="/">首页</el-menu-item>
       <el-menu-item index="/list">论文列表</el-menu-item>
       <el-menu-item index="/group">小组作业</el-menu-item>
-      <el-menu-item index="/admin/home">管理</el-menu-item>
+      <el-menu-item index="/admin/register">管理</el-menu-item>
       <div class="flex-grow" />
       <el-sub-menu v-if="userStore.loggedIn" index="4">
         <template #title>{{ userStore.username }}</template>
