@@ -52,36 +52,33 @@ const form = reactive({
   password: ''
 });
 
-const login = () => {
+const login = async () => {
   buttonLoading.value = true;
-  trpc.user.login.mutate({ id: form.userId, password: form.password })
-    .then(res => {
-      userStore.login({
-        accessToken: res.accessToken,
-        refreshToken: res.refreshToken,
-        userId: res.userId,
-        username: res.username,
-      });
 
-      buttonLoading.value = false;
-      router.back();
-      ElMessage({
-        message: '登录成功',
-        type: 'success',
-        showClose: true,
-      });
-    })
-    .catch(err => {
-      if (isTRPCClientError(err)) {
-        ElMessage({
-          message: err.message,
-          type: 'error',
-          showClose: true,
-        });
-      }
+  try {
+    const res = await trpc.user.login.mutate({ id: form.userId, password: form.password })
 
-      buttonLoading.value = false;
+    userStore.login({
+      accessToken: res.accessToken,
+      refreshToken: res.refreshToken,
+      userId: res.userId,
+      username: res.username,
     });
+
+    buttonLoading.value = false;
+    router.back();
+    ElMessage({
+      message: '登录成功',
+      type: 'success',
+      showClose: true,
+    });
+  } catch (err) {
+    if (isTRPCClientError(err)) {
+      ElMessage({ message: err.message, type: 'error', showClose: true });
+    }
+
+    buttonLoading.value = false;
+  }
 };
 </script>
 

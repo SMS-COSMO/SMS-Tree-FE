@@ -48,4 +48,7 @@ declare module 'vue' {
     RouterView: typeof import('vue-router')['RouterView']
     WordView: typeof import('./src/components/app/WordView.vue')['default']
   }
+  export interface ComponentCustomProperties {
+    vLoading: typeof import('element-plus/es')['ElLoadingDirective']
+  }
 }
