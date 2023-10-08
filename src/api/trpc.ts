@@ -4,6 +4,7 @@ import { TRPCClientError } from '@trpc/client';
 import superjson from 'superjson';
 
 import { UserStore } from '../stores/user';
+import { inferRouterOutputs } from '@trpc/server';
 const userStore = UserStore();
 
 export const trpc = createTRPCProxyClient<AppRouter>({
@@ -19,6 +20,8 @@ export const trpc = createTRPCProxyClient<AppRouter>({
   ],
   transformer: superjson,
 });
+
+export type RouterOutput = inferRouterOutputs<AppRouter>;
 
 export function isTRPCClientError(
   cause: unknown,

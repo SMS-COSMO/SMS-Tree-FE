@@ -6,11 +6,11 @@
       </el-icon>
       <span>创建账户</span>
     </el-menu-item>
-    <el-menu-item index="3" disabled>
+    <el-menu-item index="/admin/list">
       <el-icon>
         <document />
       </el-icon>
-      <span>Navigator Three</span>
+      <span>学生列表</span>
     </el-menu-item>
     <el-menu-item index="4">
       <el-icon>

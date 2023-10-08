@@ -7,6 +7,7 @@
             <template #header>
               学号
             </template>
+            {{ info.id }}
           </el-card>
         </el-col>
         <el-col :span="12">
@@ -14,6 +15,7 @@
             <template #header>
               姓名
             </template>
+            {{ info.username }}
           </el-card>
         </el-col>
       </el-row>
@@ -30,10 +32,23 @@
 </template>
 
 <script lang="ts" setup>
+import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
+import { trpc } from '../../api/trpc';
+import type { RouterOutput } from '../../api/trpc';
 const route = useRoute();
 
-const id = route.params.id;
+const id = route.params.id.toString();
+const info = ref<RouterOutput['user']['profile']>({
+  id: '',
+  username: '',
+  role: 'student',
+  createdAt: new Date(),
+});
+
+onMounted(async () => {
+  info.value = await trpc.user.profile.query({ id: id });
+});
 </script>
 
 <style lang="scss" scoped></style>

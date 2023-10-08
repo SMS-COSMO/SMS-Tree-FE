@@ -6,16 +6,13 @@ const router = createRouter({
   routes: [
     { path: '/', component: () => import('./pages/HomePage.vue') },
     {
-      path: '/admin', component: () => import('./pages/admin/AdminApp.vue'), children: [
-        {
-          path: '/admin/home',
-          component: () => import('./pages/admin/HomePage.vue')
-        },
-        {
-          path: '/admin/register',
-          component: () => import('./pages/admin/RegisterPage.vue')
-        },
-      ]
+      path: '/admin',
+      component: () => import('./pages/admin/AdminApp.vue'), 
+      children: [
+        { path: '/admin/home', component: () => import('./pages/admin/HomePage.vue') },
+        { path: '/admin/register', component: () => import('./pages/admin/RegisterPage.vue') },
+        { path: '/admin/list', component: () => import('./pages/admin/StudentListPage.vue') }
+      ],
     },
     { path: '/login', component: () => import('./pages/account/LoginPage.vue') },
     { path: '/user/:id', component: () => import('./pages/account/ProfilePage.vue') },
