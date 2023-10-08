@@ -86,10 +86,18 @@
 
 // Button
 .el-button {
-    height: 45px !important;
-    padding: 8px 20px !important;
     border-width: 2px !important;
     border-radius: $border-radius !important;
+}
+
+.el-button:not(.el-button--small) {
+    height: 45px !important;
+    padding: 8px 20px !important;
+}
+
+.el-button--small {
+    height: 30px !important;
+    padding: 8px 20px !important;
 }
 
 // Card

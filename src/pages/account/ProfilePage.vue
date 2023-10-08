@@ -34,8 +34,9 @@
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
-import { trpc } from '../../api/trpc';
+import { isTRPCClientError, trpc } from '../../api/trpc';
 import type { RouterOutput } from '../../api/trpc';
+import { ElMessage } from 'element-plus';
 const route = useRoute();
 
 const id = route.params.id.toString();
@@ -47,7 +48,15 @@ const info = ref<RouterOutput['user']['profile']>({
 });
 
 onMounted(async () => {
-  info.value = await trpc.user.profile.query({ id: id });
+  try {
+    info.value = await trpc.user.profile.query({ id: id });
+  } catch (err) {
+    if (isTRPCClientError(err)) {
+      ElMessage({ message: err.message, type: 'error', showClose: true });
+    } else {
+      ElMessage({ message: '未知错误', type: 'error', showClose: true });
+    }
+  }
 });
 </script>
 
