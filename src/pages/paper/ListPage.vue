@@ -40,7 +40,8 @@ const page_size = ref(50);
 
 const total_page = 400;
 
-const open_paper = (row: any) => {
+// test type
+const open_paper = (row: typeof data[0]) => {
   router.push({
     path: `/paper/${row.id}`,
   });

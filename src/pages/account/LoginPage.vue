@@ -56,13 +56,14 @@ const login = async () => {
   buttonLoading.value = true;
 
   try {
-    const res = await trpc.user.login.mutate({ id: form.userId, password: form.password })
+    const res = await trpc.user.login.mutate({ id: form.userId, password: form.password });
 
     userStore.login({
       accessToken: res.accessToken,
       refreshToken: res.refreshToken,
       userId: res.userId,
       username: res.username,
+      role: res.role,
     });
 
     buttonLoading.value = false;
