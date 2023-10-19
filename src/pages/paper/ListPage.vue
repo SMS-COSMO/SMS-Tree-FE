@@ -16,11 +16,15 @@
     </el-col>
   </el-row>
 
-  <el-table class="table" stripe :data="data" size="large" @row-click="open_paper">
+  <el-table class="table" stripe :data="listData" size="large" @row-click="open_paper" v-loading="loading">
     <el-table-column fixed prop="title" label="标题" />
-    <el-table-column prop="author" label="作者" width="180" />
-    <el-table-column prop="time" label="发布时间" sortable width="180" />
-    <el-table-column prop="tag" label="标签" width="100" />
+    <el-table-column prop="keywords" label="标签" width="100" />
+    <el-table-column prop="authorGroupId" label="作者" width="180" />
+    <el-table-column prop="createdAt" label="发布时间" sortable width="180">
+      <template #default="scope">
+        {{ processTime(scope.row.createdAt) }}
+      </template>
+    </el-table-column>
   </el-table>
 
   <div class="pagination-holder">
@@ -31,8 +35,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { RouterOutput, isTRPCClientError, trpc } from '../../api/trpc';
+import { ElMessage } from 'element-plus';
+
 const router = useRouter();
 
 const current_page = ref(1);
@@ -40,8 +47,7 @@ const page_size = ref(50);
 
 const total_page = 400;
 
-// test type
-const open_paper = (row: typeof data[0]) => {
+const open_paper = (row: RouterOutput['paper']['list'][0]) => {
   router.push({
     path: `/paper/${row.id}`,
   });
@@ -55,41 +61,27 @@ const handleCurrentChange = (value: number) => {
   console.log(value);
 };
 
+const processTime = (time: Date) => {
+  return time.toLocaleDateString();
+};
+
 const search_content = ref('');
 
-// test
-const data = [
-  {
-    id: '1',
-    title: 'Title1',
-    author: 'author1, author2, author3, author4, author5',
-    time: '2023-04-12'
-  },
-  {
-    id: '3',
-    title: 'title3',
-    author: '',
-    time: '2019-01-10'
-  },
-  {
-    id: '2',
-    title: 'title2',
-    author: '',
-    time: '2023-04-09'
-  },
-  {
-    id: '4',
-    title: 'title4',
-    author: '',
-    time: ''
-  },
-  {
-    id: '5',
-    title: 'title5',
-    author: '',
-    time: ''
-  },
-];
+const listData = ref<RouterOutput['paper']['list']>([]);
+const loading = ref(true);
+
+onMounted(async () => {
+  try {
+    listData.value = await trpc.paper.list.query();
+    loading.value = false;
+  } catch (err) {
+    if (isTRPCClientError(err)) {
+      ElMessage({ message: err.message, type: 'error', showClose: true });
+    } else {
+      ElMessage({ message: '未知错误', type: 'error', showClose: true });
+    }
+  }
+});
 </script>
 
 <style lang="scss" scoped>

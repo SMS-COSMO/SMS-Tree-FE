@@ -2,9 +2,9 @@
   <el-backtop :right="100" :bottom="100" />
 
   <div class="title-holder">
-    <h1 class="title">Title</h1>
+    <h1 class="title">{{ content.title }}</h1>
     <el-space :size="20">
-      <el-statistic :value="98500">
+      <el-statistic :value="content.rate">
         <template #title>
           <div style="display: inline-flex; align-items: center">
             分数
@@ -28,6 +28,7 @@
         <template #header>
           论文信息
         </template>
+        {{ content }}
       </el-card>
       <el-card class="mt20">
         <el-button color="#146E3C" style="width: 100%;" plain @click="download_dialog = true;">
@@ -47,7 +48,7 @@
         <template #header>
           摘要
         </template>
-        {{ id }}
+        {{ content.abstract }}
       </el-card>
     </el-col>
   </el-row>
@@ -68,13 +69,38 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
+import { RouterOutput, isTRPCClientError, trpc } from '../../api/trpc';
+import { ElMessage } from 'element-plus';
 const route = useRoute();
 
-const id = route.params.id;
+const id = route.params.id.toString();
 
 const download_dialog = ref(false);
+
+const content = ref<RouterOutput['paper']['content']>({
+  id: '',
+  title: '',
+  keywords: '',
+  abstract: '',
+  authorGroupId: '',
+  status: 0,
+  rate: 0,
+  createdAt: new Date(),
+});
+
+onMounted(async () => {
+  try {
+    content.value = await trpc.paper.content.query({ id });
+  } catch (err) {
+    if (isTRPCClientError(err)) {
+      ElMessage({ message: err.message, type: 'error', showClose: true });
+    } else {
+      ElMessage({ message: '未知错误', type: 'error', showClose: true });
+    }
+  }
+});
 </script>
 
 <style lang="scss">
