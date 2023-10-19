@@ -32,10 +32,7 @@ const userStore = UserStore();
 const logout = () => {
   userStore.logout();
   router.push('/');
-  ElMessage({
-    message: '登出成功！',
-    type: 'success',
-  });
+  ElMessage({ message: '登出成功！', type: 'success', });
 };
 </script>
 
