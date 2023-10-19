@@ -33,7 +33,7 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v3
       - name: Install Dependencies
-        run: npm install
+        run: pnpm i
       - name: Build
         run: npx vite build --base "/SMS-Tree"
       - name: Upload artifact

@@ -12,9 +12,9 @@ jobs:
           fetch-depth: 1
           ref: ${{ github.head_ref }}
 
-      - name: npm install
+      - name: pnpm install
         working-directory: .
-        run: npm install
+        run: pnpm i
 
       - name: Run Lint
-        run: npm run lint --no-fix
+        run: pnpm lint --no-fix
