@@ -16,11 +16,10 @@
           </template>
           <el-row :gutter="10">
             <el-col :span="16">
-              <el-input v-model="quick_search_content">
-              </el-input>
+              <el-input v-model="quickSearchContent" @keyup.enter="quickSearch" clearable />
             </el-col>
             <el-col :span="8">
-              <el-button style="width: 100%;" color="#146E3C" plain>
+              <el-button style="width: 100%;" color="#146E3C" plain @click="quickSearch">
                 <el-icon :size="14">
                   <Search />
                 </el-icon>
@@ -44,8 +43,14 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 
-const quick_search_content = ref('');
+const quickSearchContent = ref('');
+const router = useRouter();
+
+const quickSearch = () => {
+  router.push({ path: 'list', query: { search: quickSearchContent.value } });
+};
 </script>
 
 <style lang="scss" scoped>

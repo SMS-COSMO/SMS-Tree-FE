@@ -3,7 +3,7 @@
 
   <el-row :gutter="20">
     <el-col :span="20">
-      <el-input v-model="searchContent" />
+      <el-input v-model="searchContent" placeholder="搜索论文" clearable />
     </el-col>
     <el-col :span="4">
       <el-button style="width: 100%;" color="#146E3C" plain>
@@ -36,13 +36,14 @@
 
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
-import { useRouter } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { RouterOutput, isTRPCClientError, trpc } from '../../api/trpc';
 import { ElMessage } from 'element-plus';
 import { useFuse, type UseFuseOptions } from '@vueuse/integrations/useFuse';
 type TList = RouterOutput['paper']['list'];
 
 const router = useRouter();
+const route = useRoute();
 
 const open_paper = (row: TList[0]) => {
   router.push({
@@ -53,7 +54,7 @@ const open_paper = (row: TList[0]) => {
 const pageSize = ref(50);
 const currentPage = ref(1);
 
-const searchContent = ref('');
+const searchContent = ref(route.query.search?.toString() ?? '');
 
 const listData = ref<TList>([]);
 const loading = ref(true);
@@ -70,18 +71,7 @@ const fuseOptions: UseFuseOptions<TList[0]> = {
 
 const fuse = useFuse(searchContent, listData, fuseOptions);
 const displayListData = computed(() => {
-  return fuse.results.value.map(e => {
-    return {
-      id: e.item.id,
-      title: e.item.title,
-      keywords: e.item.keywords,
-      abstract: e.item.abstract,
-      authorGroupId: e.item.authorGroupId,
-      status: e.item.status,
-      rate: e.item.rate,
-      createdAt: e.item.createdAt,
-    };
-  });
+  return fuse.results.value.map(e => e.item);
 });
 
 onMounted(async () => {
