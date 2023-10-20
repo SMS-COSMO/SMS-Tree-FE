@@ -109,6 +109,7 @@ onMounted(async () => {
 .title {
   font-size: 45px;
   width: 100%;
+  padding-right: 4em;
 }
 
 .title-holder {

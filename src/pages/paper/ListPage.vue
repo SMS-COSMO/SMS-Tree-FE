@@ -3,8 +3,7 @@
 
   <el-row :gutter="20">
     <el-col :span="20">
-      <el-input v-model="search_content">
-      </el-input>
+      <el-input v-model="searchContent" />
     </el-col>
     <el-col :span="4">
       <el-button style="width: 100%;" color="#146E3C" plain>
@@ -16,59 +15,74 @@
     </el-col>
   </el-row>
 
-  <el-table class="table" stripe :data="listData" size="large" @row-click="open_paper" v-loading="loading">
+  <el-table class="table" stripe :data="displayListData.slice((currentPage - 1) * pageSize, currentPage * pageSize)"
+    size="large" @row-click="open_paper" v-loading="loading">
     <el-table-column fixed prop="title" label="标题" />
     <el-table-column prop="keywords" label="标签" width="100" />
     <el-table-column prop="authorGroupId" label="作者" width="180" />
-    <el-table-column prop="createdAt" label="发布时间" sortable width="180">
+    <el-table-column prop="createdAt" label="发布时间" width="180">
       <template #default="scope">
-        {{ processTime(scope.row.createdAt) }}
+        {{ scope.row.createdAt.toLocaleDateString() }}
       </template>
     </el-table-column>
   </el-table>
 
   <div class="pagination-holder">
-    <el-pagination class="pagination" v-model:current-page="current_page" v-model:page-size="page_size"
-      :page-sizes="[50, 100, 200, 300, 400]" background layout="sizes, prev, pager, next, jumper, total"
-      :total="total_page" @size-change="handleSizeChange" @current-change="handleCurrentChange" />
+    <el-pagination class="pagination" v-model:page-size="pageSize" v-model:current-page="currentPage"
+      :page-sizes="[20, 50, 100, 200, 300, 400]" background layout="sizes, prev, pager, next, jumper, total"
+      :total="displayListData.length" />
   </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { RouterOutput, isTRPCClientError, trpc } from '../../api/trpc';
 import { ElMessage } from 'element-plus';
+import { useFuse, type UseFuseOptions } from '@vueuse/integrations/useFuse';
+type TList = RouterOutput['paper']['list'];
 
 const router = useRouter();
 
-const current_page = ref(1);
-const page_size = ref(50);
-
-const total_page = 400;
-
-const open_paper = (row: RouterOutput['paper']['list'][0]) => {
+const open_paper = (row: TList[0]) => {
   router.push({
     path: `/paper/${row.id}`,
   });
 };
 
-const handleSizeChange = (value: number) => {
-  console.log(value);
-};
+const pageSize = ref(50);
+const currentPage = ref(1);
 
-const handleCurrentChange = (value: number) => {
-  console.log(value);
-};
+const searchContent = ref('');
 
-const processTime = (time: Date) => {
-  return time.toLocaleDateString();
-};
-
-const search_content = ref('');
-
-const listData = ref<RouterOutput['paper']['list']>([]);
+const listData = ref<TList>([]);
 const loading = ref(true);
+
+const fuseOptions: UseFuseOptions<TList[0]> = {
+  fuseOptions: {
+    keys: ['title', 'keywords'],
+    shouldSort: true,
+    threshold: 0.6,
+    useExtendedSearch: true,
+  },
+  matchAllWhenSearchEmpty: true,
+};
+
+const fuse = useFuse(searchContent, listData, fuseOptions);
+const displayListData = computed(() => {
+  return fuse.results.value.map(e => {
+    return {
+      id: e.item.id,
+      title: e.item.title,
+      keywords: e.item.keywords,
+      abstract: e.item.abstract,
+      authorGroupId: e.item.authorGroupId,
+      status: e.item.status,
+      rate: e.item.rate,
+      createdAt: e.item.createdAt,
+    };
+  });
+});
 
 onMounted(async () => {
   try {
