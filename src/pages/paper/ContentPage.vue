@@ -12,7 +12,7 @@
         </template>
       </el-statistic>
       <el-divider direction="vertical" style="height: 40px;"></el-divider>
-      <el-statistic :value="98500">
+      <el-statistic :value="content.downloadCount">
         <template #title>
           <div style="display: inline-flex; align-items: center">
             下载次数
@@ -86,6 +86,7 @@ const content = ref<RouterOutput['paper']['content']>({
   abstract: '',
   authorGroupId: '',
   status: 0,
+  downloadCount: 0,
   rate: 0,
   createdAt: new Date(),
 });
