@@ -18,7 +18,13 @@
   <el-table class="table" stripe :data="displayListData.slice((currentPage - 1) * pageSize, currentPage * pageSize)"
     size="large" @row-click="open_paper" v-loading="loading">
     <el-table-column fixed prop="title" label="标题" />
-    <el-table-column prop="keywords" label="标签" width="100" />
+    <el-table-column prop="keywords" label="标签" width="250">
+      <template #default="scope">
+        <el-tag v-for="(keyword, index) in scope.row.keywords" :key="index" class="mx-1">
+          {{ keyword }}
+        </el-tag>
+      </template>
+    </el-table-column>
     <el-table-column prop="authorGroupId" label="作者" width="180" />
     <el-table-column prop="createdAt" label="发布时间" width="180">
       <template #default="scope">
@@ -111,5 +117,10 @@ onMounted(async () => {
   left: 0;
   width: 100%;
   text-align: center;
+}
+
+.mx-1 {
+  margin-left: 0.2rem;
+  margin-right: 0.2rem;
 }
 </style>

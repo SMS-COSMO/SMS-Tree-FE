@@ -9,11 +9,11 @@ dependencies:
     specifier: ^2.1.0
     version: 2.1.0(vue@3.3.4)
   '@trpc/client':
-    specifier: ^10.40.0
-    version: 10.40.0(@trpc/server@10.40.0)
+    specifier: ^10.41.0
+    version: 10.41.0(@trpc/server@10.41.0)
   '@trpc/server':
-    specifier: ^10.40.0
-    version: 10.40.0
+    specifier: ^10.41.0
+    version: 10.41.0
   '@vueuse/integrations':
     specifier: ^10.5.0
     version: 10.5.0(fuse.js@6.6.2)(vue@3.3.4)
@@ -428,16 +428,16 @@ packages:
     resolution: {integrity: sha512-Ccy0NlLkzr0Ex2FKvh2X+OyERHXJ88XJ1MXtsI9y9fGexlaXaVTPzBCRBwIxFkORuOb+uBqeu+RqnpgYTEZRUQ==}
     dev: false
 
-  /@trpc/client@10.40.0(@trpc/server@10.40.0):
-    resolution: {integrity: sha512-bT6BcdWjj0KzGQiimE6rB2tIaRYX0Ear4Gthb5szN/c01wrP0yC1Fbz2uCcm/QTVAwu4Lve5M+YjPoEaTHG6lg==}
+  /@trpc/client@10.41.0(@trpc/server@10.41.0):
+    resolution: {integrity: sha512-W4lYULb7//2yXkULCKim49slXsBwiBq48rfge1yOWXdq0Ed8VxzXvZt8+uWOkxmHbQAw4lq8G5fCNYFB+Za6vQ==}
     peerDependencies:
-      '@trpc/server': 10.40.0
+      '@trpc/server': 10.41.0
     dependencies:
-      '@trpc/server': 10.40.0
+      '@trpc/server': 10.41.0
     dev: false
 
-  /@trpc/server@10.40.0:
-    resolution: {integrity: sha512-49SUOMWzSZtu5+OdrADmJD+u+sjSE0qj1cWgYk2FY4jLkPJunLuNRuhzM7aOeBhiUjyfhg2YTfur8FN1WBmvEw==}
+  /@trpc/server@10.41.0:
+    resolution: {integrity: sha512-uC0xLelzOuoFwxbBQ3GzX4DaWNucO9lW2vlGPdKu8ycXu2ObSa739oQ/lNF6qWDNUKXS0tQvGnDCAxEd178EzQ==}
     dev: false
 
   /@types/estree@1.0.0:

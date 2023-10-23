@@ -28,7 +28,8 @@
         <template #header>
           论文信息
         </template>
-        {{ content }}
+        <el-divider content-position="left">发布时间</el-divider>
+        {{ content.createdAt.toLocaleDateString('zh-CN') }}
       </el-card>
       <el-card class="mt20">
         <el-button color="#146E3C" style="width: 100%;" plain @click="download_dialog = true;">
@@ -49,6 +50,10 @@
           摘要
         </template>
         {{ content.abstract }}
+        <el-divider content-position="left">关键词</el-divider>
+        <el-tag v-for="(keyword, index) in content.keywords" :key="index" size="large" class="mx-1">
+          {{ keyword }}
+        </el-tag>
       </el-card>
     </el-col>
   </el-row>
@@ -82,7 +87,7 @@ const download_dialog = ref(false);
 const content = ref<RouterOutput['paper']['content']>({
   id: '',
   title: '',
-  keywords: '',
+  keywords: [],
   abstract: '',
   authorGroupId: '',
   status: 0,
@@ -119,5 +124,10 @@ onMounted(async () => {
 
 .download-dialog {
   width: 30%;
+}
+
+.mx-1 {
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
 }
 </style>

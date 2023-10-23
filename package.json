@@ -12,8 +12,8 @@
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.1.0",
-    "@trpc/client": "^10.40.0",
-    "@trpc/server": "^10.40.0",
+    "@trpc/client": "^10.41.0",
+    "@trpc/server": "^10.41.0",
     "@vueuse/integrations": "^10.5.0",
     "element-plus": "^2.3.14",
     "fuse.js": "^6.6.2",
