@@ -23,3 +23,7 @@
 ```shell
 pnpm dev
 ```
+
+> [!NOTE]
+> 如果出现 `RouterOutput` 类型错误（如：全是 `never`），请更新 trpc 版本，使之与后端相匹配！
+
