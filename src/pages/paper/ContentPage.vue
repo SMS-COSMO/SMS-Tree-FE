@@ -51,7 +51,8 @@
         </template>
         {{ content.abstract }}
         <el-divider content-position="left">关键词</el-divider>
-        <el-tag v-for="(keyword, index) in content.keywords" :key="index" size="large" class="mx-1">
+        <el-tag v-for="(keyword, index) in content.keywords" :key="index" size="large" class="mx-1 clickable" type="info"
+          effect="plain" @click="searchTag(keyword)">
           {{ keyword }}
         </el-tag>
       </el-card>
@@ -75,10 +76,11 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { RouterOutput, isTRPCClientError, trpc } from '../../api/trpc';
 import { ElMessage } from 'element-plus';
 const route = useRoute();
+const router = useRouter();
 
 const id = route.params.id.toString();
 
@@ -95,6 +97,10 @@ const content = ref<RouterOutput['paper']['content']>({
   rate: 0,
   createdAt: new Date(),
 });
+
+const searchTag = (keyword: string) => {
+  router.push({ path: '/list', query: { search: keyword } });
+};
 
 onMounted(async () => {
   try {
@@ -127,7 +133,10 @@ onMounted(async () => {
 }
 
 .mx-1 {
-  margin-left: 0.25rem;
-  margin-right: 0.25rem;
+  margin: 0.25rem;
+}
+
+.clickable {
+  cursor: pointer;
 }
 </style>
