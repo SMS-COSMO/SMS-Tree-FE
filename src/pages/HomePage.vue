@@ -49,7 +49,7 @@ const quickSearchContent = ref('');
 const router = useRouter();
 
 const quickSearch = () => {
-  router.push({ path: 'list', query: { search: quickSearchContent.value } });
+  router.push({ path: '/list', query: { search: quickSearchContent.value } });
 };
 </script>
 

@@ -20,8 +20,12 @@
     <el-table-column fixed prop="title" label="标题" />
     <el-table-column prop="keywords" label="标签" width="250">
       <template #default="scope">
-        <el-tag v-for="(keyword, index) in scope.row.keywords" :key="index" class="mx-1">
-          {{ keyword }}
+        <el-tag v-for="(keyword, index) in scope.row.keywords.slice(0, 5)" :key="index" class="mx-1" effect="plain"
+          type="info">
+          {{ processTag(keyword) }}
+        </el-tag>
+        <el-tag v-if="scope.row.keywords.length > 5" class="mx-1" effect="plain" type="info">
+          ...
         </el-tag>
       </template>
     </el-table-column>
@@ -55,6 +59,10 @@ const open_paper = (row: TList[0]) => {
   router.push({
     path: `/paper/${row.id}`,
   });
+};
+
+const processTag = (content: string) => {
+  return content.length > 5 ? `${content.slice(0, 5)}...` : content;
 };
 
 const pageSize = ref(50);
@@ -120,7 +128,6 @@ onMounted(async () => {
 }
 
 .mx-1 {
-  margin-left: 0.2rem;
-  margin-right: 0.2rem;
+  margin: 0.2rem;
 }
 </style>
