@@ -22,11 +22,22 @@
       <template #default="scope">
         <el-tag v-for="(keyword, index) in scope.row.keywords.slice(0, 5)" :key="index" class="mx-1" effect="plain"
           type="info">
-          {{ processTag(keyword) }}
+          {{ keyword.slice(0, 5) }}
+          <el-tooltip v-if="keyword.length > 5" :content="keyword" placement="top">
+            ...
+          </el-tooltip>
         </el-tag>
-        <el-tag v-if="scope.row.keywords.length > 5" class="mx-1" effect="plain" type="info">
-          ...
-        </el-tag>
+        <el-tooltip placement="bottom" style="max-width: 200px;">
+          <template #content>
+            <span v-for="(keyword, index) in scope.row.keywords" :key="index">
+              {{ keyword }}
+              <br>
+            </span>
+          </template>
+          <el-text v-if="scope.row.keywords.length > 5" type="info">
+            ...
+          </el-text>
+        </el-tooltip>
       </template>
     </el-table-column>
     <el-table-column prop="authorGroupId" label="作者" width="180" />
