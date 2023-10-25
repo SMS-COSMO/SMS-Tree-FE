@@ -18,9 +18,9 @@
   <el-table class="table" stripe :data="displayListData.slice((currentPage - 1) * pageSize, currentPage * pageSize)"
     size="large" @row-click="open_paper" v-loading="loading">
     <el-table-column fixed prop="title" label="标题" />
-    <el-table-column prop="keywords" label="标签" width="250">
+    <el-table-column prop="keywords" label="标签" width="280">
       <template #default="scope">
-        <el-tag v-for="(keyword, index) in scope.row.keywords.slice(0, 5)" :key="index" class="mx-1" effect="plain"
+        <el-tag v-for="(keyword, index) in scope.row.keywords.slice(0, 8)" :key="index" class="mx-1" effect="plain"
           type="info">
           {{ keyword.slice(0, 5) }}
           <el-tooltip v-if="keyword.length > 5" :content="keyword" placement="top">

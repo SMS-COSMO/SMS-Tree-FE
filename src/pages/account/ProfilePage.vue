@@ -7,7 +7,9 @@
             <template #header>
               学号
             </template>
-            {{ info.id }}
+            <el-skeleton :rows="0" :loading="contentLoading" animated>
+              {{ info.id }}
+            </el-skeleton>
           </el-card>
         </el-col>
         <el-col :span="12">
@@ -15,7 +17,9 @@
             <template #header>
               姓名
             </template>
-            {{ info.username }}
+            <el-skeleton :rows="0" :loading="contentLoading" animated>
+              {{ info.username }}
+            </el-skeleton>
           </el-card>
         </el-col>
       </el-row>
@@ -47,9 +51,12 @@ const info = ref<RouterOutput['user']['profile']>({
   createdAt: new Date(),
 });
 
+const contentLoading = ref(true);
+
 onMounted(async () => {
   try {
     info.value = await trpc.user.profile.query({ id: id });
+    contentLoading.value = false;
   } catch (err) {
     if (isTRPCClientError(err)) {
       ElMessage({ message: err.message, type: 'error', showClose: true });
