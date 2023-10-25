@@ -7,7 +7,7 @@
     <el-input v-if="inputVisible" ref="InputRef" v-model="inputValue" :maxlength="contentMaxLength"
       class=" mx-1 same-size tag-input" size="small" @keyup.enter="handleInputConfirm" @blur="handleInputConfirm" />
     <el-button v-else class="same-size mx-1" size="small" color="#146E3C" plain @click="showInput">
-      + New Tag
+      + 添加关键词
     </el-button>
   </div>
 </template>
@@ -21,7 +21,7 @@ const props = defineProps({
   contentMaxLength: {
     type: Number,
     default: 20,
-  }
+  },
 });
 const emit = defineEmits(['update:modelValue']);
 

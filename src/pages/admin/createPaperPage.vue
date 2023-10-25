@@ -22,11 +22,30 @@
       <el-form-item>
         <div>
           <el-icon :size="15">
-            <Document />
+            <CollectionTag />
           </el-icon>
           标签
         </div>
         <keywordEditor v-model="form.keywords" />
+      </el-form-item>
+      <el-form-item>
+        <div>
+          <el-icon :size="15">
+            <User />
+          </el-icon>
+          作者
+        </div>
+      </el-form-item>
+      <el-form-item>
+        <div>
+          <el-icon :size="15">
+            <User />
+          </el-icon>
+          文件
+        </div>
+        <el-upload style="width: 100%;">
+          <el-button color="#146E3C" plain>点击上传文件</el-button>
+        </el-upload>
       </el-form-item>
       <el-form-item style="margin-bottom: 0;">
         <el-button class="submit-button" color="#146E3C" :loading="buttonLoading" @click="register(formRef)">
@@ -41,7 +60,6 @@
 import { ref, reactive } from 'vue';
 import type { RouterInput } from '../../api/trpc';
 import type { FormInstance, FormRules } from 'element-plus';
-
 type TCreatePaperInput = RouterInput['paper']['create'];
 
 const formRef = ref<FormInstance>();
