@@ -22,8 +22,8 @@
       <template #default="scope">
         <el-tag v-for="(keyword, index) in scope.row.keywords.slice(0, 8)" :key="index" class="mx-1" effect="plain"
           type="info">
-          {{ keyword.slice(0, 5) }}
-          <el-tooltip v-if="keyword.length > 5" :content="keyword" placement="top">
+          {{ keyword.slice(0, 8) }}
+          <el-tooltip v-if="keyword.length > 8" :content="keyword" placement="top">
             ...
           </el-tooltip>
         </el-tag>

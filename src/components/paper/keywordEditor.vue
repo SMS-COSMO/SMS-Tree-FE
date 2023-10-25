@@ -4,9 +4,10 @@
       :disable-transitions="false" @close="handleClose(tag)">
       {{ tag }}
     </el-tag>
-    <el-input v-if="inputVisible" ref="InputRef" v-model="inputValue" :maxlength="contentMaxLength"
+    <el-input v-if="inputVisible" ref="InputRef" v-model="inputValue" :maxlength="contentMaxLength" show-word-limit
       class=" mx-1 same-size tag-input" size="small" @keyup.enter="handleInputConfirm" @blur="handleInputConfirm" />
-    <el-button v-else class="same-size mx-1" size="small" color="#146E3C" plain @click="showInput">
+    <el-button v-else class="same-size mx-1" size="small" color="#146E3C" plain @click="showInput"
+      :disabled="modelValue.length >= 8">
       + 添加关键词
     </el-button>
   </div>
@@ -17,16 +18,23 @@ import { nextTick, ref } from 'vue';
 import { ElInput } from 'element-plus';
 
 const props = defineProps({
-  modelValue: Array<string>,
+  modelValue: {
+    type: Array<string>,
+    required: true,
+  },
   contentMaxLength: {
     type: Number,
-    default: 20,
+    default: 8,
   },
+  maxLength: {
+    type: Number,
+    default: 8,
+  }
 });
 const emit = defineEmits(['update:modelValue']);
 
 const inputValue = ref('');
-const dynamicTags = ref(props.modelValue ?? []);
+const dynamicTags = ref(props.modelValue);
 const inputVisible = ref(false);
 const InputRef = ref<InstanceType<typeof ElInput>>();
 
@@ -60,7 +68,7 @@ const handleInputConfirm = () => {
 
 .same-size {
   height: 32px !important;
-  width: 100px !important;
+  width: 120px !important;
   border-radius: 4px !important;
 }
 

@@ -24,7 +24,7 @@
           <el-icon :size="15">
             <CollectionTag />
           </el-icon>
-          标签
+          关键词
         </div>
         <keywordEditor v-model="form.keywords" />
       </el-form-item>
