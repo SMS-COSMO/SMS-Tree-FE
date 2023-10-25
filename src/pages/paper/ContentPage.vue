@@ -2,24 +2,30 @@
   <el-backtop :right="100" :bottom="100" />
 
   <div class="title-holder">
-    <h1 class="title">{{ content.title }}</h1>
-    <el-space :size="20">
-      <el-statistic :value="content.rate">
-        <template #title>
-          <div style="display: inline-flex; align-items: center">
-            分数
-          </div>
-        </template>
-      </el-statistic>
-      <el-divider direction="vertical" style="height: 40px;"></el-divider>
-      <el-statistic :value="content.downloadCount">
-        <template #title>
-          <div style="display: inline-flex; align-items: center">
-            下载次数
-          </div>
-        </template>
-      </el-statistic>
-    </el-space>
+    <h1 class="title">
+      <el-skeleton animated :rows="0" :loading="contentLoading">
+        {{ content.title }}
+      </el-skeleton>
+    </h1>
+    <el-skeleton animated :loading="contentLoading" :rows="2" style="width: 200px">
+      <el-space :size="20">
+        <el-statistic :value="content.rate">
+          <template #title>
+            <div style="display: inline-flex; align-items: center">
+              分数
+            </div>
+          </template>
+        </el-statistic>
+        <el-divider direction="vertical" style="height: 40px;"></el-divider>
+        <el-statistic :value="content.downloadCount">
+          <template #title>
+            <div style="display: inline-flex; align-items: center">
+              下载次数
+            </div>
+          </template>
+        </el-statistic>
+      </el-space>
+    </el-skeleton>
   </div>
 
   <el-row :gutter="20">
@@ -28,14 +34,16 @@
         <template #header>
           论文信息
         </template>
-        <el-divider content-position="left">发布时间</el-divider>
-        {{ content.createdAt.toLocaleDateString('zh-CN') }}
+        <el-skeleton animated :rows="4" :loading="contentLoading">
+          <el-divider content-position="left">发布时间</el-divider>
+          {{ content.createdAt.toLocaleDateString('zh-CN') }}
+        </el-skeleton>
       </el-card>
       <el-card class="mt20">
-        <el-button color="#146E3C" style="width: 100%;" plain @click="download_dialog = true;">
+        <el-button color="#146E3C" style="width: 100%;" plain @click="downloadDialog = true;">
           下载
         </el-button>
-        <el-dialog v-model="download_dialog" title="文件下载" class="download-dialog">
+        <el-dialog v-model="downloadDialog" title="文件下载" class="download-dialog">
           <el-collapse>
             <el-collapse-item title="Placeholder">
               placeholder
@@ -49,12 +57,17 @@
         <template #header>
           摘要
         </template>
-        {{ content.abstract }}
+        <el-skeleton animated :rows="4" :loading="contentLoading">
+          {{ content.abstract }}
+        </el-skeleton>
+
         <el-divider content-position="left">关键词</el-divider>
-        <el-tag v-for="(keyword, index) in content.keywords" :key="index" size="large" class="mx-1 clickable" type="info"
-          effect="plain" @click="searchTag(keyword)">
-          {{ keyword }}
-        </el-tag>
+        <el-skeleton animated :rows="1" :loading="contentLoading">
+          <el-tag v-for="(keyword, index) in content.keywords" :key="index" size="large" class="mx-1 clickable"
+            type="info" effect="plain" @click="searchTag(keyword)">
+            {{ keyword }}
+          </el-tag>
+        </el-skeleton>
       </el-card>
     </el-col>
   </el-row>
@@ -84,7 +97,8 @@ const router = useRouter();
 
 const id = route.params.id.toString();
 
-const download_dialog = ref(false);
+const downloadDialog = ref(false);
+const contentLoading = ref(true);
 
 const content = ref<RouterOutput['paper']['content']>({
   id: '',
@@ -105,6 +119,7 @@ const searchTag = (keyword: string) => {
 onMounted(async () => {
   try {
     content.value = await trpc.paper.content.query({ id });
+    contentLoading.value = false;
   } catch (err) {
     if (isTRPCClientError(err)) {
       ElMessage({ message: err.message, type: 'error', showClose: true });
