@@ -1,14 +1,14 @@
 <template>
   <el-card>
     <el-form label-position="top" class="register-form" :model="form" :rules="rules" ref="formRef">
-      <el-form-item prop="userId">
+      <el-form-item prop="id">
         <div class="icon-label">
           <el-icon :size="15">
             <User />
           </el-icon>
           学号 / 用户名
         </div>
-        <el-input v-model="form.userId" />
+        <el-input v-model="form.id" />
       </el-form-item>
       <el-form-item prop="username">
         <div>
@@ -52,27 +52,22 @@
 
 <script setup lang="ts">
 import { ref, reactive } from 'vue';
-import { isTRPCClientError, trpc } from '../../api/trpc';
+import { RouterInput, isTRPCClientError, trpc } from '../../api/trpc';
 import { ElMessage } from 'element-plus';
 import type { FormInstance, FormRules } from 'element-plus';
 
-interface Form {
-  userId: string,
-  username: string,
-  password: string,
-  role: 'admin' | 'student' | 'teacher',
-}
+type TRegisterInput = RouterInput['user']['register'];
 
 const formRef = ref<FormInstance>();
-const form = reactive<Form>({
-  userId: '',
+const form = reactive<TRegisterInput>({
+  id: '',
   username: '',
   password: '',
   role: 'student',
 });
 
-const rules = reactive<FormRules<Form>>({
-  userId: [
+const rules = reactive<FormRules<TRegisterInput>>({
+  id: [
     { required: true, message: '学号 / 用户名不能为空', trigger: 'blur' },
     { min: 4, max: 24, message: '学号 / 用户名长度应在 4~24 之间', trigger: 'blur' },
   ],
@@ -99,7 +94,7 @@ const register = async (submittedForm: FormInstance | undefined) => {
 
       try {
         await trpc.user.register.mutate({
-          id: form.userId,
+          id: form.id,
           username: form.username,
           password: form.password,
           role: form.role,

@@ -4,13 +4,19 @@
       <el-icon>
         <CirclePlus />
       </el-icon>
-      <span>创建账户</span>
+      创建账户
     </el-menu-item>
     <el-menu-item index="/admin/list">
       <el-icon>
         <document />
       </el-icon>
-      <span>学生列表</span>
+      学生列表
+    </el-menu-item>
+    <el-menu-item index="/admin/createPaper">
+      <el-icon>
+        <CirclePlus />
+      </el-icon>
+      创建论文
     </el-menu-item>
   </el-menu>
 </template>

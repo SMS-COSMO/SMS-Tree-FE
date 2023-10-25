@@ -11,7 +11,8 @@ const router = createRouter({
       children: [
         { path: '/admin/home', component: () => import('./pages/admin/HomePage.vue') },
         { path: '/admin/register', component: () => import('./pages/admin/RegisterPage.vue') },
-        { path: '/admin/list', component: () => import('./pages/admin/StudentListPage.vue') }
+        { path: '/admin/list', component: () => import('./pages/admin/StudentListPage.vue') },
+        { path: '/admin/createPaper', component: () => import('./pages/admin/createPaperPage.vue') },
       ],
     },
     { path: '/login', component: () => import('./pages/account/LoginPage.vue') },

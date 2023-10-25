@@ -47,6 +47,14 @@
     font-size: 16px !important;
 }
 
+.el-textarea__inner {
+    min-height: 45px !important;
+    font-size: 16px !important;
+    border: 2px solid var(--el-border-color) !important;
+    border-radius: $border-radius !important;
+    box-shadow: none !important;
+}
+
 .el-input__wrapper {
     border-radius: $border-radius !important;
     box-shadow: none !important;

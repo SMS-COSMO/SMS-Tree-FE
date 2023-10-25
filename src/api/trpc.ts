@@ -1,10 +1,10 @@
 import { createTRPCProxyClient, httpBatchLink } from '@trpc/client';
 import type { AppRouter } from '../../SMS-Tree-BE/src/routers/_app';
+import { inferRouterOutputs, inferRouterInputs } from '@trpc/server';
 import { TRPCClientError } from '@trpc/client';
 import superjson from 'superjson';
 
 import { UserStore } from '../stores/user';
-import { inferRouterOutputs } from '@trpc/server';
 const userStore = UserStore();
 
 export const trpc = createTRPCProxyClient<AppRouter>({
@@ -22,6 +22,7 @@ export const trpc = createTRPCProxyClient<AppRouter>({
 });
 
 export type RouterOutput = inferRouterOutputs<AppRouter>;
+export type RouterInput = inferRouterInputs<AppRouter>;
 
 export function isTRPCClientError(
   cause: unknown,
