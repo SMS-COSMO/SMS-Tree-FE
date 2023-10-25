@@ -19,6 +19,15 @@
         </div>
         <el-input v-model="form.abstract" :autosize="{ minRows: 3, maxRows: 6 }" type="textarea" />
       </el-form-item>
+      <el-form-item>
+        <div>
+          <el-icon :size="15">
+            <Document />
+          </el-icon>
+          标签
+        </div>
+        <keywordEditor v-model="form.keywords" />
+      </el-form-item>
       <el-form-item style="margin-bottom: 0;">
         <el-button class="submit-button" color="#146E3C" :loading="buttonLoading" @click="register(formRef)">
           创建

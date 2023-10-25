@@ -44,6 +44,7 @@ declare module 'vue' {
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
     ElUpload: typeof import('element-plus/es')['ElUpload']
     FooterBar: typeof import('./src/components/layouts/FooterBar.vue')['default']
+    KeywordEditor: typeof import('./src/components/paper/keywordEditor.vue')['default']
     NavBar: typeof import('./src/components/layouts/NavBar.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
