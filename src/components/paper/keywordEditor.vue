@@ -1,0 +1,76 @@
+<template>
+  <div style="width: 100%;">
+    <el-tag v-for="tag in modelValue" :key="tag" size="large" effect="plain" class="mx-1" closable type="info"
+      :disable-transitions="false" @close="handleClose(tag)">
+      {{ tag }}
+    </el-tag>
+    <el-input v-if="inputVisible" ref="InputRef" v-model="inputValue" :maxlength="contentMaxLength"
+      class=" mx-1 same-size tag-input" size="small" @keyup.enter="handleInputConfirm" @blur="handleInputConfirm" />
+    <el-button v-else class="same-size mx-1" size="small" color="#146E3C" plain @click="showInput">
+      + New Tag
+    </el-button>
+  </div>
+</template>
+
+<script lang="ts" setup>
+import { nextTick, ref } from 'vue';
+import { ElInput } from 'element-plus';
+
+const props = defineProps({
+  modelValue: Array<string>,
+  contentMaxLength: {
+    type: Number,
+    default: 20,
+  }
+});
+const emit = defineEmits(['update:modelValue']);
+
+const inputValue = ref('');
+const dynamicTags = ref(props.modelValue ?? []);
+const inputVisible = ref(false);
+const InputRef = ref<InstanceType<typeof ElInput>>();
+
+const handleClose = (tag: string) => {
+  dynamicTags.value.splice(dynamicTags.value.indexOf(tag), 1);
+};
+
+const showInput = () => {
+  inputVisible.value = true;
+  nextTick(() => {
+    InputRef.value?.input?.focus();
+  });
+};
+
+const handleInputConfirm = () => {
+  if (inputValue.value) {
+    dynamicTags.value.push(inputValue.value);
+  }
+
+  inputVisible.value = false;
+  inputValue.value = '';
+  emit('update:modelValue', dynamicTags.value);
+};
+</script>
+
+<style lang="scss" scoped>
+.mx-1 {
+  margin: 0.2rem;
+  box-sizing: border-box;
+}
+
+.same-size {
+  height: 32px !important;
+  width: 100px !important;
+  border-radius: 4px !important;
+}
+
+.tag-input {
+  border: 1px solid var(--el-color-info-light-5) !important;
+}
+</style>
+
+<style>
+.tag-input .el-input__wrapper {
+  border: none !important;
+}
+</style>
