@@ -4,7 +4,6 @@
   <el-row :gutter="20">
     <el-col :span="6">
       <el-card>
-
       </el-card>
     </el-col>
     <el-col :span="18">
@@ -102,7 +101,7 @@ onMounted(async () => {
 
 <style lang="scss" scoped>
 .infinite-list {
-  height: calc(100vh - 95px - 65px - 50px);
+  height: calc(100vh - 95px - 65px);
   padding: 0;
   margin: 0;
   list-style: none;
@@ -116,7 +115,7 @@ onMounted(async () => {
 .list-full-screen {
   position: fixed;
   left: 0;
-  width: 100vw
+  width: 100vw;
 }
 
 .list-full-screen-center {
@@ -176,4 +175,5 @@ onMounted(async () => {
 .list-enter-from,
 .list-leave-to {
   opacity: 0;
-}</style>
+}
+</style>
