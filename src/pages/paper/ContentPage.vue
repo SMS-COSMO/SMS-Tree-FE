@@ -130,7 +130,7 @@ onMounted(async () => {
 });
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "~/styles/color.scss";
 
 .title {

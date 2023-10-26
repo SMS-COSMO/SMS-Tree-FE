@@ -69,6 +69,23 @@
     box-shadow: none !important;
 }
 
+.el-input-group--prepend>.el-input__wrapper {
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+}
+
+.el-input-group__prepend {
+    border-top-left-radius: 10px !important;
+    border-bottom-left-radius: 10px !important;
+    border-width: 2px 0 2px 0;
+    border-left: 2px solid var(--el-border-color) !important;
+    border-top: 2px solid var(--el-border-color) !important;
+    border-bottom: 2px solid var(--el-border-color) !important;
+    box-sizing: border-box;
+    box-shadow: none !important;
+}
+
+
 // Select
 .el-select__popper {
     border-radius: $border-radius !important;
