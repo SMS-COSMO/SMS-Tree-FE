@@ -2,57 +2,37 @@
   <el-backtop :right="100" :bottom="100" />
 
   <el-row :gutter="20">
-    <el-col :span="20">
-      <el-input v-model="searchContent" placeholder="搜索论文" clearable />
+    <el-col :span="6">
+      <el-card>
+
+      </el-card>
     </el-col>
-    <el-col :span="4">
-      <el-button style="width: 100%;" color="#146E3C" plain>
-        <el-icon :size="14">
-          <Search />
-        </el-icon>
-        搜索
-      </el-button>
+    <el-col :span="18">
+      <el-input v-model="searchContent" placeholder="搜索论文" clearable style="margin-bottom: 15px;">
+        <template #prepend>
+          <el-icon>
+            <Search />
+          </el-icon>
+        </template>
+      </el-input>
+
+      <div>
+        <div v-if="loading" class="infinite-list-skeleton">
+          <el-card v-for="n in 10" :key="n" class="search-skeleton-card">
+            <el-skeleton :rows="1" animated :loading="loading" />
+          </el-card>
+        </div>
+        <div v-else>
+          <TransitionGroup name="list" tag="ul" v-infinite-scroll="load" class="infinite-list"
+            infinite-scroll-immediate="false">
+            <li v-for="(paper, index) in processedListData.slice(0, count)" :key="index">
+              <paperCard :paper="paper" @click="open_paper(paper)" />
+            </li>
+          </TransitionGroup>
+        </div>
+      </div>
     </el-col>
   </el-row>
-
-  <el-table class="table" stripe :data="displayListData.slice((currentPage - 1) * pageSize, currentPage * pageSize)"
-    size="large" @row-click="open_paper" v-loading="loading">
-    <el-table-column fixed prop="title" label="标题" />
-    <el-table-column prop="keywords" label="标签" width="280">
-      <template #default="scope">
-        <el-tag v-for="(keyword, index) in scope.row.keywords.slice(0, 8)" :key="index" class="mx-1" effect="plain"
-          type="info">
-          {{ keyword.slice(0, 8) }}
-          <el-tooltip v-if="keyword.length > 8" :content="keyword" placement="top">
-            ...
-          </el-tooltip>
-        </el-tag>
-        <el-tooltip placement="bottom" style="max-width: 200px;">
-          <template #content>
-            <span v-for="(keyword, index) in scope.row.keywords" :key="index">
-              {{ keyword }}
-              <br>
-            </span>
-          </template>
-          <el-text v-if="scope.row.keywords.length > 5" type="info">
-            ...
-          </el-text>
-        </el-tooltip>
-      </template>
-    </el-table-column>
-    <el-table-column prop="authorGroupId" label="作者" width="180" />
-    <el-table-column prop="createdAt" label="发布时间" width="180">
-      <template #default="scope">
-        {{ scope.row.createdAt.toLocaleDateString() }}
-      </template>
-    </el-table-column>
-  </el-table>
-
-  <div class="pagination-holder">
-    <el-pagination class="pagination" v-model:page-size="pageSize" v-model:current-page="currentPage"
-      :page-sizes="[20, 50, 100, 200, 300, 400]" background layout="sizes, prev, pager, next, jumper, total"
-      :total="displayListData.length" />
-  </div>
 </template>
 
 <script setup lang="ts">
@@ -66,18 +46,13 @@ type TList = RouterOutput['paper']['list'];
 const router = useRouter();
 const route = useRoute();
 
-const open_paper = (row: TList[0]) => {
+const count = ref(10);
+
+const open_paper = (paper: TList[0]) => {
   router.push({
-    path: `/paper/${row.id}`,
+    path: `/paper/${paper.id}`,
   });
 };
-
-const processTag = (content: string) => {
-  return content.length > 5 ? `${content.slice(0, 5)}...` : content;
-};
-
-const pageSize = ref(50);
-const currentPage = ref(1);
 
 const searchContent = ref(route.query.search?.toString() ?? '');
 
@@ -95,9 +70,13 @@ const fuseOptions: UseFuseOptions<TList[0]> = {
 };
 
 const fuse = useFuse(searchContent, listData, fuseOptions);
-const displayListData = computed(() => {
+const processedListData = computed(() => {
   return fuse.results.value.map(e => e.item);
 });
+
+const load = () => {
+  count.value += Math.min(5, processedListData.value.length - count.value);
+};
 
 onMounted(async () => {
   try {
@@ -114,6 +93,30 @@ onMounted(async () => {
 </script>
 
 <style lang="scss" scoped>
+.infinite-list {
+  height: calc(100vh - 95px - 65px - 50px);
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  overflow-x: hidden;
+  overflow-y: scroll;
+
+  // -ms-overflow-style: none;
+  // scrollbar-width: none;
+}
+
+.infinite-list-skeleton {
+  height: calc(100vh - 95px - 65px - 50px);
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  overflow: hidden;
+}
+
+// .infinite-list::-webkit-scrollbar {
+//   display: none;
+// }
+
 .table {
   margin-top: 20px;
   cursor: pointer;
@@ -138,7 +141,20 @@ onMounted(async () => {
   text-align: center;
 }
 
-.mx-1 {
-  margin: 0.2rem;
+.search-skeleton-card {
+  margin-bottom: 10px;
+}
+
+.list-enter-active {
+  transition: all 0.5s ease;
+}
+
+.list-leave-active {
+  transition: all 0.3s ease;
+}
+
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
 }
 </style>
