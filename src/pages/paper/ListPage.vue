@@ -23,10 +23,18 @@
           </el-card>
         </div>
         <div v-else>
-          <TransitionGroup name="list" tag="ul" v-infinite-scroll="load" class="infinite-list"
+          <TransitionGroup name="list" tag="ul" v-infinite-scroll="load" class="infinite-list list-full-screen"
             infinite-scroll-immediate="false">
             <li v-for="(paper, index) in processedListData.slice(0, count)" :key="index">
-              <paperCard :paper="paper" @click="open_paper(paper)" />
+              <div class="list-full-screen-center">
+                <el-row :gutter="20">
+                  <el-col :span="6">
+                  </el-col>
+                  <el-col :span="18">
+                    <paperCard :paper="paper" @click="open_paper(paper)" />
+                  </el-col>
+                </el-row>
+              </div>
             </li>
           </TransitionGroup>
         </div>
@@ -101,8 +109,20 @@ onMounted(async () => {
   overflow-x: hidden;
   overflow-y: scroll;
 
-  // -ms-overflow-style: none;
-  // scrollbar-width: none;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.list-full-screen {
+  position: fixed;
+  left: 0;
+  width: 100vw
+}
+
+.list-full-screen-center {
+  max-width: 1300px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .infinite-list-skeleton {
@@ -113,9 +133,9 @@ onMounted(async () => {
   overflow: hidden;
 }
 
-// .infinite-list::-webkit-scrollbar {
-//   display: none;
-// }
+.infinite-list::-webkit-scrollbar {
+  display: none;
+}
 
 .table {
   margin-top: 20px;
@@ -156,5 +176,4 @@ onMounted(async () => {
 .list-enter-from,
 .list-leave-to {
   opacity: 0;
-}
-</style>
+}</style>
