@@ -66,15 +66,15 @@ const searchContent = ref(route.query.search?.toString() ?? '');
 const listData = ref<TList>([]);
 const loading = ref(true);
 
-const fuseOptions: UseFuseOptions<TList[0]> = {
+const fuseOptions = ref<UseFuseOptions<TList[0]>>({
   fuseOptions: {
-    keys: ['title', 'keywords'],
+    keys: ['title', 'keywords', 'abstract'],
     shouldSort: true,
     threshold: 0.6,
     useExtendedSearch: true,
   },
   matchAllWhenSearchEmpty: true,
-};
+});
 
 const fuse = useFuse(searchContent, listData, fuseOptions);
 const processedListData = computed(() => {
