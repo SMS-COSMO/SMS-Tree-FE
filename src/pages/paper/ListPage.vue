@@ -4,10 +4,15 @@
   <el-row :gutter="20">
     <el-col :span="6">
       <el-card>
+        <div class="left-box-inner">
+          <el-checkbox v-model="filter.onlyCanDownload" label="仅查看可下载" border />
+          <el-checkbox v-model="filter.onlyFeatured" label="仅查看优秀作业" style="margin-top: 8px" border />
+          <el-select style="width: 100%; margin-top: 8px;"></el-select>
+        </div>
       </el-card>
     </el-col>
     <el-col :span="18">
-      <el-input v-model="searchContent" placeholder="搜索论文" clearable style="margin-bottom: 15px;">
+      <el-input v-model="searchContent" placeholder="搜索论文" clearable style="margin-bottom: 15px;" @change="updateUrl">
         <template #prepend>
           <el-icon>
             <Search />
@@ -66,6 +71,15 @@ const searchContent = ref(route.query.search?.toString() ?? '');
 const listData = ref<TList>([]);
 const loading = ref(true);
 
+const filter = ref({
+  onlyCanDownload: false,
+  onlyFeatured: false,
+});
+
+const updateUrl = () => {
+  router.replace({ query: { search: searchContent.value } });
+};
+
 const fuseOptions = ref<UseFuseOptions<TList[0]>>({
   fuseOptions: {
     keys: ['title', 'keywords', 'abstract'],
@@ -100,6 +114,11 @@ onMounted(async () => {
 </script>
 
 <style lang="scss" scoped>
+.left-box-inner {
+  position: relative;
+  z-index: 10;
+}
+
 .infinite-list {
   height: calc(100vh - 95px - 65px);
   padding: 0;
