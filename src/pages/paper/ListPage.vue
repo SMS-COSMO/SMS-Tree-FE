@@ -92,7 +92,8 @@ const fuseOptions = ref<UseFuseOptions<TList[0]>>({
 
 const fuse = useFuse(searchContent, listData, fuseOptions);
 const processedListData = computed(() => {
-  return fuse.results.value.map(e => e.item);
+  return fuse.results.value.map(e => e.item)
+    .filter(o => (!filter.value.onlyCanDownload || o.canDownload) && (!filter.value.onlyFeatured || o.isFeatured));
 });
 
 const load = () => {

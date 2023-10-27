@@ -1,21 +1,20 @@
 <template>
   <el-card class="card-container">
     <el-row style="gap: 6px">
-      <el-tag type="success" disable-transitions>
+      <el-tag type="success" disable-transitions v-if="paper?.isFeatured">
         <el-icon>
           <Star />
         </el-icon>
         优秀作业
       </el-tag>
-      <el-tag disable-transitions>
+      <el-tag disable-transitions v-if="paper?.canDownload">
         <el-icon>
           <Download />
         </el-icon>
         可下载
       </el-tag>
       <el-tag type="info" disable-transitions>{{ paper?.createdAt?.toLocaleDateString('zh-CN') }}</el-tag>
-      <!-- v-if can download -->
-      <el-text type="info" size="small">
+      <el-text type="info" size="small" v-if="paper?.canDownload">
         下载次数：{{ paper?.downloadCount }}
       </el-text>
     </el-row>

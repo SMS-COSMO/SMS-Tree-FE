@@ -4,12 +4,20 @@
   <div class="title-holder">
     <h1 class="title">
       <el-skeleton animated :rows="0" :loading="contentLoading">
-        {{ content.title }}
+        <el-tag type="success" size="large" v-if="content?.isFeatured">
+          <el-text style="color: var(--el-color-success);">
+            <el-icon>
+              <Star />
+            </el-icon>
+            优秀作业
+          </el-text>
+        </el-tag>
+        {{ content?.title }}
       </el-skeleton>
     </h1>
     <el-skeleton animated :loading="contentLoading" :rows="2" style="width: 200px">
       <el-space :size="20">
-        <el-statistic :value="content.rate">
+        <el-statistic :value="content?.rate">
           <template #title>
             <div style="display: inline-flex; align-items: center">
               分数
@@ -17,7 +25,7 @@
           </template>
         </el-statistic>
         <el-divider direction="vertical" style="height: 40px;"></el-divider>
-        <el-statistic :value="content.downloadCount">
+        <el-statistic :value="content?.downloadCount">
           <template #title>
             <div style="display: inline-flex; align-items: center">
               下载次数
@@ -36,11 +44,10 @@
         </template>
         <el-skeleton animated :rows="4" :loading="contentLoading">
           <el-divider content-position="left">发布时间</el-divider>
-          {{ content.createdAt.toLocaleDateString('zh-CN') }}
+          {{ content?.createdAt.toLocaleDateString('zh-CN') }}
         </el-skeleton>
-      </el-card>
-      <el-card class="mt20">
-        <el-button color="#146E3C" style="width: 100%;" plain @click="downloadDialog = true;">
+        <el-button color="#146E3C" style="width: 100%; margin-top: 20px;" plain @click="downloadDialog = true;"
+          v-if="content?.canDownload">
           下载
         </el-button>
         <el-dialog v-model="downloadDialog" title="文件下载" class="download-dialog">
@@ -58,16 +65,22 @@
           摘要
         </template>
         <el-skeleton animated :rows="4" :loading="contentLoading">
-          {{ content.abstract }}
+          {{ content?.abstract }}
         </el-skeleton>
 
-        <el-divider content-position="left">关键词</el-divider>
-        <el-skeleton animated :rows="1" :loading="contentLoading">
-          <el-tag v-for="(keyword, index) in content.keywords" :key="index" size="large" class="mx-1 clickable"
-            type="info" effect="plain" @click="searchTag(keyword)">
-            {{ keyword }}
-          </el-tag>
-        </el-skeleton>
+        <el-row>
+          <el-skeleton style="margin-top: 20px;" animated :rows="1" :loading="contentLoading">
+            <div style="margin-top: 20px;" v-if="content?.keywords.length">
+              <el-text style="font-weight: bold">
+                关键词：
+              </el-text>
+              <el-tag v-for="(keyword, index) in content?.keywords" :key="index" size="large" class="mx-1 clickable"
+                type="info" effect="plain" @click="searchTag(keyword)">
+                {{ keyword }}
+              </el-tag>
+            </div>
+          </el-skeleton>
+        </el-row>
       </el-card>
     </el-col>
   </el-row>
@@ -100,17 +113,7 @@ const id = route.params.id.toString();
 const downloadDialog = ref(false);
 const contentLoading = ref(true);
 
-const content = ref<RouterOutput['paper']['content']>({
-  id: '',
-  title: '',
-  keywords: [],
-  abstract: '',
-  authorGroupId: '',
-  status: 0,
-  downloadCount: 0,
-  rate: 0,
-  createdAt: new Date(),
-});
+const content = ref<RouterOutput['paper']['content']>();
 
 const searchTag = (keyword: string) => {
   router.push({ path: '/list', query: { search: keyword } });
