@@ -27,11 +27,11 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
-import { RouterOutput, isTRPCClientError, trpc } from '../../api/trpc';
+import { UserStudentListOutput, isTRPCClientError, trpc } from '../../api/trpc';
 import { ElMessage } from 'element-plus';
 import { useRouter } from 'vue-router';
 
-const listData = ref<RouterOutput['user']['studentList']>([]);
+const listData = ref<UserStudentListOutput>([]);
 const loading = ref(true);
 
 const searchContent = ref('');

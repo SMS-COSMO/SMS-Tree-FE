@@ -22,6 +22,12 @@ export const trpc = createTRPCProxyClient<AppRouter>({
 });
 
 export type RouterOutput = inferRouterOutputs<AppRouter>;
+export type UserProfileOutput = RouterOutput['user']['profile'];
+export type UserStudentListOutput = RouterOutput['user']['studentList'];
+export type PaperContentOutput = RouterOutput['paper']['content'];
+export type PaperListOutput = RouterOutput['paper']['list'];
+export type PaperListOutputItem = RouterOutput['paper']['list'][0];
+
 export type RouterInput = inferRouterInputs<AppRouter>;
 
 export function isTRPCClientError(

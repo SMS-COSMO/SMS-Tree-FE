@@ -50,17 +50,16 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { RouterOutput, isTRPCClientError, trpc } from '../../api/trpc';
+import { PaperListOutput, PaperListOutputItem, isTRPCClientError, trpc } from '../../api/trpc';
 import { ElMessage } from 'element-plus';
 import { useFuse, type UseFuseOptions } from '@vueuse/integrations/useFuse';
-type TList = RouterOutput['paper']['list'];
 
 const router = useRouter();
 const route = useRoute();
 
 const count = ref(10);
 
-const open_paper = (paper: TList[0]) => {
+const open_paper = (paper: PaperListOutputItem) => {
   router.push({
     path: `/paper/${paper.id}`,
   });
@@ -68,7 +67,7 @@ const open_paper = (paper: TList[0]) => {
 
 const searchContent = ref(route.query.search?.toString() ?? '');
 
-const listData = ref<TList>([]);
+const listData = ref<PaperListOutput>([]);
 const loading = ref(true);
 
 const filter = ref({
@@ -80,7 +79,7 @@ const updateUrl = () => {
   router.replace({ query: { search: searchContent.value } });
 };
 
-const fuseOptions = ref<UseFuseOptions<TList[0]>>({
+const fuseOptions = ref<UseFuseOptions<PaperListOutputItem>>({
   fuseOptions: {
     keys: ['title', 'keywords', 'abstract'],
     shouldSort: true,

@@ -39,12 +39,12 @@
 import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { isTRPCClientError, trpc } from '../../api/trpc';
-import type { RouterOutput } from '../../api/trpc';
+import type { UserProfileOutput } from '../../api/trpc';
 import { ElMessage } from 'element-plus';
 const route = useRoute();
 
 const id = route.params.id.toString();
-const info = ref<RouterOutput['user']['profile']>({
+const info = ref<UserProfileOutput>({
   id: '',
   username: '',
   role: 'student',

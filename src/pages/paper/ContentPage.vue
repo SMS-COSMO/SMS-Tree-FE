@@ -103,7 +103,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { RouterOutput, isTRPCClientError, trpc } from '../../api/trpc';
+import { PaperContentOutput, isTRPCClientError, trpc } from '../../api/trpc';
 import { ElMessage } from 'element-plus';
 const route = useRoute();
 const router = useRouter();
@@ -113,7 +113,7 @@ const id = route.params.id.toString();
 const downloadDialog = ref(false);
 const contentLoading = ref(true);
 
-const content = ref<RouterOutput['paper']['content']>();
+const content = ref<PaperContentOutput>();
 
 const searchTag = (keyword: string) => {
   router.push({ path: '/list', query: { search: keyword } });
