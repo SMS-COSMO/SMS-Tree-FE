@@ -4,12 +4,16 @@
       :disable-transitions="false" @close="handleClose(tag)">
       {{ tag }}
     </el-tag>
+
     <el-input v-if="inputVisible" ref="InputRef" v-model="inputValue" :maxlength="contentMaxLength" show-word-limit
-      class=" mx-1 same-size tag-input" size="small" @keyup.enter="handleInputConfirm" @blur="handleInputConfirm" />
-    <el-button v-else class="same-size mx-1" size="small" color="#146E3C" plain @click="showInput"
-      :disabled="modelValue.length >= 8">
-      + 添加关键词
-    </el-button>
+      class="mx-1 same-size tag-input" size="small" @keyup.enter="handleInputConfirm" @blur="handleInputConfirm" />
+    <el-tooltip v-else :visible="tooltipVisible" placement="top-start" content="最多添加 8 个关键词">
+      <el-button class="same-size mx-1" size="small" color="#146E3C" plain @click="showInput"
+        :disabled="modelValue.length >= 8" @mouseenter="tooltipVisible = modelValue.length >= 8"
+        @mouseleave="tooltipVisible = false">
+        + 添加关键词
+      </el-button>
+    </el-tooltip>
   </div>
 </template>
 
@@ -32,6 +36,8 @@ const dynamicTags = ref(props.modelValue);
 const inputVisible = ref(false);
 const InputRef = ref<InstanceType<typeof ElInput>>();
 
+const tooltipVisible = ref(false);
+
 const handleClose = (tag: string) => {
   dynamicTags.value.splice(dynamicTags.value.indexOf(tag), 1);
 };
@@ -44,7 +50,7 @@ const showInput = () => {
 };
 
 const handleInputConfirm = () => {
-  if (inputValue.value) {
+  if (inputValue.value && !dynamicTags.value.includes(inputValue.value)) {
     dynamicTags.value.push(inputValue.value);
   }
 
