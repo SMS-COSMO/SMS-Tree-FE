@@ -7,7 +7,12 @@
         <div class="left-box-inner">
           <el-checkbox v-model="filter.onlyCanDownload" label="仅查看可下载" border />
           <el-checkbox v-model="filter.onlyFeatured" label="仅查看优秀作业" style="margin-top: 8px" border />
-          <el-select style="width: 100%; margin-top: 8px;"></el-select>
+          <el-divider content-position="left">
+            搜索范围
+          </el-divider>
+          <el-select v-model="searchSelectValue" placeholder="搜索内容" multiple style="width: 100%">
+            <el-option v-for="item in searchSelectOptions" :key="item.value" :label="item.label" :value="item.value" />
+          </el-select>
         </div>
       </el-card>
     </el-col>
@@ -52,7 +57,7 @@ import { computed, onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { PaperListOutput, PaperListOutputItem, isTRPCClientError, trpc } from '../../api/trpc';
 import { ElMessage } from 'element-plus';
-import { useFuse, type UseFuseOptions } from '@vueuse/integrations/useFuse';
+import { useFuse } from '@vueuse/integrations/useFuse';
 
 const router = useRouter();
 const route = useRoute();
@@ -79,14 +84,26 @@ const updateUrl = () => {
   router.replace({ query: { search: searchContent.value } });
 };
 
-const fuseOptions = ref<UseFuseOptions<PaperListOutputItem>>({
-  fuseOptions: {
-    keys: ['title', 'keywords', 'abstract'],
-    shouldSort: true,
-    threshold: 0.6,
-    useExtendedSearch: true,
+const searchSelectOptions = [
+  {
+    value: 'title',
+    label: '标题',
+  }, {
+    value: 'keywords',
+    label: '关键词',
   },
-  matchAllWhenSearchEmpty: true,
+];
+const searchSelectValue = ref(['title', 'keywords']);
+const fuseOptions = computed(() => {
+  return {
+    fuseOptions: {
+      keys: searchSelectValue.value,
+      shouldSort: true,
+      threshold: 0.6,
+      useExtendedSearch: true,
+    },
+    matchAllWhenSearchEmpty: true,
+  };
 });
 
 const fuse = useFuse(searchContent, listData, fuseOptions);
