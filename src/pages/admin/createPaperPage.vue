@@ -1,48 +1,23 @@
 <template>
   <el-card>
-    <el-form label-position="top" class="register-form" :model="form" :rules="rules" ref="formRef">
-      <el-form-item prop="title">
-        <div class="icon-label">
-          <el-icon :size="15">
-            <Document />
-          </el-icon>
-          标题
-        </div>
+    <el-form class="register-form" :model="form" :rules="rules" ref="formRef" label-width="120px">
+      <el-form-item prop="title" label="标题">
         <el-input v-model="form.title" />
       </el-form-item>
-      <el-form-item prop="abstract">
-        <div>
-          <el-icon :size="15">
-            <Document />
-          </el-icon>
-          摘要
-        </div>
+      <el-form-item prop="abstract" label="摘要">
         <el-input v-model="form.abstract" :autosize="{ minRows: 3, maxRows: 6 }" type="textarea" />
       </el-form-item>
-      <el-form-item>
-        <div>
-          <el-icon :size="15">
-            <CollectionTag />
-          </el-icon>
-          关键词
-        </div>
+      <el-form-item prop="keywords" label="关键词">
         <keywordEditor v-model="form.keywords" />
       </el-form-item>
-      <el-form-item>
-        <div>
-          <el-icon :size="15">
-            <User />
-          </el-icon>
-          作者
-        </div>
+      <el-form-item prop="canDownload" label="允许下载">
+        <el-switch v-model="form.canDownload" size="large" active-text="是" inactive-text="否" inline-prompt
+          style="--el-switch-on-color: #13ce66; --el-switch-off-color: #db3131;" />
       </el-form-item>
-      <el-form-item>
-        <div>
-          <el-icon :size="15">
-            <User />
-          </el-icon>
-          文件
-        </div>
+      <el-form-item label="作者">
+        <el-select filterable></el-select>
+      </el-form-item>
+      <el-form-item label="文件">
         <el-upload style="width: 100%;">
           <el-button color="#146E3C" plain>点击上传文件</el-button>
         </el-upload>
@@ -68,6 +43,7 @@ const form = reactive<TCreatePaperInput>({
   abstract: '',
   authorGroupId: '',
   keywords: [],
+  canDownload: false,
   S3FileId: '',
 });
 
@@ -91,7 +67,7 @@ const register = async (submittedForm: FormInstance | undefined) => {
   
 <style lang="scss" scoped>
 .register-form {
-  max-width: 500px;
+  max-width: 700px;
   margin-left: auto;
   margin-right: auto;
 
