@@ -18,7 +18,11 @@
         </template>
         <template #default="">
           <el-button size="small">修改</el-button>
-          <el-button size="small" type="danger">删除</el-button>
+          <el-popconfirm title="确定要删除此用户吗？" confirm-button-text="是" cancel-button-text="否" width="220">
+            <template #reference>
+              <el-button size="small" type="danger">删除</el-button>
+            </template>
+          </el-popconfirm>
         </template>
       </el-table-column>
     </el-table>
