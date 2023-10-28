@@ -26,15 +26,11 @@
 </template>
 
 <script setup lang="ts">
-import { PropType } from 'vue';
 import { PaperListOutputItem } from '../../api/trpc';
 
-defineProps({
-  paper: {
-    type: Object as PropType<PaperListOutputItem>,
-    require: true,
-  },
-});
+defineProps<{
+  paper: PaperListOutputItem;
+}>();
 </script>
 
 <style scoped lang="scss">

@@ -5,9 +5,11 @@
 </template>
 
 <script lang="ts" setup>
-defineProps({
-  type: { type: String, default: 'word' },
-  url: { type: String, required: true }
+withDefaults(defineProps<{
+  type: string;
+  url: string;
+}>(), {
+  type: 'word',
 });
 </script>
 

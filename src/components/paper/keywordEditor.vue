@@ -17,19 +17,13 @@
 import { nextTick, ref } from 'vue';
 import { ElInput } from 'element-plus';
 
-const props = defineProps({
-  modelValue: {
-    type: Array<string>,
-    required: true,
-  },
-  contentMaxLength: {
-    type: Number,
-    default: 8,
-  },
-  maxLength: {
-    type: Number,
-    default: 8,
-  }
+const props = withDefaults(defineProps<{
+  modelValue: string[];
+  contentMaxLength: number;
+  maxLength: number;
+}>(), {
+  contentMaxLength: 8,
+  maxLength: 8,
 });
 const emit = defineEmits(['update:modelValue']);
 
