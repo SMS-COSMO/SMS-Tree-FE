@@ -11,5 +11,7 @@
   margin-left: auto;
   margin-right: auto;
   margin-top: 95px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 </style>
