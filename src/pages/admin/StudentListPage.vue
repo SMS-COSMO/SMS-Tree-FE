@@ -16,9 +16,10 @@
         <template #header>
           <el-input v-model="searchContent" placeholder="搜索学生" />
         </template>
-        <template #default="">
+        <template #default="scope">
           <el-button size="small">修改</el-button>
-          <el-popconfirm title="确定要删除此用户吗？" confirm-button-text="是" cancel-button-text="否" width="220">
+          <el-popconfirm title="确定要删除此用户吗？" confirm-button-text="是" cancel-button-text="否" width="220"
+            confirm-button-type="danger" @confirm="deleteUser(scope.row.id)">
             <template #reference>
               <el-button size="small" type="danger">删除</el-button>
             </template>
@@ -44,6 +45,19 @@ const router = useRouter();
 
 const visitProfile = (id: string) => {
   router.push(`/user/${id}`);
+};
+
+const deleteUser = (id: string) => {
+  try {
+    trpc.user.remove.mutate({ id });
+    listData.value.splice(listData.value.findIndex(e => e.id === id), 1);
+  } catch (err) {
+    if (isTRPCClientError(err)) {
+      ElMessage({ message: err.message, type: 'error', showClose: true });
+    } else {
+      ElMessage({ message: '未知错误', type: 'error', showClose: true });
+    }
+  }
 };
 
 onMounted(async () => {
