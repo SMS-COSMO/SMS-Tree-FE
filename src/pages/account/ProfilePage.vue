@@ -23,7 +23,7 @@
           </el-card>
         </el-col>
       </el-row>
-      <el-card class="mt20">
+      <el-card class="mt-5">
         <template #header>
           参与的项目
         </template>

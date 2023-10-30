@@ -61,11 +61,6 @@ const handleInputConfirm = () => {
 </script>
 
 <style lang="scss" scoped>
-.mx-1 {
-  margin: 0.2rem;
-  box-sizing: border-box;
-}
-
 .same-size {
   height: 32px !important;
   width: 120px !important;

@@ -6,18 +6,18 @@
       <el-card>
         <div class="left-box-inner">
           <el-checkbox v-model="filter.onlyCanDownload" label="仅查看可下载" border />
-          <el-checkbox v-model="filter.onlyFeatured" label="仅查看优秀作业" style="margin-top: 8px" border />
+          <el-checkbox v-model="filter.onlyFeatured" label="仅查看优秀作业" class="mt-2" border />
           <el-divider content-position="left">
             搜索范围
           </el-divider>
-          <el-select v-model="searchSelectValue" placeholder="搜索内容" multiple style="width: 100%">
+          <el-select v-model="searchSelectValue" placeholder="搜索内容" multiple class="w-full">
             <el-option v-for="item in searchSelectOptions" :key="item.value" :label="item.label" :value="item.value" />
           </el-select>
         </div>
       </el-card>
     </el-col>
     <el-col :span="18">
-      <el-input v-model="searchContent" placeholder="搜索论文" clearable style="margin-bottom: 15px;" @change="updateUrl">
+      <el-input v-model="searchContent" placeholder="搜索论文" clearable class="mb-4" @change="updateUrl">
         <template #prepend>
           <el-icon>
             <Search />
@@ -26,16 +26,16 @@
       </el-input>
 
       <div>
-        <div v-if="loading" class="infinite-list-skeleton">
-          <el-card v-for="n in 10" :key="n" class="search-skeleton-card">
+        <div v-if="loading" class="infinite-list-skeleton m-0 p-0">
+          <el-card v-for="n in 10" :key="n" class="mb-2.5">
             <el-skeleton :rows="1" animated :loading="loading" />
           </el-card>
         </div>
         <div v-else>
-          <TransitionGroup name="list" tag="ul" v-infinite-scroll="load" class="infinite-list list-full-screen"
+          <TransitionGroup name="list" tag="ul" v-infinite-scroll="load" class="infinite-list m-0 p-0 list-full-screen"
             infinite-scroll-immediate="false">
             <li v-for="(paper, index) in processedListData.slice(0, count)" :key="index">
-              <div class="list-full-screen-center">
+              <div class="list-full-screen-center mx-auto">
                 <el-row :gutter="20">
                   <el-col :span="6">
                   </el-col>
@@ -138,8 +138,6 @@ onMounted(async () => {
 
 .infinite-list {
   height: calc(100vh - 95px - 65px);
-  padding: 0;
-  margin: 0;
   list-style: none;
   overflow-x: hidden;
   overflow-y: scroll;
@@ -156,48 +154,16 @@ onMounted(async () => {
 
 .list-full-screen-center {
   max-width: 1300px;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .infinite-list-skeleton {
   height: calc(100vh - 95px - 65px - 50px);
-  padding: 0;
-  margin: 0;
   list-style: none;
   overflow: hidden;
 }
 
 .infinite-list::-webkit-scrollbar {
   display: none;
-}
-
-.table {
-  margin-top: 20px;
-  cursor: pointer;
-}
-
-.pagination {
-  padding: 20px 30px;
-  align-items: center;
-  margin-left: auto;
-  margin-right: auto;
-  width: fit-content;
-
-  background-color: #FFFFFF;
-  border-radius: 10px;
-}
-
-.pagination-holder {
-  position: fixed;
-  bottom: 30px;
-  left: 0;
-  width: 100%;
-  text-align: center;
-}
-
-.search-skeleton-card {
-  margin-bottom: 10px;
 }
 
 .list-enter-active {

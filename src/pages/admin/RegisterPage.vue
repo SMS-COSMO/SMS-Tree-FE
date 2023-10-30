@@ -1,6 +1,6 @@
 <template>
   <el-card>
-    <el-form label-position="top" class="register-form" :model="form" :rules="rules" ref="formRef">
+    <el-form label-position="top" class="register-form mx-auto py-5" :model="form" :rules="rules" ref="formRef">
       <el-form-item prop="id">
         <div class="icon-label">
           <el-icon :size="15">
@@ -41,7 +41,7 @@
           <el-option label="管理员" value="admin" />
         </el-select>
       </el-form-item>
-      <el-form-item style="margin-bottom: 0;">
+      <el-form-item>
         <el-button class="submit-button" color="#146E3C" :loading="buttonLoading" @click="register(formRef)">
           创建
         </el-button>
@@ -105,7 +105,7 @@ const register = async (submittedForm: FormInstance | undefined) => {
       } catch (err) {
         if (isTRPCClientError(err)) {
           if (err.data?.zodError) {
-            err.data.zodError.forEach((e) => {
+            err.data.zodError.forEach(e => {
               ElMessage({ message: e.message, type: 'error', showClose: true });
             });
           } else {
@@ -125,10 +125,5 @@ const register = async (submittedForm: FormInstance | undefined) => {
 <style lang="scss" scoped>
 .register-form {
   max-width: 500px;
-  margin-left: auto;
-  margin-right: auto;
-
-  padding-top: 20px;
-  padding-bottom: 20px;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <el-card class="card-container">
+  <el-card class="card-container mb-2.5">
     <el-row style="gap: 6px">
       <el-tag type="success" disable-transitions v-if="paper?.isFeatured">
         <el-icon>
@@ -18,9 +18,9 @@
         下载次数：{{ paper?.downloadCount }}
       </el-text>
     </el-row>
-    <el-row class="mt-8">
+    <el-row class="mt-2" style="gap: 8px">
       <el-text class="title">{{ paper?.title }}</el-text>
-      <el-text class="ml-8">Author{{ paper?.authorGroupId }}</el-text>
+      <el-text>Author{{ paper?.authorGroupId }}</el-text>
     </el-row>
   </el-card>
 </template>
@@ -39,17 +39,8 @@ defineProps<{
   font-size: 19px;
 }
 
-.ml-8 {
-  margin-left: 8px;
-}
-
-.mt-8 {
-  margin-top: 8px;
-}
-
 .card-container {
   cursor: pointer;
-  margin-bottom: 10px;
 }
 
 .card-container:hover {
