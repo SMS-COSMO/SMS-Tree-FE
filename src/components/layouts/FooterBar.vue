@@ -1,6 +1,6 @@
 
 <template>
-  <footer class="footer">
+  <footer class="footer mx-auto mt-10 w-full">
     <span>Icon copyright ...</span>
     <el-link type="primary" class="link" @click="$router.push('/feedback')">反馈</el-link>
     <el-link type="primary" href="https://github.com/SMS-COSMO/SMS-Tree" class="link">代码仓库</el-link>
@@ -19,12 +19,6 @@
   flex-direction: row;
   justify-content: space-between;
 
-  width: 100%;
-
-  margin-right: auto;
-  margin-left: auto;
-
-  margin-top: 40px;
   padding-top: 20px;
   padding-bottom: 10px;
 

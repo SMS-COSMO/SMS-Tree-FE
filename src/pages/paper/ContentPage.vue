@@ -46,8 +46,7 @@
           <el-divider content-position="left">发布时间</el-divider>
           {{ content?.createdAt.toLocaleDateString('zh-CN') }}
         </el-skeleton>
-        <el-button color="#146E3C" style="width: 100%; margin-top: 20px;" plain @click="downloadDialog = true;"
-          v-if="content?.canDownload">
+        <el-button color="#146E3C" class="w-full mt-5" plain @click="downloadDialog = true;" v-if="content?.canDownload">
           下载
         </el-button>
         <el-dialog v-model="downloadDialog" title="文件下载" class="download-dialog">
@@ -69,8 +68,8 @@
         </el-skeleton>
 
         <el-row>
-          <el-skeleton style="margin-top: 20px;" animated :rows="1" :loading="contentLoading">
-            <div style="margin-top: 20px;" v-if="content?.keywords.length">
+          <el-skeleton class="mt-5" animated :rows="1" :loading="contentLoading">
+            <div class="mt-5" v-if="content?.keywords.length">
               <el-text style="font-weight: bold">
                 关键词：
               </el-text>
@@ -85,15 +84,15 @@
     </el-col>
   </el-row>
 
-  <el-card class=" mt20">
+  <el-card class="mt-5">
     <WordView url="https://ztl-uwu.github.io/test.docx" />
   </el-card>
 
-  <el-card class=" mt20">
+  <el-card class="mt-5">
     <WordView type="pdf" url="https://ztl-uwu.github.io/test.pdf" />
   </el-card>
 
-  <el-card class=" mt20" style="margin-bottom: 20px;">
+  <el-card class="mt-5 mb-5">
     <template #header>
       教师评语
     </template>
@@ -148,10 +147,6 @@ onMounted(async () => {
 
 .download-dialog {
   width: 30%;
-}
-
-.mx-1 {
-  margin: 0.25rem;
 }
 
 .clickable {

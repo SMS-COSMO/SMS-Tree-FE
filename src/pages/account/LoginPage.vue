@@ -1,7 +1,7 @@
 <template>
-  <div class="top-margin middle">
+  <div class="top-margin middle mx-auto">
     <el-alert title="第一次登录完毕后请修改密码！" show-icon type="warning" effect="dark" :closable="false" />
-    <el-card style="margin-top: 15px">
+    <el-card class="mt-4">
       <template #header>
         登录
       </template>
@@ -24,8 +24,8 @@
           </div>
           <el-input type="password" v-model="form.password" show-password />
         </el-form-item>
-        <el-form-item style="margin-bottom: 0;">
-          <el-button class="submit-button" color="#146E3C" :loading="buttonLoading" @click="login()">
+        <el-form-item class="m-0">
+          <el-button class="submit-button ml-auto" color="#146E3C" :loading="buttonLoading" @click="login()">
             登录
           </el-button>
         </el-form-item>
@@ -90,17 +90,10 @@ const login = async () => {
 }
 
 .middle {
-  margin-left: auto;
-  margin-right: auto;
   max-width: 480px;
 }
 
 .top-margin {
   margin-top: 20vh;
-}
-
-.submit-button {
-  margin-left: auto;
-  margin-right: 0;
 }
 </style>

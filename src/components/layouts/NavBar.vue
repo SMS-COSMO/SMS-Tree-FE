@@ -1,7 +1,7 @@
 
 <template>
   <div id="nav">
-    <el-menu id="menu" :ellipsis="false" mode="horizontal" background-color="#146E3C" text-color="#FFFFFF"
+    <el-menu id="menu" class="mx-auto" :ellipsis="false" mode="horizontal" background-color="#146E3C" text-color="#FFFFFF"
       active-text-color="#FFFFFF" :router="true" :default-active="$route.path">
       <el-menu-item disabled class="logo">
         <img src="../../assets/logo.png" style="height: 30px;" />
@@ -57,8 +57,6 @@ const logout = () => {
 
 #menu {
   max-width: 1300px;
-  margin-left: auto;
-  margin-right: auto;
   padding-right: 10px;
   border: none;
 }

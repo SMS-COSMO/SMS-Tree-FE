@@ -1,6 +1,6 @@
 <template>
   <el-card>
-    <el-form class="register-form" :model="form" :rules="rules" ref="formRef" label-width="120px">
+    <el-form class="register-form mx-auto py-5" :model="form" :rules="rules" ref="formRef" label-width="120px">
       <el-form-item prop="title" label="标题">
         <el-input v-model="form.title" />
       </el-form-item>
@@ -18,11 +18,11 @@
         <el-select filterable></el-select>
       </el-form-item>
       <el-form-item label="文件">
-        <el-upload style="width: 100%;">
+        <el-upload class="w-full">
           <el-button color="#146E3C" plain>点击上传文件</el-button>
         </el-upload>
       </el-form-item>
-      <el-form-item style="margin-bottom: 0;">
+      <el-form-item>
         <el-button class="submit-button" color="#146E3C" :loading="buttonLoading" @click="register(formRef)">
           创建
         </el-button>
@@ -68,10 +68,5 @@ const register = async (submittedForm: FormInstance | undefined) => {
 <style lang="scss" scoped>
 .register-form {
   max-width: 700px;
-  margin-left: auto;
-  margin-right: auto;
-
-  padding-top: 20px;
-  padding-bottom: 20px;
 }
 </style>

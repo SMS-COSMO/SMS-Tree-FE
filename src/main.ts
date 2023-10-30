@@ -12,6 +12,9 @@ import 'element-plus/theme-chalk/el-loading.css';
 import 'element-plus/theme-chalk/el-message.css';
 import 'element-plus/theme-chalk/el-notification.css';
 
+import 'uno.css';
+import 'virtual:uno.css';
+
 // Pinia store
 import { createPinia } from 'pinia';
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate';
