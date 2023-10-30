@@ -32,7 +32,7 @@
           </el-card>
         </div>
         <div v-else>
-          <TransitionGroup name="list" tag="ul" v-infinite-scroll="load" class="infinite-list m-0 p-0 list-full-screen"
+          <TransitionGroup name="list" tag="ul" v-infinite-scroll="load" class="infinite-list list-full-screen m-0 p-0"
             infinite-scroll-immediate="false">
             <li v-for="(paper, index) in processedListData.slice(0, count)" :key="index">
               <div class="list-full-screen-center mx-auto">

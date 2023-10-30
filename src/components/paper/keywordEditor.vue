@@ -6,7 +6,7 @@
     </el-tag>
 
     <el-input v-if="inputVisible" ref="InputRef" v-model="inputValue" :maxlength="contentMaxLength" show-word-limit
-      class="mx-1 same-size tag-input" size="small" @keyup.enter="handleInputConfirm" @blur="handleInputConfirm" />
+      class="same-size tag-input mx-1" size="small" @keyup.enter="handleInputConfirm" @blur="handleInputConfirm" />
     <el-tooltip v-else :visible="tooltipVisible" placement="top-start" content="最多添加 8 个关键词">
       <el-button class="same-size mx-1" size="small" color="#146E3C" plain @click="showInput"
         :disabled="modelValue.length >= 8" @mouseenter="tooltipVisible = modelValue.length >= 8"

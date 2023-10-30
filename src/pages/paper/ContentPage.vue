@@ -46,7 +46,7 @@
           <el-divider content-position="left">发布时间</el-divider>
           {{ content?.createdAt.toLocaleDateString('zh-CN') }}
         </el-skeleton>
-        <el-button color="#146E3C" class="w-full mt-5" plain @click="downloadDialog = true;" v-if="content?.canDownload">
+        <el-button color="#146E3C" class="mt-5 w-full" plain @click="downloadDialog = true;" v-if="content?.canDownload">
           下载
         </el-button>
         <el-dialog v-model="downloadDialog" title="文件下载" class="download-dialog">
@@ -73,7 +73,7 @@
               <el-text style="font-weight: bold">
                 关键词：
               </el-text>
-              <el-tag v-for="(keyword, index) in content?.keywords" :key="index" size="large" class="mx-1 clickable"
+              <el-tag v-for="(keyword, index) in content?.keywords" :key="index" size="large" class="clickable mx-1"
                 type="info" effect="plain" @click="searchTag(keyword)">
                 {{ keyword }}
               </el-tag>
@@ -92,7 +92,7 @@
     <WordView type="pdf" url="https://ztl-uwu.github.io/test.pdf" />
   </el-card>
 
-  <el-card class="mt-5 mb-5">
+  <el-card class="mb-5 mt-5">
     <template #header>
       教师评语
     </template>
