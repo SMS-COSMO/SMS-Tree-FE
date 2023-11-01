@@ -20,7 +20,7 @@
     "fuse.js": "^6.6.2",
     "pinia": "^2.1.7",
     "pinia-plugin-persistedstate": "^3.2.0",
-    "superjson": "^1.13.3",
+    "superjson": "^2.2.0",
     "vue": "^3.3.7",
     "vue-router": "^4.2.5"
   },
