@@ -20,7 +20,9 @@
     </el-row>
     <el-row class="mt-2" style="gap: 8px">
       <el-text class="title">{{ paper?.title }}</el-text>
-      <el-text>Author{{ paper?.authorGroupId }}</el-text>
+      <el-text>
+        <GroupMembers :groupId="paper.groupId" />
+      </el-text>
     </el-row>
   </el-card>
 </template>

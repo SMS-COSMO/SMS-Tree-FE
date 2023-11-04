@@ -14,7 +14,7 @@
       <div class="flex-grow" />
       <el-sub-menu v-if="userStore.loggedIn" index="4">
         <template #title>{{ userStore.username }}</template>
-        <el-menu-item :index="`/user/1`">主页</el-menu-item>
+        <el-menu-item :index="`/user/${userStore.userId}`">主页</el-menu-item>
         <el-menu-item @click="logout">登出</el-menu-item>
       </el-sub-menu>
       <el-menu-item index="/login" v-else>登录</el-menu-item>

@@ -8,7 +8,7 @@
               学号
             </template>
             <el-skeleton :rows="0" :loading="contentLoading" animated>
-              {{ info.id }}
+              {{ info?.id }}
             </el-skeleton>
           </el-card>
         </el-col>
@@ -18,7 +18,7 @@
               姓名
             </template>
             <el-skeleton :rows="0" :loading="contentLoading" animated>
-              {{ info.username }}
+              {{ info?.username }}
             </el-skeleton>
           </el-card>
         </el-col>
@@ -44,12 +44,7 @@ import { ElMessage } from 'element-plus';
 const route = useRoute();
 
 const id = route.params.id.toString();
-const info = ref<UserProfileOutput>({
-  id: '',
-  username: '',
-  role: 'student',
-  createdAt: new Date(),
-});
+const info = ref<UserProfileOutput>();
 
 const contentLoading = ref(true);
 

@@ -42,7 +42,11 @@
         <template #header>
           论文信息
         </template>
-        <el-skeleton animated :rows="4" :loading="contentLoading">
+        <el-skeleton animated :rows="1" :loading="contentLoading" class="mt-5">
+          <el-divider content-position="left">作者</el-divider>
+          <GroupMembers :groupId="content?.groupId" />
+        </el-skeleton>
+        <el-skeleton animated :rows="1" :loading="contentLoading" class="mt-5">
           <el-divider content-position="left">发布时间</el-divider>
           {{ content?.createdAt.toLocaleDateString('zh-CN') }}
         </el-skeleton>
