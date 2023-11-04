@@ -45,7 +45,7 @@
         <el-skeleton animated :rows="4" :loading="contentLoading">
           <el-descriptions title="" :column="1">
             <el-descriptions-item label="作者">
-              <GroupMembers :groupId="content?.groupId" type="link" />
+              <GroupMembers :groupId="content?.groupId" type="link" class="inline" />
             </el-descriptions-item>
             <el-descriptions-item label="发布时间">
               {{ content?.createdAt.toLocaleDateString('zh-CN') }}
