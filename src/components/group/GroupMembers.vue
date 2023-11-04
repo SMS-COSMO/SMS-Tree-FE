@@ -1,6 +1,8 @@
 <template>
   <el-skeleton :rows="0" :loading="loading" animated style="width: 600px;">
-    {{ names }}
+    <span v-for="(name, index) of names" :key="index" class="mx-0.6">
+      {{ name }}
+    </span>
   </el-skeleton>
 </template>
 
@@ -23,8 +25,8 @@ const names = computedAsync(
       })
     );
     loading.value = false;
-    return res.join(' ');
+    return res;
   },
-  '',
+  [],
 );
 </script>

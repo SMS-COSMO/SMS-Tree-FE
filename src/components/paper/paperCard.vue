@@ -24,15 +24,25 @@
         <GroupMembers :groupId="paper.groupId" />
       </el-text>
     </el-row>
+    <el-row v-if="showAbstract" class="mt-2.5">
+      <el-text size="small" :line-clamp="lineClamp" type="info">
+        {{ paper?.abstract }}
+      </el-text>
+    </el-row>
   </el-card>
 </template>
 
 <script setup lang="ts">
 import { PaperListOutputItem } from '../../api/trpc';
 
-defineProps<{
+withDefaults(defineProps<{
   paper: PaperListOutputItem;
-}>();
+  showAbstract: boolean;
+  lineClamp: number;
+}>(), {
+  showAbstract: false,
+  lineClamp: 3,
+});
 </script>
 
 <style scoped lang="scss">

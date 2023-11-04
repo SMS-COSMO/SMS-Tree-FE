@@ -51,7 +51,7 @@
               {{ content?.createdAt.toLocaleDateString('zh-CN') }}
             </el-descriptions-item>
             <el-descriptions-item label="关键词">
-              <el-tag v-for="(keyword, index) in content?.keywords" :key="index" class="clickable mx-1" type="info"
+              <el-tag v-for="(keyword, index) in content?.keywords" :key="index" class="clickable m-0.75" type="info"
                 effect="plain" @click="searchTag(keyword)">
                 {{ keyword }}
               </el-tag>

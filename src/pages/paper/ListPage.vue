@@ -13,6 +13,7 @@
           <el-select v-model="searchSelectValue" placeholder="搜索内容" multiple class="w-full">
             <el-option v-for="item in searchSelectOptions" :key="item.value" :label="item.label" :value="item.value" />
           </el-select>
+          <el-checkbox v-model="showAbstract" label="显示摘要" class="mt-2" border />
         </div>
       </el-card>
     </el-col>
@@ -35,12 +36,12 @@
           <TransitionGroup name="list" tag="ul" v-infinite-scroll="load" class="infinite-list list-full-screen m-0 p-0"
             infinite-scroll-immediate="false">
             <li v-for="(paper, index) in processedListData.slice(0, count)" :key="index">
-              <div class="list-full-screen-center mx-auto">
+              <div class="list-full-screen-center mx-auto px-5">
                 <el-row :gutter="20">
                   <el-col :span="6">
                   </el-col>
                   <el-col :span="18">
-                    <paperCard :paper="paper" @click="open_paper(paper)" />
+                    <paperCard :paper="paper" @click="open_paper(paper)" :showAbstract="showAbstract" />
                   </el-col>
                 </el-row>
               </div>
@@ -71,6 +72,7 @@ const open_paper = (paper: PaperListOutputItem) => {
 };
 
 const searchContent = ref(route.query.search?.toString() ?? '');
+const showAbstract = ref(false);
 
 const listData = ref<PaperListOutput>([]);
 const loading = ref(true);

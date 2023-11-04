@@ -1,6 +1,6 @@
 <template>
   <NavBar />
-  <div id="view" class="mx-auto">
+  <div id="view" class="mx-auto px-5">
     <RouterView />
   </div>
 </template>
@@ -9,7 +9,5 @@
 #view {
   max-width: 1300px;
   margin-top: 95px;
-  padding-left: 20px;
-  padding-right: 20px;
 }
 </style>
