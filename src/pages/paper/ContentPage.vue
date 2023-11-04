@@ -42,15 +42,23 @@
         <template #header>
           论文信息
         </template>
-        <el-skeleton animated :rows="1" :loading="contentLoading" class="mt-5">
-          <el-divider content-position="left">作者</el-divider>
-          <GroupMembers :groupId="content?.groupId" />
+        <el-skeleton animated :rows="4" :loading="contentLoading">
+          <el-descriptions title="" :column="1">
+            <el-descriptions-item label="作者">
+              <GroupMembers :groupId="content?.groupId" />
+            </el-descriptions-item>
+            <el-descriptions-item label="发布时间">
+              {{ content?.createdAt.toLocaleDateString('zh-CN') }}
+            </el-descriptions-item>
+            <el-descriptions-item label="关键词">
+              <el-tag v-for="(keyword, index) in content?.keywords" :key="index" class="clickable mx-1" type="info"
+                effect="plain" @click="searchTag(keyword)">
+                {{ keyword }}
+              </el-tag>
+            </el-descriptions-item>
+          </el-descriptions>
         </el-skeleton>
-        <el-skeleton animated :rows="1" :loading="contentLoading" class="mt-5">
-          <el-divider content-position="left">发布时间</el-divider>
-          {{ content?.createdAt.toLocaleDateString('zh-CN') }}
-        </el-skeleton>
-        <el-button color="#146E3C" class="mt-5 w-full" plain @click="downloadDialog = true;" v-if="content?.canDownload">
+        <el-button color="#146E3C" class="mt-4 w-full" plain @click="downloadDialog = true;" v-if="content?.canDownload">
           下载
         </el-button>
         <el-dialog v-model="downloadDialog" title="文件下载" class="download-dialog">
@@ -68,22 +76,10 @@
           摘要
         </template>
         <el-skeleton animated :rows="4" :loading="contentLoading">
-          {{ content?.abstract }}
+          <div class="p-1.5 leading-normal">
+            {{ content?.abstract }}
+          </div>
         </el-skeleton>
-
-        <el-row>
-          <el-skeleton class="mt-5" animated :rows="1" :loading="contentLoading">
-            <div class="mt-5" v-if="content?.keywords.length">
-              <el-text style="font-weight: bold">
-                关键词：
-              </el-text>
-              <el-tag v-for="(keyword, index) in content?.keywords" :key="index" size="large" class="clickable mx-1"
-                type="info" effect="plain" @click="searchTag(keyword)">
-                {{ keyword }}
-              </el-tag>
-            </div>
-          </el-skeleton>
-        </el-row>
       </el-card>
     </el-col>
   </el-row>
@@ -155,5 +151,11 @@ onMounted(async () => {
 
 .clickable {
   cursor: pointer;
+}
+</style>
+
+<style lang="scss">
+.el-descriptions__label {
+  font-weight: bold;
 }
 </style>
