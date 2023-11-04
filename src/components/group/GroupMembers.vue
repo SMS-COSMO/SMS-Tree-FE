@@ -1,7 +1,18 @@
 <template>
   <el-skeleton :rows="0" :loading="loading" animated style="width: 600px;">
-    <span v-for="(name, index) of names" :key="index" class="mx-0.6">
-      {{ name }}
+    <span v-if="type === 'text'">
+      <span v-for="(member, index) of members" :key="index" class="mx-0.6">
+        {{ member.username }}
+      </span>
+    </span>
+    <span v-if="type === 'link'">
+      <span v-for="(member, index) of members" :key="index" class="mx-0.6">
+        <el-link v-if="showLeader && member.userId === leader" style="font-weight: bold;"
+          :href="`/user/${member.userId}`">
+          {{ member.username }}
+        </el-link>
+        <el-link v-else :href="`/user/${member.userId}`">{{ member.username }}</el-link>
+      </span>
     </span>
   </el-skeleton>
 </template>
@@ -11,18 +22,28 @@ import { computedAsync } from '@vueuse/core';
 import { trpc } from '../../api/trpc';
 import { ref } from 'vue';
 
-const props = defineProps<{
+const props = withDefaults(defineProps<{
   groupId: string;
-}>();
+  type: 'text' | 'link';
+  showLeader: boolean;
+}>(), {
+  type: 'text',
+  showLeader: true,
+});
 
 const loading = ref(true);
+const leader = ref('');
 
-const names = computedAsync(
+const members = computedAsync(
   async () => {
+    const group = await trpc.group.content.query({ id: props.groupId });
+    leader.value = group.leader ?? '';
+    console.log(leader.value);
     const res = await Promise.all(
-      (await trpc.group.content.query({ id: props.groupId })).members.map(async user => {
-        return (await trpc.user.profile.query({ id: user })).username;
-      })
+      group.members
+        .map(async user => {
+          return { username: (await trpc.user.profile.query({ id: user })).username, userId: user };
+        })
     );
     loading.value = false;
     return res;
