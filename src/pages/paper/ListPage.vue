@@ -7,13 +7,14 @@
         <div class="left-box-inner">
           <el-checkbox v-model="filter.onlyCanDownload" label="仅查看可下载" border />
           <el-checkbox v-model="filter.onlyFeatured" label="仅查看优秀作业" class="mt-2" border />
-          <el-divider content-position="left">
-            搜索范围
-          </el-divider>
+          <el-checkbox v-model="showAbstract" label="显示摘要" class="mt-2" border />
+          <el-divider content-position="left">搜索范围</el-divider>
+
           <el-select v-model="searchSelectValue" placeholder="搜索内容" multiple class="w-full">
             <el-option v-for="item in searchSelectOptions" :key="item.value" :label="item.label" :value="item.value" />
           </el-select>
-          <el-checkbox v-model="showAbstract" label="显示摘要" class="mt-2" border />
+          <el-date-picker class="mt-2" v-model="filter.timeRange" type="daterange" unlink-panels range-separator="到"
+            start-placeholder="最早" end-placeholder="最晚" :shortcuts="timePresets" />
         </div>
       </el-card>
     </el-col>
@@ -25,36 +26,33 @@
           </el-icon>
         </template>
       </el-input>
-
-      <div>
-        <div v-if="loading" class="infinite-list-skeleton m-0 p-0">
-          <el-card v-for="n in 10" :key="n" class="mb-2.5">
-            <el-skeleton :rows="1" animated :loading="loading" />
-          </el-card>
-        </div>
-        <div v-else>
-          <TransitionGroup name="list" tag="ul" v-infinite-scroll="load" class="infinite-list list-full-screen m-0 p-0"
-            infinite-scroll-immediate="false">
-            <li v-for="(paper, index) in processedListData.slice(0, count)" :key="index">
-              <div class="list-full-screen-center mx-auto px-5">
-                <el-row :gutter="20">
-                  <el-col :span="6">
-                  </el-col>
-                  <el-col :span="18">
-                    <paperCard :paper="paper" @click="open_paper(paper)" :showAbstract="showAbstract" />
-                  </el-col>
-                </el-row>
-              </div>
-            </li>
-          </TransitionGroup>
-        </div>
+      <div v-if="loading" class="infinite-list-skeleton m-0 p-0">
+        <el-card v-for="n in 10" :key="n" class="mb-2.5">
+          <el-skeleton :rows="1" animated :loading="loading" />
+        </el-card>
+      </div>
+      <div v-else>
+        <TransitionGroup name="list" tag="ul" v-infinite-scroll="load" class="infinite-list list-full-screen m-0 p-0"
+          infinite-scroll-immediate="false">
+          <li v-for="(paper, index) in processedListData.slice(0, count)" :key="index">
+            <div class="list-full-screen-center mx-auto px-5">
+              <el-row :gutter="20">
+                <el-col :span="6">
+                </el-col>
+                <el-col :span="18">
+                  <paperCard :paper="paper" @click="open_paper(paper)" :showAbstract="showAbstract" />
+                </el-col>
+              </el-row>
+            </div>
+          </li>
+        </TransitionGroup>
       </div>
     </el-col>
   </el-row>
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue';
+import { computed, onMounted, reactive, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { PaperListOutput, PaperListOutputItem, isTRPCClientError, trpc } from '../../api/trpc';
 import { ElMessage } from 'element-plus';
@@ -74,12 +72,40 @@ const open_paper = (paper: PaperListOutputItem) => {
 const searchContent = ref(route.query.search?.toString() ?? '');
 const showAbstract = ref(false);
 
+const timePresets = [
+  {
+    text: '这个月',
+    value: () => {
+      const end = new Date();
+      const start = new Date();
+      start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+      return [start, end];
+    },
+  }, {
+    text: '今年',
+    value: () => {
+      const end = new Date();
+      const start = new Date(new Date().getFullYear(), 0);
+      return [start, end];
+    },
+  }, {
+    text: '最近半年',
+    value: () => {
+      const end = new Date();
+      const start = new Date();
+      start.setMonth(start.getMonth() - 6);
+      return [start, end];
+    },
+  },
+];
+
 const listData = ref<PaperListOutput>([]);
 const loading = ref(true);
 
-const filter = ref({
+const filter = reactive({
   onlyCanDownload: false,
   onlyFeatured: false,
+  timeRange: '',
 });
 
 const updateUrl = () => {
@@ -111,7 +137,18 @@ const fuseOptions = computed(() => {
 const fuse = useFuse(searchContent, listData, fuseOptions);
 const processedListData = computed(() => {
   return fuse.results.value.map(e => e.item)
-    .filter(o => (!filter.value.onlyCanDownload || o.canDownload) && (!filter.value.onlyFeatured || o.isFeatured));
+    .filter(o => {
+      if (filter.onlyCanDownload && !o.canDownload)
+        return false;
+      if (filter.onlyFeatured && !o.isFeatured)
+        return false;
+      if (filter.timeRange &&
+        (o.createdAt.getTime() < Date.parse(filter.timeRange[0]) ||
+          o.createdAt.getTime() > Date.parse(filter.timeRange[1]))
+      )
+        return false;
+      return true;
+    });
 });
 
 const load = () => {
