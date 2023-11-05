@@ -21,7 +21,7 @@
     <el-row class="mt-2" style="gap: 8px">
       <el-text class="title">{{ paper?.title }}</el-text>
       <el-text>
-        <GroupMembers :groupId="paper.groupId" />
+        <GroupMembers :groupId="paper.groupId" type="text" :showLeader="false" />
       </el-text>
     </el-row>
     <el-row v-if="showAbstract" class="mt-2.5">
@@ -37,8 +37,8 @@ import { PaperListOutputItem } from '../../api/trpc';
 
 withDefaults(defineProps<{
   paper: PaperListOutputItem;
-  showAbstract: boolean;
-  lineClamp: number;
+  showAbstract?: boolean;
+  lineClamp?: number;
 }>(), {
   showAbstract: false,
   lineClamp: 3,
