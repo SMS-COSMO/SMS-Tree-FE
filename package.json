@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:local": "vite --host 0.0.0.0",
     "build": "vite build --base '/SMS-Tree'",
     "preview": "vite preview",
     "lint": "eslint --ext .ts,.vue src",
