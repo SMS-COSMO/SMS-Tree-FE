@@ -55,6 +55,7 @@ declare module 'vue' {
     FooterBar: typeof import('./src/components/layouts/FooterBar.vue')['default']
     GroupMembers: typeof import('./src/components/group/GroupMembers.vue')['default']
     KeywordEditor: typeof import('./src/components/paper/keywordEditor.vue')['default']
+    MobileNavButton: typeof import('./src/components/layouts/MobileNavButton.vue')['default']
     NavBar: typeof import('./src/components/layouts/NavBar.vue')['default']
     PaperCard: typeof import('./src/components/paper/paperCard.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
