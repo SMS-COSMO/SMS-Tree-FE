@@ -41,7 +41,7 @@ const formRef = ref<FormInstance>();
 const form = reactive<TCreatePaperInput>({
   title: '',
   abstract: '',
-  authorGroupId: '',
+  groupId: '',
   keywords: [],
   canDownload: false,
   S3FileId: '',
