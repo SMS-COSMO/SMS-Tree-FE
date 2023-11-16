@@ -1,6 +1,4 @@
 <template>
-  <el-backtop :right="100" :bottom="100" />
-
   <el-row :gutter="20">
     <el-col v-if="!isSmallScreen" :span="isSmallScreen ? 24 : 6">
       <el-card>
