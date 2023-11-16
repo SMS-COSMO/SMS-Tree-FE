@@ -2,51 +2,58 @@
   <el-backtop :right="100" :bottom="100" />
 
   <el-row :gutter="20">
-    <el-col :span="6">
+    <el-col v-if="!isSmallScreen" :span="isSmallScreen ? 24 : 6">
       <el-card>
         <div class="left-box-inner">
-          <el-checkbox v-model="filter.onlyCanDownload" label="仅查看可下载" border />
-          <el-checkbox v-model="filter.onlyFeatured" label="仅查看优秀作业" class="mt-2" border />
-          <el-checkbox v-model="showAbstract" label="显示摘要" class="mt-2" border />
-          <el-divider content-position="left">搜索范围</el-divider>
-
-          <el-select v-model="searchSelectValue" placeholder="搜索内容" multiple class="w-full">
-            <el-option v-for="item in searchSelectOptions" :key="item.value" :label="item.label" :value="item.value" />
-          </el-select>
-          <el-date-picker class="mt-2" v-model="filter.timeRange" type="daterange" unlink-panels range-separator="到"
-            start-placeholder="最早" end-placeholder="最晚" :shortcuts="timePresets" />
+          <SearchOptions v-model="searchOptions" />
         </div>
       </el-card>
     </el-col>
-    <el-col :span="18">
-      <el-input v-model="searchContent" placeholder="搜索论文" clearable class="mb-4" @change="updateUrl">
+    <el-col :span="isSmallScreen ? 24 : 18">
+      <el-input v-model="searchContent" placeholder="搜索论文" clearable class="mb-2.5" @change="updateUrl"
+        :suffix-icon="isSmallScreen ? Search : ''">
         <template #prepend>
-          <el-icon>
+          <el-icon v-if="!isSmallScreen">
             <Search />
           </el-icon>
+          <el-button v-else @click="showSearchOptions = !showSearchOptions">
+            <el-icon>
+              <ArrowDown v-if="!showSearchOptions" />
+              <ArrowUp v-else />
+            </el-icon>
+          </el-button>
         </template>
       </el-input>
-      <div v-if="loading" class="infinite-list-skeleton m-0 p-0">
-        <el-card v-for="n in 10" :key="n" class="mb-2.5">
-          <el-skeleton :rows="1" animated :loading="loading" />
+      <Transition name="mobile-search-option-transition">
+        <el-card v-if="showSearchOptions" class="mb-2.5">
+          <SearchOptions v-model="searchOptions" />
         </el-card>
-      </div>
-      <div v-else>
-        <TransitionGroup name="list" tag="ul" v-infinite-scroll="load" class="infinite-list list-full-screen m-0 p-0"
-          infinite-scroll-immediate="false">
-          <li v-for="(paper, index) in processedListData.slice(0, count)" :key="index">
-            <div class="list-full-screen-center mx-auto px-5">
-              <el-row :gutter="20">
-                <el-col :span="6">
-                </el-col>
-                <el-col :span="18">
-                  <paperCard :paper="paper" @click="open_paper(paper)" :showAbstract="showAbstract" />
-                </el-col>
-              </el-row>
-            </div>
-          </li>
-        </TransitionGroup>
-      </div>
+      </Transition>
+      <Transition name="mobile-search-result-transition">
+        <div v-if="!showSearchOptions">
+          <div v-if="loading" class="infinite-list-skeleton m-0 p-0">
+            <el-card v-for="n in 10" :key="n" class="mb-2.5">
+              <el-skeleton :rows="1" animated :loading="loading" />
+            </el-card>
+          </div>
+          <div v-else>
+            <TransitionGroup name="list" tag="ul" v-infinite-scroll="load" class="infinite-list list-full-screen m-0 p-0"
+              infinite-scroll-immediate="false">
+              <li v-for="(paper, index) in processedListData.slice(0, count)" :key="index">
+                <div class="list-full-screen-center mx-auto px-5">
+                  <el-row :gutter="20">
+                    <el-col :span="6">
+                    </el-col>
+                    <el-col :span="isSmallScreen ? 24 : 18">
+                      <paperCard :paper="paper" @click="open_paper(paper)" :showAbstract="searchOptions.showAbstract" />
+                    </el-col>
+                  </el-row>
+                </div>
+              </li>
+            </TransitionGroup>
+          </div>
+        </div>
+      </Transition>
     </el-col>
   </el-row>
 </template>
@@ -56,7 +63,10 @@ import { computed, onMounted, reactive, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { PaperListOutput, PaperListOutputItem, isTRPCClientError, trpc } from '../../api/trpc';
 import { ElMessage } from 'element-plus';
+import { Search } from '@element-plus/icons-vue';
 import { useFuse } from '@vueuse/integrations/useFuse';
+
+const isSmallScreen = screen.width <= 700;
 
 const router = useRouter();
 const route = useRoute();
@@ -70,62 +80,29 @@ const open_paper = (paper: PaperListOutputItem) => {
 };
 
 const searchContent = ref(route.query.search?.toString() ?? '');
-const showAbstract = ref(false);
-
-const timePresets = [
-  {
-    text: '这个月',
-    value: () => {
-      const end = new Date();
-      const start = new Date();
-      start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-      return [start, end];
-    },
-  }, {
-    text: '今年',
-    value: () => {
-      const end = new Date();
-      const start = new Date(new Date().getFullYear(), 0);
-      return [start, end];
-    },
-  }, {
-    text: '最近半年',
-    value: () => {
-      const end = new Date();
-      const start = new Date();
-      start.setMonth(start.getMonth() - 6);
-      return [start, end];
-    },
-  },
-];
+const showSearchOptions = ref(false);
 
 const listData = ref<PaperListOutput>([]);
 const loading = ref(true);
 
-const filter = reactive({
-  onlyCanDownload: false,
-  onlyFeatured: false,
-  timeRange: '',
+const searchOptions = reactive({
+  filter: {
+    onlyCanDownload: false,
+    onlyFeatured: false,
+    timeRange: '',
+  },
+  searchSelectValue: ['title', 'keywords'],
+  showAbstract: false,
 });
 
 const updateUrl = () => {
   router.replace({ query: { search: searchContent.value } });
 };
 
-const searchSelectOptions = [
-  {
-    value: 'title',
-    label: '标题',
-  }, {
-    value: 'keywords',
-    label: '关键词',
-  },
-];
-const searchSelectValue = ref(['title', 'keywords']);
 const fuseOptions = computed(() => {
   return {
     fuseOptions: {
-      keys: searchSelectValue.value,
+      keys: searchOptions.searchSelectValue,
       shouldSort: true,
       threshold: 0.6,
       useExtendedSearch: true,
@@ -138,13 +115,13 @@ const fuse = useFuse(searchContent, listData, fuseOptions);
 const processedListData = computed(() => {
   return fuse.results.value.map(e => e.item)
     .filter(o => {
-      if (filter.onlyCanDownload && !o.canDownload)
+      if (searchOptions.filter.onlyCanDownload && !o.canDownload)
         return false;
-      if (filter.onlyFeatured && !o.isFeatured)
+      if (searchOptions.filter.onlyFeatured && !o.isFeatured)
         return false;
-      if (filter.timeRange &&
-        (o.createdAt.getTime() < Date.parse(filter.timeRange[0]) ||
-          o.createdAt.getTime() > Date.parse(filter.timeRange[1]))
+      if (searchOptions.filter.timeRange &&
+        (o.createdAt.getTime() < Date.parse(searchOptions.filter.timeRange[0]) ||
+          o.createdAt.getTime() > Date.parse(searchOptions.filter.timeRange[1]))
       )
         return false;
       return true;
@@ -176,6 +153,10 @@ onMounted(async () => {
 }
 
 .infinite-list {
+  @media only screen and (max-width: 700px) {
+    height: calc(100vh - 95px - 65px - 70px);
+  }
+
   height: calc(100vh - 95px - 65px);
   list-style: none;
   overflow-x: hidden;
@@ -215,6 +196,26 @@ onMounted(async () => {
 
 .list-enter-from,
 .list-leave-to {
+  opacity: 0;
+}
+
+.mobile-search-option-transition-enter-active,
+.mobile-search-option-transition-leave-active {
+  transition: all 0.3s ease;
+}
+
+.mobile-search-option-transition-enter-from,
+.mobile-search-option-transition-leave-to {
+  opacity: 0;
+  transform: translateY(-30px);
+}
+
+.mobile-search-result-transition-enter-active {
+  transition: all 0.8s cubic-bezier(.63, -0.27, .14, .53);
+}
+
+.mobile-search-result-transition-enter-from,
+.mobile-search-result-transition-leave-to {
   opacity: 0;
 }
 </style>
