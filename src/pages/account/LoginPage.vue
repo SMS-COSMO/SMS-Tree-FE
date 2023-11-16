@@ -22,7 +22,7 @@
             </el-icon>
             密码
           </div>
-          <el-input type="password" v-model="form.password" show-password />
+          <el-input type="password" v-model="form.password" show-password @keyup.enter="login()" />
         </el-form-item>
         <el-form-item class="m-0">
           <el-button class="submit-button ml-auto" color="#146E3C" :loading="buttonLoading" @click="login()">
