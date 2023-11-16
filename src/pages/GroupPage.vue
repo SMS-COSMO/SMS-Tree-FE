@@ -26,7 +26,7 @@
 
         <el-tabs type="border-card" v-model="activeTab">
           <el-tab-pane label="上传" name="first">
-            <el-upload drag multiple>
+            <el-upload   multiple drag >
               <el-icon class="el-icon--upload"><upload-filled /></el-icon>
               <div class="el-upload__text">
                 拖拽文件或 <em>点击这里上传</em>

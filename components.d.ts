@@ -60,6 +60,7 @@ declare module 'vue' {
     PaperCard: typeof import('./src/components/paper/paperCard.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SearchOptions: typeof import('./src/components/paper/SearchOptions.vue')['default']
     WordView: typeof import('./src/components/app/WordView.vue')['default']
   }
   export interface ComponentCustomProperties {
