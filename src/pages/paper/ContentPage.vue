@@ -94,7 +94,7 @@
     <WordView type="pdf" url="https://ztl-uwu.github.io/test.pdf" />
   </el-card>
 
-  <el-card class="mb-5 mt-5">
+  <el-card class="mobile:mb-5 mb-22 mt-5">
     <template #header>
       教师评语
     </template>
