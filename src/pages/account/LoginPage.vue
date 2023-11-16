@@ -1,6 +1,7 @@
 <template>
   <div class="top-margin middle mx-auto">
-    <el-alert title="第一次登录完毕后请修改密码！" show-icon type="warning" effect="dark" :closable="false" />
+    <el-alert v-if="userStore.isDefaultPassword" title="第一次登录完毕后请修改密码！" show-icon type="warning" effect="dark"
+      :closable="false" />
     <el-card class="mt-4">
       <template #header>
         登录

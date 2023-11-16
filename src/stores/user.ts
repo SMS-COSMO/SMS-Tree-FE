@@ -8,6 +8,7 @@ export const UserStore = defineStore('user', () => {
   const userId = ref('');
   const username = ref('');
   const role = ref('');
+  const isDefaultPassword = ref(true);
 
   const login = (data: {
     accessToken: string;
@@ -39,6 +40,10 @@ export const UserStore = defineStore('user', () => {
     role.value = '';
   };
 
+  const passwordChange = () => {
+    isDefaultPassword.value = false;
+  };
+
   return {
     loggedIn,
     accessToken,
@@ -46,8 +51,10 @@ export const UserStore = defineStore('user', () => {
     userId,
     username,
     role,
+    isDefaultPassword,
     login,
     logout,
+    passwordChange,
   };
 }, {
   persist: true,
