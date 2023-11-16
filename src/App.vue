@@ -7,13 +7,13 @@
 
 <script setup lang="ts">
 import { trpc } from './api/trpc';
-import { onMounted } from 'vue';
+import { onBeforeMount } from 'vue';
 import { UserStore } from './stores/user';
 import { useRouter } from 'vue-router';
 const router = useRouter();
 const userStore = UserStore();
 
-onMounted(async () => {
+onBeforeMount(async () => {
   try {
     await trpc.user.tokenValidity.query({ token: userStore.accessToken });
   } catch (err) {
