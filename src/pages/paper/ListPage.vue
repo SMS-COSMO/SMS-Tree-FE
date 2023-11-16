@@ -170,10 +170,10 @@ onMounted(async () => {
 
 .infinite-list {
   @media only screen and (max-width: 700px) {
-    height: calc(100vh - 95px - 65px - 70px);
+    height: calc(100svh - 95px - 65px - 70px);
   }
 
-  height: calc(100vh - 95px - 65px);
+  height: calc(100svh - 95px - 65px);
   list-style: none;
   overflow-x: hidden;
   overflow-y: scroll;
