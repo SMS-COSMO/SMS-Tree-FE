@@ -51,6 +51,7 @@ declare module 'vue' {
     ElText: typeof import('element-plus/es')['ElText']
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
     ElUpload: typeof import('element-plus/es')['ElUpload']
+    FoldableCard: typeof import('./src/components/utils/FoldableCard.vue')['default']
     FooterBar: typeof import('./src/components/layouts/FooterBar.vue')['default']
     GroupMembers: typeof import('./src/components/group/GroupMembers.vue')['default']
     KeywordEditor: typeof import('./src/components/paper/keywordEditor.vue')['default']

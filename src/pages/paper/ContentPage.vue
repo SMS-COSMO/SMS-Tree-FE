@@ -1,7 +1,7 @@
 <template>
-  <el-backtop :right="100" :bottom="100" />
+  <el-backtop :right="isSmallScreen ? 30 : 100" :bottom="100" />
 
-  <div class="title-holder">
+  <div class="title-holder mb-3">
     <h1 class="title">
       <el-skeleton animated :rows="0" :loading="contentLoading">
         <el-tag type="success" size="large" v-if="content?.isFeatured">
@@ -15,21 +15,17 @@
         {{ content?.title }}
       </el-skeleton>
     </h1>
-    <el-skeleton animated :loading="contentLoading" :rows="2" style="width: 200px">
+    <el-skeleton v-if="!isSmallScreen" animated :loading="contentLoading" :rows="2" style="width: 200px">
       <el-space :size="20">
         <el-statistic :value="content?.rate">
           <template #title>
-            <div style="display: inline-flex; align-items: center">
-              分数
-            </div>
+            分数
           </template>
         </el-statistic>
         <el-divider direction="vertical" style="height: 40px;"></el-divider>
         <el-statistic :value="content?.downloadCount">
           <template #title>
-            <div style="display: inline-flex; align-items: center">
-              下载次数
-            </div>
+            下载次数
           </template>
         </el-statistic>
       </el-space>
@@ -37,8 +33,8 @@
   </div>
 
   <el-row :gutter="20">
-    <el-col :span="6">
-      <el-card>
+    <el-col :span="isSmallScreen ? 24 : 6">
+      <FoldableCard :canFold="isSmallScreen">
         <template #header>
           论文信息
         </template>
@@ -56,9 +52,15 @@
                 {{ keyword }}
               </el-tag>
             </el-descriptions-item>
+            <el-descriptions-item v-if="isSmallScreen" label="分数">
+              {{ content?.rate }}
+            </el-descriptions-item>
+            <el-descriptions-item v-if="isSmallScreen" label="下载次数">
+              {{ content?.downloadCount }}
+            </el-descriptions-item>
           </el-descriptions>
         </el-skeleton>
-        <el-button color="#146E3C" class="mt-4 w-full" plain @click="downloadDialog = true;" v-if="content?.canDownload">
+        <el-button color="#146E3C" class="mt-1 w-full" plain @click="downloadDialog = true;" v-if="content?.canDownload">
           下载
         </el-button>
         <el-dialog v-model="downloadDialog" title="文件下载" class="download-dialog">
@@ -68,19 +70,19 @@
             </el-collapse-item>
           </el-collapse>
         </el-dialog>
-      </el-card>
+      </FoldableCard>
     </el-col>
-    <el-col :span="18">
-      <el-card>
+    <el-col :span="isSmallScreen ? 24 : 18" :class="isSmallScreen ? 'mt-4' : ''">
+      <FoldableCard :canFold="isSmallScreen">
         <template #header>
           摘要
         </template>
         <el-skeleton animated :rows="4" :loading="contentLoading">
-          <div class="p-1.5 leading-normal">
+          <div class="abstract leading-normal">
             {{ content?.abstract }}
           </div>
         </el-skeleton>
-      </el-card>
+      </FoldableCard>
     </el-col>
   </el-row>
 
@@ -108,6 +110,7 @@ const route = useRoute();
 const router = useRouter();
 
 const id = route.params.id.toString();
+const isSmallScreen = screen.width <= 700;
 
 const downloadDialog = ref(false);
 const contentLoading = ref(true);
@@ -136,13 +139,31 @@ onMounted(async () => {
 @import "~/styles/color.scss";
 
 .title {
-  font-size: 45px;
   width: 100%;
-  padding-right: 4em;
+
+  @media only screen and (min-width: 700px) {
+    padding-right: 4em;
+    font-size: 45px;
+  }
+
+  font-size: 30px;
 }
 
 .title-holder {
-  display: flex;
+  @media only screen and (min-width: 700px) {
+    display: flex;
+  }
+}
+
+.abstract {
+  text-align: justify;
+  font-size: 16px;
+  padding: 5px;
+
+  @media only screen and (max-width: 700px) {
+    font-size: 15px;
+    padding: 0;
+  }
 }
 
 .download-dialog {
