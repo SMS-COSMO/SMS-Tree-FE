@@ -5,5 +5,10 @@ export default defineConfig({
   presets: [
     presetUno(),
   ],
+  theme: {
+    breakpoints: {
+      mobile: '700px',
+    },
+  },
 });
 
