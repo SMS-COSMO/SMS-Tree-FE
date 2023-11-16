@@ -2,7 +2,7 @@ import { createApp } from 'vue';
 
 import * as ElementPlusIconsVue from '@element-plus/icons-vue';
 
-import App from './components/App.vue';
+import App from './App.vue';
 
 // Styles
 import './styles/element-override.scss';
