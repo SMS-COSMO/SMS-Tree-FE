@@ -50,6 +50,22 @@
                   </el-row>
                 </div>
               </li>
+              <li v-if="processedListData.length === 0" class="text-center">
+                <div class="list-full-screen-center mx-auto px-5">
+                  <el-row :gutter="20">
+                    <el-col :span="6">
+                    </el-col>
+                    <el-col :span="isSmallScreen ? 24 : 18">
+                      <el-text type="info">
+                        <el-icon>
+                          <Remove />
+                        </el-icon>
+                        无结果，换个搜索条件试试？
+                      </el-text>
+                    </el-col>
+                  </el-row>
+                </div>
+              </li>
             </TransitionGroup>
           </div>
         </div>
