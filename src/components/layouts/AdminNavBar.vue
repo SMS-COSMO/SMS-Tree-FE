@@ -1,5 +1,6 @@
 <template>
-  <el-menu class="left-menu h-full" background-color="#f3f5f7" active-text-color="#4d4d4d" :router="true">
+  <el-menu class="left-menu h-full" background-color="#f3f5f7" active-text-color="#4d4d4d" :router="true"
+    :default-active="$route.path">
     <el-menu-item index="/admin/register">
       <el-icon>
         <CirclePlus />
