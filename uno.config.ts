@@ -7,7 +7,8 @@ export default defineConfig({
   ],
   theme: {
     breakpoints: {
-      mobile: '700px',
+      mobile: '320px',
+      desktop: '700px',
     },
   },
 });
