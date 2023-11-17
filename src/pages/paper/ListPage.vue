@@ -23,12 +23,12 @@
         </template>
       </el-input>
       <Transition name="mobile-search-option-transition">
-        <el-card v-if="showSearchOptions" class="mb-2.5">
+        <el-card v-show="showSearchOptions" class="mb-2.5">
           <SearchOptions v-model="searchOptions" />
         </el-card>
       </Transition>
       <Transition name="mobile-search-result-transition">
-        <div v-if="!showSearchOptions">
+        <div v-show="!showSearchOptions">
           <div v-if="loading" class="infinite-list-skeleton m-0 p-0">
             <el-card v-for="n in 10" :key="n" class="mb-2.5">
               <el-skeleton :rows="1" animated :loading="loading" />
@@ -221,9 +221,12 @@ onMounted(async () => {
   opacity: 0;
 }
 
-.mobile-search-option-transition-enter-active,
-.mobile-search-option-transition-leave-active {
+.mobile-search-option-transition-enter-active {
   transition: all 0.3s ease;
+}
+
+.mobile-search-option-transition-leave-active {
+  transition: all 0.15s ease;
 }
 
 .mobile-search-option-transition-enter-from,
@@ -233,7 +236,7 @@ onMounted(async () => {
 }
 
 .mobile-search-result-transition-enter-active {
-  transition: all 0.8s cubic-bezier(1, -0.26, .14, .53);
+  transition: all 0.5s cubic-bezier(.68,-0.56,.29,.9);
 }
 
 .mobile-search-result-transition-enter-from,
