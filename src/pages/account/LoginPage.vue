@@ -27,7 +27,7 @@
             @keyup.enter="form.userId && form.password ? login() : () => { }" />
         </el-form-item>
         <el-form-item class="m-0">
-          <el-button class="submit-button ml-auto" color="#146E3C" :loading="buttonLoading" @click="login">
+          <el-button class="ml-auto" color="#146E3C" :loading="buttonLoading" @click="login">
             登录
           </el-button>
         </el-form-item>
@@ -51,7 +51,7 @@ const buttonLoading = ref(false);
 
 const form = reactive({
   userId: '',
-  password: ''
+  password: '',
 });
 
 const login = async () => {
