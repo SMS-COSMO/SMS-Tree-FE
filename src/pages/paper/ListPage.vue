@@ -15,9 +15,9 @@
             <Search />
           </el-icon>
           <el-button v-else @click="showSearchOptions = !showSearchOptions">
-            <el-icon>
-              <ArrowDown v-if="!showSearchOptions" />
-              <ArrowUp v-else />
+            <el-icon color="#909399">
+              <ArrowDownBold v-if="!showSearchOptions" />
+              <ArrowUpBold v-else />
             </el-icon>
           </el-button>
         </template>
@@ -54,12 +54,7 @@
                     <el-col :span="6">
                     </el-col>
                     <el-col :span="isSmallScreen ? 24 : 18">
-                      <el-text type="info">
-                        <el-icon>
-                          <Remove />
-                        </el-icon>
-                        无结果，换个搜索条件试试？
-                      </el-text>
+                      <el-empty description="无结果，换个搜索条件试试？" />
                     </el-col>
                   </el-row>
                 </div>
@@ -225,7 +220,7 @@ onMounted(async () => {
 }
 
 .mobile-search-result-transition-enter-active {
-  transition: all 0.8s cubic-bezier(.63, -0.27, .14, .53);
+  transition: all 0.8s cubic-bezier(1,-0.26,.14,.53);
 }
 
 .mobile-search-result-transition-enter-from,
