@@ -7,7 +7,7 @@
         </div>
       </el-card>
     </el-col>
-    <el-col :span="isSmallScreen ? 24 : 18">
+    <el-col :span="isSmallScreen ? 24 : 18" v-on-click-outside="closeSearchOptions">
       <el-input v-model="searchContent" placeholder="搜索论文" clearable class="mb-2.5" @change="updateUrl"
         :suffix-icon="isSmallScreen ? Search : ''">
         <template #prepend>
@@ -74,6 +74,7 @@ import { PaperListOutput, PaperListOutputItem, isTRPCClientError, trpc } from '.
 import { ElMessage } from 'element-plus';
 import { Search } from '@element-plus/icons-vue';
 import { useFuse } from '@vueuse/integrations/useFuse';
+import { vOnClickOutside } from '@vueuse/components';
 import { TSearchOption } from '../../components/paper/SearchOptions.vue';
 
 const isSmallScreen = screen.width <= 700;
@@ -91,6 +92,9 @@ const open_paper = (paper: PaperListOutputItem) => {
 
 const searchContent = ref(route.query.search?.toString() ?? '');
 const showSearchOptions = ref(false);
+const closeSearchOptions = () => {
+  showSearchOptions.value = false;
+};
 
 const listData = ref<PaperListOutput>([]);
 const loading = ref(true);
@@ -236,7 +240,7 @@ onMounted(async () => {
 }
 
 .mobile-search-result-transition-enter-active {
-  transition: all 0.5s cubic-bezier(.68,-0.56,.29,.9);
+  transition: all 0.5s cubic-bezier(.68, -0.56, .29, .9);
 }
 
 .mobile-search-result-transition-enter-from,
