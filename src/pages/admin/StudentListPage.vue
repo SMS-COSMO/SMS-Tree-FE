@@ -1,6 +1,6 @@
 <template>
   <el-card>
-    <el-table :data="listData" v-loading="loading">
+    <el-table :data="processedListData" v-loading="loading">
       <el-table-column type="selection" width="55" />
       <el-table-column :width="150" show-overflow-tooltip prop="id" label="学号">
         <template #default="scope">
@@ -31,8 +31,9 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { UserStudentListOutput, isTRPCClientError, trpc } from '../../api/trpc';
+import { useFuse } from '@vueuse/integrations/useFuse';
 import { ElMessage } from 'element-plus';
 import { useRouter } from 'vue-router';
 
@@ -42,7 +43,6 @@ const loading = ref(true);
 const searchContent = ref('');
 
 const router = useRouter();
-
 const visitProfile = (id: string) => {
   router.push(`/user/${id}`);
 };
@@ -59,6 +59,20 @@ const deleteUser = (id: string) => {
     }
   }
 };
+
+const fuseOptions = () => {
+  return {
+    fuseOptions: {
+      keys: ['id', 'username'],
+      shouldSort: true,
+    },
+    matchAllWhenSearchEmpty: true,
+  };
+};
+const fuse = useFuse(searchContent, listData, fuseOptions);
+const processedListData = computed(() =>
+  fuse.results.value.map(e => e.item)
+);
 
 onMounted(async () => {
   try {
