@@ -74,6 +74,7 @@ import { PaperListOutput, PaperListOutputItem, isTRPCClientError, trpc } from '.
 import { ElMessage } from 'element-plus';
 import { Search } from '@element-plus/icons-vue';
 import { useFuse } from '@vueuse/integrations/useFuse';
+import { TSearchOption } from '../../components/paper/SearchOptions.vue';
 
 const isSmallScreen = screen.width <= 700;
 
@@ -94,7 +95,7 @@ const showSearchOptions = ref(false);
 const listData = ref<PaperListOutput>([]);
 const loading = ref(true);
 
-const searchOptions = reactive({
+const searchOptions = reactive<TSearchOption>({
   filter: {
     onlyCanDownload: false,
     onlyFeatured: false,
@@ -102,6 +103,7 @@ const searchOptions = reactive({
   },
   searchSelectValue: ['title', 'keywords'],
   showAbstract: false,
+  sortOption: 'default',
 });
 
 const updateUrl = () => {
@@ -123,7 +125,7 @@ const fuseOptions = computed(() => {
 const fuse = useFuse(searchContent, listData, fuseOptions);
 const processedListData = computed(() => {
   return fuse.results.value.map(e => e.item)
-    .filter(o => {
+    .filter((o: PaperListOutputItem) => {
       if (searchOptions.filter.onlyCanDownload && !o.canDownload)
         return false;
       if (searchOptions.filter.onlyFeatured && !o.isFeatured)
@@ -134,6 +136,17 @@ const processedListData = computed(() => {
       )
         return false;
       return true;
+    })
+    .sort((a: PaperListOutputItem, b: PaperListOutputItem) => {
+      if (searchOptions.sortOption === 'default')
+        return 0; // Keep original order
+      if (searchOptions.sortOption === 'rate')
+        return b.rate - a.rate; // Greater first
+      if (searchOptions.sortOption === 'time')
+        return a.createdAt > b.createdAt ? -1 : 1; // Newest first
+      if (searchOptions.sortOption === 'downloadCount')
+        return b.downloadCount - a.downloadCount; // Greater first
+      return 0;
     });
 });
 
@@ -220,7 +233,7 @@ onMounted(async () => {
 }
 
 .mobile-search-result-transition-enter-active {
-  transition: all 0.8s cubic-bezier(1,-0.26,.14,.53);
+  transition: all 0.8s cubic-bezier(1, -0.26, .14, .53);
 }
 
 .mobile-search-result-transition-enter-from,
