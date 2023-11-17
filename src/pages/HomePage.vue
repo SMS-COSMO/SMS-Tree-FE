@@ -1,6 +1,6 @@
 <template>
-  <el-space :size="20" direction="vertical" fill style="width: 100%;">
-    <div style="width: 100%;">
+  <el-space :size="20" direction="vertical" fill class="w-full">
+    <div class="w-full">
       <el-carousel trigger="click" height="250px">
         <el-carousel-item v-for="item in 4" :key="item">
           <h3 class="small justify-center" text="2xl">{{ item }}</h3>
@@ -9,7 +9,7 @@
     </div>
 
     <el-row :gutter="20">
-      <el-col :span="7">
+      <el-col :span="isSmallScreen ? 24 : 7">
         <el-card>
           <template #header>
             快速搜索
@@ -19,7 +19,7 @@
               <el-input v-model="quickSearchContent" @keyup.enter="quickSearch" clearable />
             </el-col>
             <el-col :span="8">
-              <el-button style="width: 100%;" color="#146E3C" plain @click="quickSearch">
+              <el-button class="w-full" color="#146E3C" plain @click="quickSearch">
                 <el-icon :size="14">
                   <Search />
                 </el-icon>
@@ -29,7 +29,7 @@
           </el-row>
         </el-card>
       </el-col>
-      <el-col :span="17">
+      <el-col :span="isSmallScreen ? 24 : 17" class="mt-4 desktop:mt-0">
         <el-card>
           <template #header>
             作业进度
@@ -38,12 +38,14 @@
       </el-col>
     </el-row>
   </el-space>
-  <FooterBar />
+  <FooterBar v-if="!isSmallScreen" />
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+
+const isSmallScreen = screen.width <= 700;
 
 const quickSearchContent = ref('');
 const router = useRouter();
