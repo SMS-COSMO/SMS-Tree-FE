@@ -19,13 +19,13 @@
       </el-text>
     </el-row>
     <el-row class="mt-2" style="gap: 8px">
-      <el-text class="title">{{ paper?.title }}</el-text>
+      <el-text class="title break-normal">{{ paper?.title }}</el-text>
       <el-text>
         <GroupMembers :groupId="paper.groupId" type="text" :showLeader="false" />
       </el-text>
     </el-row>
     <el-row v-if="showAbstract" class="mt-2.5">
-      <el-text size="small" :line-clamp="lineClamp" type="info">
+      <el-text size="small" :line-clamp="lineClamp" type="info" class="break-normal">
         {{ paper?.abstract }}
       </el-text>
     </el-row>
