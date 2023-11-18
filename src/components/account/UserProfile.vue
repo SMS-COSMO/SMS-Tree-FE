@@ -58,11 +58,11 @@ onMounted(async () => {
     info.value = await trpc.user.profile.query({ id: props.userId });
     contentLoading.value = false;
 
-    const paperIds: string[] = [];
+    let paperIds: string[] = [];
     for (let group of info.value.groupIds)
       paperIds.push.apply(paperIds, (await trpc.group.content.query({ id: group })).papers);
     for (let paper of paperIds)
-      papers.value.push(await trpc.paper.content.query({ id: paper }));
+      papers.value = papers.value.concat(await trpc.paper.content.query({ id: paper }));
     paperLoading.value = false;
   } catch (err) {
     if (isTRPCClientError(err)) {
