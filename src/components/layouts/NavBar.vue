@@ -11,7 +11,7 @@
         <el-menu-item index="/list">论文列表</el-menu-item>
         <el-menu-item index="/group">小组作业</el-menu-item>
         <el-menu-item v-if="userStore.role === 'admin' || userStore.role === 'teacher'"
-          index="/admin/register">管理</el-menu-item>
+          index="/admin/home">管理</el-menu-item>
       </template>
       <div class="flex-grow" />
       <el-sub-menu v-if="userStore.loggedIn" index="4">
@@ -41,7 +41,7 @@
           <Reading />
         </template>
       </MobileNavButton>
-      <MobileNavButton label="管理" href="/admin">
+      <MobileNavButton label="管理" href="/admin/home">
         <template #icon>
           <EditPen />
         </template>
