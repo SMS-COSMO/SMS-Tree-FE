@@ -43,7 +43,7 @@
                     <el-col :span="6">
                     </el-col>
                     <el-col :span="isSmallScreen ? 24 : 18">
-                      <paperCard :paper="paper" @click="open_paper(paper)" :showAbstract="searchOptions.showAbstract" />
+                      <paperCard :paper="paper" :showAbstract="searchOptions.showAbstract" />
                     </el-col>
                   </el-row>
                 </div>
@@ -83,12 +83,6 @@ const router = useRouter();
 const route = useRoute();
 
 const count = ref(10);
-
-const open_paper = (paper: PaperListOutputItem) => {
-  router.push({
-    path: `/paper/${paper.id}`,
-  });
-};
 
 const searchContent = ref(route.query.search?.toString() ?? '');
 const showSearchOptions = ref(false);
