@@ -60,9 +60,9 @@ onMounted(async () => {
 
     let paperIds: string[] = [];
     for (let group of info.value.groupIds)
-      paperIds.push.apply(paperIds, (await trpc.group.content.query({ id: group })).papers);
+      paperIds = paperIds.concat((await trpc.group.content.query({ id: group })).papers);
     for (let paper of paperIds)
-      papers.value = papers.value.concat(await trpc.paper.content.query({ id: paper }));
+      papers.value.push(await trpc.paper.content.query({ id: paper }));
     paperLoading.value = false;
   } catch (err) {
     if (isTRPCClientError(err)) {
