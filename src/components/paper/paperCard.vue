@@ -1,5 +1,5 @@
 <template>
-  <el-card class="card-container mb-2.5">
+  <el-card @click="openPaper(paper)" class="card-container mb-2.5">
     <el-row style="gap: 6px">
       <el-tag type="success" disable-transitions v-if="paper?.isFeatured">
         <el-icon>
@@ -34,6 +34,14 @@
 
 <script setup lang="ts">
 import { PaperListOutputItem } from '../../api/trpc';
+import { useRouter } from 'vue-router';
+const router = useRouter();
+
+const openPaper = (paper: PaperListOutputItem) => {
+  router.push({
+    path: `/paper/${paper.id}`,
+  });
+};
 
 withDefaults(defineProps<{
   paper: PaperListOutputItem;
