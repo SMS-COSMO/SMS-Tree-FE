@@ -1,26 +1,62 @@
 <template>
-  <el-row :gutter="20">
-    <el-col :span="12">
-      <el-card>
-        <template #header>
-          学号
-        </template>
-        <el-skeleton :rows="0" :loading="contentLoading" animated>
-          {{ info?.id }}
-        </el-skeleton>
-      </el-card>
-    </el-col>
-    <el-col :span="12">
-      <el-card>
-        <template #header>
-          姓名
-        </template>
-        <el-skeleton :rows="0" :loading="contentLoading" animated>
-          {{ info?.username }}
-        </el-skeleton>
-      </el-card>
-    </el-col>
-  </el-row>
+  <el-card>
+    <template #header>
+      用户信息
+    </template>
+    <el-skeleton :rows="5" :loading="contentLoading" animated>
+      <el-descriptions :column="isSmallScreen ? 2 : 4" size="large" style="margin-bottom: -20px;">
+        <el-descriptions-item>
+          <template #label>
+            <div class="cell-item">
+              <el-icon>
+                <user />
+              </el-icon>
+              姓名
+            </div>
+          </template>
+          <span class="cell-item">
+            {{ info?.username }}
+          </span>
+        </el-descriptions-item>
+        <el-descriptions-item>
+          <template #label>
+            <div class="cell-item">
+              <el-icon>
+                <user />
+              </el-icon>
+              学号
+            </div>
+          </template>
+          <span class="cell-item">
+            {{ info?.id }}
+          </span>
+        </el-descriptions-item>
+        <el-descriptions-item>
+          <template #label>
+            <div class="cell-item">
+              <el-icon>
+                <location />
+              </el-icon>
+              班级
+            </div>
+          </template>
+          <span class="cell-item">
+          </span>
+        </el-descriptions-item>
+        <el-descriptions-item>
+          <template #label>
+            <div class="cell-item">
+              <el-icon>
+                <tickets />
+              </el-icon>
+              账号权限
+            </div>
+          </template>
+          <el-tag size="small">{{ roleName[info?.role ?? 'student'] }}</el-tag>
+        </el-descriptions-item>
+      </el-descriptions>
+    </el-skeleton>
+  </el-card>
   <FoldableCard class="mt-5">
     <template #header>
       参与的论文
@@ -44,9 +80,17 @@ import { PaperListOutput, isTRPCClientError, trpc } from '../../api/trpc';
 import type { UserProfileOutput } from '../../api/trpc';
 import { ElMessage } from 'element-plus';
 
+const isSmallScreen = screen.width <= 700;
+
 const props = defineProps<{
   userId: string;
 }>();
+
+const roleName = {
+  'student': '学生',
+  'teacher': '老师',
+  'admin': '管理员',
+};
 
 const info = ref<UserProfileOutput>();
 const papers = ref<PaperListOutput>([]);
@@ -73,3 +117,9 @@ onMounted(async () => {
   }
 });
 </script>
+
+<style scoped lang="scss">
+.cell-item {
+  font-size: 16px !important;
+}
+</style>
