@@ -8,14 +8,12 @@
 <script setup lang="ts">
 import { trpc } from './api/trpc';
 import { onBeforeMount } from 'vue';
-import { UserStore } from './stores/user';
 import { useRouter } from 'vue-router';
 const router = useRouter();
-const userStore = UserStore();
 
 onBeforeMount(async () => {
   try {
-    await trpc.user.tokenValidity.query({ token: userStore.accessToken });
+    await trpc.user.tokenValidity.query();
   } catch (err) {
     router.push('/login');
   }
