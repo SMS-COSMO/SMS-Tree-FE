@@ -1,3 +1,5 @@
+# 已迁移至 Nuxt [https://github.com/SMS-COSMO/SMS-Tree](https://github.com/SMS-COSMO/SMS-Tree)
+
 # SMS-Tree
 
 ![](https://img.shields.io/badge/TypeScript-007ACC?style=flat-square&logo=typescript&logoColor=white)
